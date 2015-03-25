@@ -192,6 +192,7 @@ def initialize_sp500_table():
     if not models.Sp500Symbol.table_exists():
         models.db.create_table(models.Sp500Symbol)
         file_name = os.path.dirname(sys.argv[0]) + "/" + "constituents.csv"
+        print file_name
         with open(file_name) as f:
             for line in f:
                 symbol, name, sector = line.split(",")
