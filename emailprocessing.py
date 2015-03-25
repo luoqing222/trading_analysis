@@ -1,6 +1,9 @@
 __author__ = 'qingluo'
 
 import smtplib
+# Import the email modules we'll need
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 
 class Gmail(object):
@@ -29,3 +32,31 @@ class Gmail(object):
             self.email,
             to,
             headers + "\r\n\r\n" + body)
+
+    def send_text_attachment(self, subject, to, text_file):
+        msg = MIMEMultipart()
+        msg['Subject'] = subject
+        msg['To'] = to
+        fp = open(text_file, 'rb')
+        attachment = MIMEText(fp.read())
+        fp.close()
+        attachment.add_header("Content-Disposition", "attachment", filename=text_file)
+        msg.attach(attachment)
+
+        self.session.sendmail(self.email, to, msg.as_string())
+
+    # def send_email(text_file, date):
+    # # Open a plain text file for reading.  For this example, assume that
+    # #  the text file contains only ASCII characters.
+    # msg = MIMEMultipart()
+    # fp = open(text_file, 'rb')
+    # # Create a text/plain message
+    # attachment = MIMEText(fp.read())
+    # fp.close()
+    # me = "raki1978wmc6731@gmail.com"
+    # you = "luoqing222@gmail.com"
+    # msg['Subject'] = 'The analysis on of %s' % date
+    # msg['From'] = me
+    # msg['To'] = you
+    # attachment.add_header("Content-Disposition", "attachment", filename=text_file)
+    # msg.attach(attachment)
