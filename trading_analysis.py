@@ -13,8 +13,6 @@ import re
 import dictionary_ids
 
 
-
-
 def send_email():
     gm = emailprocessing.Gmail('raki1978wmc6731@gmail.com', 'Fapkc1897Fapkc')
 
@@ -23,12 +21,13 @@ def send_email():
     to = "luoqing222@gmail.com"
     text_file = "requirements.txt"
 
-    #gm.send_message(subject, message, 'luoqing222@gmail.com')
+    # gm.send_message(subject, message, 'luoqing222@gmail.com')
     gm.send_text_attachment(subject, to, text_file)
+
 
 def send_email2():
     # Open a plain text file for reading.  For this example, assume that
-    #  the text file contains only ASCII characters.
+    # the text file contains only ASCII characters.
     msg = MIMEMultipart()
     text_file = "requirements.txt"
     fp = open(text_file, 'rb')
@@ -43,7 +42,7 @@ def send_email2():
     attachment.add_header("Content-Disposition", "attachment", filename=text_file)
     msg.attach(attachment)
 
-# Send the message via our own SMTP server, but don't include the
+    # Send the message via our own SMTP server, but don't include the
     # envelope header.
     server = smtplib.SMTP("smtp.gmail.com", 587)
     server.ehlo()
@@ -200,6 +199,12 @@ def initialize_sp500_table():
                                           save_date=datetime.datetime.date(datetime.datetime.today()))
 
 
+def initialize_historical_price_table():
+    models.db.connect()
+    if not models.HistoricalPrice.table_exists():
+        models.db.create_table(models.HistoricalPrice)
+
+
 def update_sp500_table():
     initialize_sp500_table()
 
@@ -208,21 +213,22 @@ def get_daily_returns(symbol, dates):
     daily_return_table = {}
     models.db.connect()
     for date in dates:
-        #find the symbol's adjusted price
-        data_record = models.HistoricalPrice.select().where((models.HistoricalPrice.symbol ==symbol)
-                                                    & (models.HistoricalPrice.transaction_date == date))
+        # find the symbol's adjusted price
+        data_record = models.HistoricalPrice.select().where((models.HistoricalPrice.symbol == symbol)
+                                                            & (models.HistoricalPrice.transaction_date == date))
         if data_record.count() != 0:
-            prev_date = next_business_day(date,"US",-1)
-            prev_record = models.HistoricalPrice.select().where((models.HistoricalPrice.symbol ==symbol)
-                                                    & (models.HistoricalPrice.transaction_date == prev_date))
+            prev_date = next_business_day(date, "US", -1)
+            prev_record = models.HistoricalPrice.select().where((models.HistoricalPrice.symbol == symbol)
+                                                                & (
+                models.HistoricalPrice.transaction_date == prev_date))
             if prev_record.count() != 0:
                 ticker = dictionary_ids.DailyTickerID(symbol, date)
-                daily_return_table[ticker] = data_record[0].adjust_close/prev_record[0].adjust_close - 1.0
+                daily_return_table[ticker] = data_record[0].adjust_close / prev_record[0].adjust_close - 1.0
 
     return daily_return_table
 
 
-def get_average_daily_return(symbol,start_date,end_date):
+def get_average_daily_return(symbol, start_date, end_date):
     result = {}
     dates = []
     next_day = pd.to_datetime(start_date)
@@ -231,7 +237,7 @@ def get_average_daily_return(symbol,start_date,end_date):
         next_day = pd.to_datetime(next_day) + pd.DateOffset(days=1)
 
     daily_return_table = get_daily_returns(symbol, dates)
-    result[symbol] = sum(daily_return_table.values())/len(daily_return_table)
+    result[symbol] = sum(daily_return_table.values()) / len(daily_return_table)
     return result
 
 
@@ -240,6 +246,7 @@ if __name__ == "__main__":
     initialize_holiday_table()
     initialize_index_fund_table()
     initialize_sp500_table()
+    initialize_historical_price_table()
 
 
     # find the tick that in the HistoricalPrice
@@ -258,7 +265,7 @@ if __name__ == "__main__":
     for item in query:
         SP500_recent_date = item.recent_date
 
-    #item in the query is latest sp500 tick
+    # item in the query is latest sp500 tick
     query = models.Sp500Symbol.select().where(models.Sp500Symbol.save_date == SP500_recent_date)
     for item in query:
         symbol = item.symbol
@@ -271,12 +278,12 @@ if __name__ == "__main__":
         save_trading_data(symbol, symbol_most_recent_date)
 
 
-    # step 2: run the data analysis
+        # step 2: run the data analysis
 
 
         #
-    #  step 3: send the email#
-    #send_email2()
+        #  step 3: send the email#
+        #send_email2()
 
 
 
