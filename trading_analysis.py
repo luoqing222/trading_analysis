@@ -1,6 +1,8 @@
 __author__ = 'qingluo'
 
 import emailprocessing
+import yahoo_data_loader
+import yahoo_data_analyser
 import datetime
 import models
 import os
@@ -242,7 +244,7 @@ def get_average_daily_return(symbol, start_date, end_date):
 
 
 if __name__ == "__main__":
-    send_email()
+
     initialize_holiday_table()
     initialize_index_fund_table()
     initialize_sp500_table()
@@ -266,16 +268,20 @@ if __name__ == "__main__":
         SP500_recent_date = item.recent_date
 
     # item in the query is latest sp500 tick
+    symbol_list= []
     query = models.Sp500Symbol.select().where(models.Sp500Symbol.save_date == SP500_recent_date)
     for item in query:
         symbol = item.symbol
-        save_trading_data(symbol, symbol_most_recent_date)
+        #save_trading_data(symbol, symbol_most_recent_date)
+        symbol_list.append(symbol)
 
     #do the same thing for index fund
     query = models.IndexSymbol.select()
+    index_list= []
     for item in query:
         symbol = item.symbol
-        save_trading_data(symbol, symbol_most_recent_date)
+        #save_trading_data(symbol, symbol_most_recent_date)
+        index_list.append(symbol)
 
 
         # step 2: run the data analysis
@@ -285,5 +291,14 @@ if __name__ == "__main__":
         #  step 3: send the email#
         #send_email2()
 
-
-
+    # data_loader = yahoo_data_loader.YahooOptionDataLoader()
+    # data_loader.web_crawler("FB")
+    data_analyser = yahoo_data_analyser.YahooEquityDataAnalyser()
+    file_name = "sp500_daily_rsq_"+datetime.datetime.now().strftime('%m_%d_%Y')+".csv"
+    file = open(file_name, "w")
+    file.write("symbol,")
+    for index in index_list:
+        file.write(index+",")
+    file.write("r-square\n")
+    data_analyser.calculate_daily_rsq(symbol_list,index_list, None, 30, file)
+    file.close()
