@@ -34,8 +34,11 @@ class YahooEquityDataAnalyser:
         for symbol in symbols:
             print "calculating return for "+symbol
             symbol_return[symbol] = YahooEquityDataAnalyser.get_daily_returns(symbol, dates_window)
-            # print symbol
-            # print symbol_return[symbol]
+        average_r_square={}
+        total_count={}
+        for benchmark in benchmarks:
+            average_r_square[benchmark]=0.0
+            total_count[benchmark]=0
         for symbol in symbols:
             print "calculating R-square for "+symbol
             x_symbol=symbol_return[symbol]
@@ -43,10 +46,19 @@ class YahooEquityDataAnalyser:
             for benchmark in benchmarks:
                 y_benchmark=benchmark_return[benchmark]
                 #run the linear regression to calculate r-square
-                slope, intercept, r_value, p_value, std_err = stats.linregress(x_symbol,y_benchmark)
-                file.write(str(r_value**2))
+                if len(x_symbol)==len(y_benchmark) and len(x_symbol)!=0:
+                    slope, intercept, r_value, p_value, std_err = stats.linregress(x_symbol,y_benchmark)
+                    file.write(str(r_value**2))
+                    average_r_square[benchmark] += r_value ** 2
+                    total_count[benchmark] += 1
+                else:
+                    file.write(str(-99.0))
                 file.write(",")
             file.write("\n")
+
+        file.write("average R-square,")
+        for benchmark in benchmarks:
+            file.write(str(average_r_square[benchmark]/total_count[benchmark])+",")
 
 
     @staticmethod
