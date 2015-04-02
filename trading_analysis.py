@@ -13,6 +13,7 @@ import urllib
 import BeautifulSoup
 import re
 import dictionary_ids
+import trading_data_management
 
 
 def send_email():
@@ -293,12 +294,17 @@ if __name__ == "__main__":
 
     # data_loader = yahoo_data_loader.YahooOptionDataLoader()
     # data_loader.web_crawler("FB")
-    data_analyser = yahoo_data_analyser.YahooEquityDataAnalyser()
-    file_name = "sp500_daily_rsq_"+datetime.datetime.now().strftime('%m_%d_%Y')+".csv"
-    file = open(file_name, "w")
-    file.write("symbol,")
-    for index in index_list:
-        file.write(index+",")
-    file.write("r-square\n")
-    data_analyser.calculate_daily_rsq(symbol_list,index_list, None, 30, file)
+    # data_analyser = yahoo_data_analyser.YahooEquityDataAnalyser()
+    # file_name = "sp500_daily_rsq_"+datetime.datetime.now().strftime('%m_%d_%Y')+".csv"
+    # file = open(file_name, "w")
+    # file.write("symbol,")
+    # for index in index_list:
+    #     file.write(index+",")
+    # file.write("\n")
+    # symbol_list=["AGN"]
+    # data_analyser.calculate_daily_rsq(symbol_list,index_list, None, 30, file)
+    # file.close()
+    file = open("constituents_wiki.csv", "w")
+    data_manager= trading_data_management.TradingDatazManager()
+    data_manager.generate_constituents(file)
     file.close()
