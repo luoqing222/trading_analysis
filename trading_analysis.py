@@ -305,4 +305,4 @@ if __name__ == "__main__":
     # data_manager.generate_constituents("constituents_wiki.csv")
     #data_manager.delete_holiday(2015,4,3,"US")
     #data_manager.add_holiday(2015,4,3,"US")
-    #data_manager.populate_holiday()
+    data_manager.populate_holiday()
