@@ -6,6 +6,8 @@ import peewee
 from peewee import *
 
 db = MySQLDatabase('trading_data', user='root', passwd='uscusc')
+#db = MySQLDatabase('trading_data', user='root', passwd='0307linsanlinqi)#)&')
+
 
 
 class HolidayCalendar(peewee.Model):
