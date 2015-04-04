@@ -273,7 +273,7 @@ if __name__ == "__main__":
     query = models.Sp500Symbol.select().where(models.Sp500Symbol.save_date == SP500_recent_date)
     for item in query:
         symbol = item.symbol
-        #save_trading_data(symbol, symbol_most_recent_date)
+        save_trading_data(symbol, symbol_most_recent_date)
         symbol_list.append(symbol)
 
     #do the same thing for index fund
@@ -281,7 +281,7 @@ if __name__ == "__main__":
     index_list= []
     for item in query:
         symbol = item.symbol
-        #save_trading_data(symbol, symbol_most_recent_date)
+        save_trading_data(symbol, symbol_most_recent_date)
         index_list.append(symbol)
 
 
@@ -297,12 +297,12 @@ if __name__ == "__main__":
 
     data_analyser = yahoo_data_analyser.YahooEquityDataAnalyser()
     file_name = "sp500_daily_rsq_"+datetime.datetime.now().strftime('%m_%d_%Y')+".csv"
-    #data_analyser.calculate_daily_rsq(symbol_list,index_list, None, 30, file_name)
+    data_analyser.calculate_daily_rsq(symbol_list,index_list, None, 30, file_name)
 
 
     # function to generate "constituents_wiki.csv"
-    data_manager= trading_data_management.TradingDataManager()
+    #data_manager= trading_data_management.TradingDataManager()
     # data_manager.generate_constituents("constituents_wiki.csv")
     #data_manager.delete_holiday(2015,4,3,"US")
     #data_manager.add_holiday(2015,4,3,"US")
-    data_manager.populate_holiday()
+    #data_manager.populate_holiday()
