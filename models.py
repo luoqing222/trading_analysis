@@ -14,6 +14,7 @@ class HolidayCalendar(peewee.Model):
 
     class Meta:
         database = db
+        primary_key = CompositeKey('date', 'country_code')
 
 
 class Sp500Symbol(peewee.Model):
@@ -50,5 +51,21 @@ class HistoricalPrice(peewee.Model):
     class Meta:
         database = db
         order_by = ('symbol', 'transaction_date',)
+
+
+# class OptionPrice(peewee.Model):
+#     underlying_stock = peewee.CharField()
+#     transaction_date = peewee.DateField()
+#     expire_date = peewee.DateField()
+#     #strike price is 100 times the actual strike price so it can be saved as integer
+#     strike_price = peewee.IntegerField()
+#     #type is the option type, 0 for put and 1 for call
+#     type = peewee.IntegerField()
+#
+#
+#     class Meta:
+#         database = db
+#         primary_key= CompositeKey('underlying_stock', 'transaction_date', 'expire_date', 'strike_price', 'type')
+
 
 
