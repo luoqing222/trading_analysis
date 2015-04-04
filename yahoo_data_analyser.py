@@ -17,7 +17,14 @@ class YahooEquityDataAnalyser:
     #for example calculate_daily_rsq("FB", "ivv", "2/28/2015", 30) is to calculate the
     #rsquare of FB to index on 02/28/2015 and the sample data takes 30 days
     @staticmethod
-    def calculate_daily_rsq(symbols, benchmarks, current_date, time_window, file):
+    def calculate_daily_rsq(symbols, benchmarks, current_date, time_window, file_name):
+        file = open(file_name, "w")
+        file.write("symbol,")
+        for index in benchmarks:
+            file.write(index+",")
+
+        file.write("\n")
+
         current_date = trading_date_utility.nearest_trading_day(datetime.datetime.now(), "US")
         dates_window = []
         for i in range(0, time_window+1):
@@ -59,6 +66,7 @@ class YahooEquityDataAnalyser:
         file.write("average R-square,")
         for benchmark in benchmarks:
             file.write(str(average_r_square[benchmark]/total_count[benchmark])+",")
+        file.close()
 
 
     @staticmethod
