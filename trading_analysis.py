@@ -16,16 +16,16 @@ import dictionary_ids
 import trading_data_management
 
 
-def send_email():
+
+def send_email(file_name):
     gm = emailprocessing.Gmail('raki1978wmc6731@gmail.com', 'Fapkc1897Fapkc')
 
     subject = "analysis report on " + datetime.datetime.now().strftime('%m_%d_%Y')
     message = "This is a test message"
     to = "luoqing222@gmail.com"
-    text_file = "requirements.txt"
 
     # gm.send_message(subject, message, 'luoqing222@gmail.com')
-    gm.send_text_attachment(subject, to, text_file)
+    gm.send_text_attachment(subject, to, file_name)
 
 
 def send_email2():
@@ -273,7 +273,7 @@ if __name__ == "__main__":
     query = models.Sp500Symbol.select().where(models.Sp500Symbol.save_date == SP500_recent_date)
     for item in query:
         symbol = item.symbol
-        save_trading_data(symbol, symbol_most_recent_date)
+        #save_trading_data(symbol, symbol_most_recent_date)
         symbol_list.append(symbol)
 
     #do the same thing for index fund
@@ -293,12 +293,12 @@ if __name__ == "__main__":
         #send_email2()
 
     #to load option data
-    data_loader = yahoo_data_loader.YahooOptionDataLoader()
+    #data_loader = yahoo_data_loader.YahooOptionDataLoader()
 
-    data_analyser = yahoo_data_analyser.YahooEquityDataAnalyser()
-    file_name = "sp500_daily_rsq_"+datetime.datetime.now().strftime('%m_%d_%Y')+".csv"
-    data_analyser.calculate_daily_rsq(symbol_list,index_list, None, 30, file_name)
-
+    # data_analyser = yahoo_data_analyser.YahooEquityDataAnalyser()
+    # file_name = "sp500_daily_rsq_"+datetime.datetime.now().strftime('%m_%d_%Y')+".csv"
+    # data_analyser.calculate_daily_rsq(symbol_list,index_list, None, 30, file_name)
+    # send_email(file_name)
 
     # function to generate "constituents_wiki.csv"
     #data_manager= trading_data_management.TradingDataManager()
@@ -306,3 +306,6 @@ if __name__ == "__main__":
     #data_manager.delete_holiday(2015,4,3,"US")
     #data_manager.add_holiday(2015,4,3,"US")
     #data_manager.populate_holiday()
+
+
+
