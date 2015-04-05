@@ -3,9 +3,17 @@ __author__ = 'qingluo'
 __author__ = 'qingluo'
 
 import peewee
+import configparser
 from peewee import *
 
-db = MySQLDatabase('trading_data', user='root', passwd='uscusc')
+
+Config = configparser.ConfigParser()
+Config.read("database_setting.ini")
+database = Config.get("database", "database")
+user = Config.get("database", "user")
+password = Config.get("database", "passwd")
+
+db = MySQLDatabase(database, user=user, passwd=password)
 #db = MySQLDatabase('trading_data', user='root', passwd='0307linsanlinqi)#)&')
 
 
