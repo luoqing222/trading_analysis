@@ -4,6 +4,11 @@ import BeautifulSoup
 import urllib
 import models
 import datetime
+import sets
+import pandas as pd
+from datetime import timedelta
+import peewee
+
 
 class TradingDataManager:
     def __init__(self):
@@ -48,6 +53,7 @@ class TradingDataManager:
         models.HolidayCalendar.create(date=holiday, country_code= country)
 
 
+#function to populate the holiday into database table
     @staticmethod
     def populate_holiday():
         models.HolidayCalendar.drop_table()
@@ -59,6 +65,39 @@ class TradingDataManager:
         TradingDataManager.add_holiday(2015, 11, 26, "US")
         TradingDataManager.add_holiday(2015, 11, 27, "US")
         TradingDataManager.add_holiday(2015, 12, 25, "US")
+
+#function to populate the historical holiday into database table
+#rule: is the dates has SPY data, we consider it as trading date, spy data staring from 1993/01/29
+    @staticmethod
+    def populate_historical_holiday():
+        trading_dates=sets.Set([])
+        start_date="1983/01/01"
+        update_date="2015/05/09"
+        symbol="spy"
+        data_record = models.HistoricalPrice.select().where((models.HistoricalPrice.symbol == symbol)
+                                        & (models.HistoricalPrice.transaction_date >= start_date)
+        & (models.HistoricalPrice.transaction_date <= update_date)).order_by(models.HistoricalPrice.transaction_date)
+        print data_record.count()
+        for i in range(0,data_record.count()):
+            trading_dates.add(data_record[i].transaction_date.toordinal())
+        for date in range(min(trading_dates),max(trading_dates)):
+            if date not in trading_dates:
+                nonordinal_date= datetime.date.fromordinal(date)
+                (year, week, weekday) = nonordinal_date.isocalendar()
+                if weekday < 6:
+                    print nonordinal_date.year, nonordinal_date.month, nonordinal_date.day
+                    try:
+                        TradingDataManager.add_holiday(nonordinal_date.year, nonordinal_date.month, nonordinal_date.day, "US")
+                    except peewee.IntegrityError:
+                        pass
+
+
+
+
+
+
+
+
 
 
 
