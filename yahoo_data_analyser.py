@@ -91,11 +91,11 @@ class YahooEquityDataAnalyser:
         file = open(file_name, "w")
 
         #write the header
-        file.write("date,symbol,")
-        for index in benchmarks:
-            file.write(index+",")
+        #file.write("date,symbol,")
+        #for index in benchmarks:
+        #    file.write(index+",")
 
-        file.write("\n")
+        #file.write("\n")
 
         symbol="spy"
 
@@ -109,11 +109,13 @@ class YahooEquityDataAnalyser:
             trading_dates.append(data_record[i].transaction_date.toordinal())
 
         for trading_date in trading_dates:
+
             benchmark_return={}
             symbol_return={}
             dates_window = []
 
             current_date=datetime.datetime.fromordinal(trading_date)
+            print "calculating R-square for "+ current_date.isoformat()
 
             for i in range(0, time_window+1):
                 dates_window.append(trading_date_utility.next_trading_day(current_date, "US", -i))
@@ -133,9 +135,9 @@ class YahooEquityDataAnalyser:
                 total_count[benchmark]=0
 
             for symbol in symbols:
-                print "calculating R-square for "+symbol
+                #print "calculating R-square for "+symbol
                 x_symbol=symbol_return[symbol]
-                file.write(current_date.isoformat()+","+symbol+",")
+                #file.write(current_date.isoformat()+","+symbol+",")
 
                 for benchmark in benchmarks:
                     y_benchmark=benchmark_return[benchmark]
@@ -143,17 +145,18 @@ class YahooEquityDataAnalyser:
 
                     if len(x_symbol)==len(y_benchmark) and len(x_symbol)!=0:
                         slope, intercept, r_value, p_value, std_err = stats.linregress(x_symbol,y_benchmark)
-                        file.write(str(r_value**2))
+                        #file.write(str(r_value**2))
                         average_r_square[benchmark] += r_value ** 2
                         total_count[benchmark] += 1
-                    else:
-                        file.write(str(-99.0))
-                file.write(",")
-            file.write("\n")
+                    #else:
+                        #file.write(str(-99.0))
+                #file.write(",")
+            #file.write("\n")
 
-            file.write("average R-square,")
+            file.write(current_date.isoformat()+",")
             for benchmark in benchmarks:
                 file.write(str(average_r_square[benchmark]/total_count[benchmark])+",")
+            file.write("\n")
         file.close()
 
 
