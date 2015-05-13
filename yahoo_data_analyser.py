@@ -121,7 +121,7 @@ class YahooEquityDataAnalyser:
                 dates_window.append(trading_date_utility.next_trading_day(current_date, "US", -i))
 
             for symbol in symbols:
-                print "calculating return for "+symbol+" on "+ current_date.isoformat()
+                #print "calculating return for "+symbol+" on "+ current_date.isoformat()
                 symbol_return[symbol] = YahooEquityDataAnalyser.get_daily_returns(symbol, dates_window)
 
             for symbol in benchmarks:
