@@ -77,7 +77,7 @@ class TradingDataManager:
         data_record = models.HistoricalPrice.select().where((models.HistoricalPrice.symbol == symbol)
                                         & (models.HistoricalPrice.transaction_date >= start_date)
         & (models.HistoricalPrice.transaction_date <= update_date)).order_by(models.HistoricalPrice.transaction_date)
-        print data_record.count()
+        #print data_record.count()
         for i in range(0,data_record.count()):
             trading_dates.add(data_record[i].transaction_date.toordinal())
         for date in range(min(trading_dates),max(trading_dates)):
