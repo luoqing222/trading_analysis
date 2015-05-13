@@ -86,4 +86,80 @@ class YahooEquityDataAnalyser:
         return daily_return_table
 
 
+    @staticmethod
+    def calculate_historical_rsq(symbols, benchmarks, start_date,end_date, time_window, file_name):
+        file = open(file_name, "w")
+
+        #write the header
+        file.write("date,symbol,")
+        for index in benchmarks:
+            file.write(index+",")
+
+        file.write("\n")
+
+        symbol="spy"
+
+        data_record = models.HistoricalPrice.select().where((models.HistoricalPrice.symbol == symbol)
+                                        & (models.HistoricalPrice.transaction_date >= start_date)
+        & (models.HistoricalPrice.transaction_date <= end_date)).order_by(models.HistoricalPrice.transaction_date)
+        trading_dates= []
+
+        #save the trading date
+        for i in range(0,data_record.count()):
+            trading_dates.append(data_record[i].transaction_date.toordinal())
+
+        for trading_date in trading_dates:
+            benchmark_return={}
+            symbol_return={}
+            dates_window = []
+
+            current_date=datetime.datetime.fromordinal(trading_date)
+
+            for i in range(0, time_window+1):
+                dates_window.append(trading_date_utility.next_trading_day(current_date, "US", -i))
+
+            for symbol in symbols:
+                print "calculating return for "+symbol+" on "+ current_date.isoformat()
+                symbol_return[symbol] = YahooEquityDataAnalyser.get_daily_returns(symbol, dates_window)
+
+            for symbol in benchmarks:
+                print "calculating return for "+symbol+" on "+ current_date.isoformat()
+                benchmark_return[symbol] = YahooEquityDataAnalyser.get_daily_returns(symbol, dates_window)
+
+            average_r_square={}
+            total_count={}
+            for benchmark in benchmarks:
+                average_r_square[benchmark]=0.0
+                total_count[benchmark]=0
+
+            for symbol in symbols:
+                print "calculating R-square for "+symbol
+                x_symbol=symbol_return[symbol]
+                file.write(current_date.isoformat()+","+symbol+",")
+
+                for benchmark in benchmarks:
+                    y_benchmark=benchmark_return[benchmark]
+                #run the linear regression to calculate r-square
+
+                    if len(x_symbol)==len(y_benchmark) and len(x_symbol)!=0:
+                        slope, intercept, r_value, p_value, std_err = stats.linregress(x_symbol,y_benchmark)
+                        file.write(str(r_value**2))
+                        average_r_square[benchmark] += r_value ** 2
+                        total_count[benchmark] += 1
+                    else:
+                        file.write(str(-99.0))
+                file.write(",")
+            file.write("\n")
+
+            file.write("average R-square,")
+            for benchmark in benchmarks:
+                file.write(str(average_r_square[benchmark]/total_count[benchmark])+",")
+        file.close()
+
+
+
+
+
+
+
 
