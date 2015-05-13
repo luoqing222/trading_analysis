@@ -93,3 +93,21 @@ def nearest_trading_day(date, country):
     if is_trading_day(date, country):
         return date
     return prev_business_day(date, country)
+
+
+#function to get the dates with trading date for symbol in the country
+def data_available_dates(start_date, end_date, symbol):
+    result = []
+    data_record = models.HistoricalPrice.select().where((models.HistoricalPrice.symbol == symbol)
+                                        & (models.HistoricalPrice.transaction_date >= start_date)
+        & (models.HistoricalPrice.transaction_date <= end_date)).order_by(models.HistoricalPrice.transaction_date)
+
+    for i in range(0,data_record.count()-1):
+        result.append(data_record[i].transaction_date)
+
+    return result
+
+
+
+
+
