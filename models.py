@@ -38,6 +38,17 @@ class Sp500Symbol(peewee.Model):
         database = db
 
 
+#this table save the time series of sp500 list
+class Sp500List(peewee.Model):
+    symbol = peewee.CharField()
+    save_date = peewee.DateField()
+
+    class Meta:
+        database = db
+        primary_key = CompositeKey('symbol', 'save_date')
+
+
+
 class IndexSymbol(peewee.Model):
     id = peewee.PrimaryKeyField()
     symbol = peewee.CharField()
