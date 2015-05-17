@@ -264,13 +264,13 @@ if __name__ == "__main__":
         symbol_most_recent_date[item.symbol] = item.recent_date
 
     # get the SP500 list with most recent save date
-    query = models.Sp500Symbol.select(fn.Max(models.Sp500Symbol.save_date).alias('recent_date'))
+    query = models.Sp500List.select(fn.Max(models.Sp500List.save_date).alias('recent_date'))
     for item in query:
         SP500_recent_date = item.recent_date
 
     # item in the query is latest sp500 tick
     symbol_list= []
-    query = models.Sp500Symbol.select().where(models.Sp500Symbol.save_date == SP500_recent_date)
+    query = models.Sp500List.select().where(models.Sp500List.save_date == SP500_recent_date)
     for item in query:
         symbol = item.symbol
         save_trading_data(symbol, symbol_most_recent_date)
@@ -283,17 +283,6 @@ if __name__ == "__main__":
         symbol = item.symbol
         save_trading_data(symbol, symbol_most_recent_date)
         index_list.append(symbol)
-
-
-        # step 2: run the data analysis
-
-
-        #
-        #  step 3: send the email#
-        #send_email2()
-
-    #to load option data
-    #data_loader = yahoo_data_loader.YahooOptionDataLoader()
 
     data_analyser = yahoo_data_analyser.YahooEquityDataAnalyser()
     file_name = "sp500_daily_rsq_"+datetime.datetime.now().strftime('%m_%d_%Y')+".csv"
