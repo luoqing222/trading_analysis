@@ -1,7 +1,5 @@
 __author__ = 'qingluo'
 
-__author__ = 'qingluo'
-
 import emailprocessing
 import yahoo_data_loader
 import yahoo_data_analyser
@@ -17,16 +15,10 @@ import re
 import dictionary_ids
 import trading_data_management
 import trading_date_utility
-
+import wiki_data_loader
 
 
 if __name__ == "__main__":
-
-    data_manager= trading_data_management.TradingDataManager()
-    data_manager.populate_historical_holiday()
-
-
-
 
     # find the tick that in the HistoricalPrice
     query = models.HistoricalPrice.select(models.HistoricalPrice.symbol,
@@ -60,8 +52,8 @@ if __name__ == "__main__":
         #save_trading_data(symbol, symbol_most_recent_date)
         index_list.append(symbol)
 
-    start_date="2014/05/08"
-    end_date="2015/05/08"
+    start_date="2013/05/08"
+    end_date="2014/05/08"
     data_analyser = yahoo_data_analyser.YahooEquityDataAnalyser()
     file_name = "sp500_historical_rsq.csv"
     data_analyser.calculate_historical_rsq(symbol_list,index_list,start_date,end_date, 30, file_name)
