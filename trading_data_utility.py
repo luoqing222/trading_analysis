@@ -84,6 +84,30 @@ class TradingDataUtility:
     def add_symbol(date,symbol):
         models.Sp500List.create(save_date= date,symbol= symbol)
 
+    @staticmethod
+    def get_sp500_list(date):
+        sp_list=[]
+        for sp in models.Sp500List.select(models.Sp500List.save_date).distinct():
+            sp_list.append(sp.save_date)
+        sp_list.sort()
+        save_date=sp_list[-1]
+        if sp_list[0]>date:
+            save_date=sp_list[0]
+        else:
+            for i in range(0,len(sp_list)-1):
+                if sp_list[i]<=date and sp_list[i+1]>date:
+                    save_date= sp_list[i]
+
+        sp500_list=models.Sp500List.select().where(models.Sp500List.save_date == save_date)
+        result=[]
+        for it in sp500_list:
+            result.append(it.symbol)
+        return result
+
+
+
+
+
 
 
 
