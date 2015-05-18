@@ -14,8 +14,6 @@ user = Config.get("database", "user")
 password = Config.get("database", "passwd")
 
 db = MySQLDatabase(database, user=user, passwd=password)
-#db = MySQLDatabase('trading_data', user='root', passwd='0307linsanlinqi)#)&')
-
 
 
 class HolidayCalendar(peewee.Model):
@@ -38,7 +36,7 @@ class Sp500Symbol(peewee.Model):
         database = db
 
 
-#this table save the time series of sp500 list
+# this table save the time series of sp500 list
 class Sp500List(peewee.Model):
     symbol = peewee.CharField()
     save_date = peewee.DateField()
@@ -48,7 +46,7 @@ class Sp500List(peewee.Model):
         primary_key = CompositeKey('symbol', 'save_date')
 
 
-
+#this table save the index symbol
 class IndexSymbol(peewee.Model):
     id = peewee.PrimaryKeyField()
     symbol = peewee.CharField()
@@ -58,8 +56,7 @@ class IndexSymbol(peewee.Model):
         database = db
 
 
-#
-
+#this table save the historical price of sp500
 class HistoricalPrice(peewee.Model):
     symbol = peewee.CharField()
     transaction_date = peewee.DateField()
@@ -73,6 +70,18 @@ class HistoricalPrice(peewee.Model):
         database = db
         order_by = ('symbol', 'transaction_date',)
 
+
+#this table save the strong stock per day per Fanlin's definition
+#The strong stock is defined as the weighted sum of the ranking in one week, 4weeks and 13weeks return
+class StrongStock(peewee.Model):
+    symbol = peewee.CharField()
+    calculation_date = peewee.DateField()
+    rank = peewee.IntegerField()
+
+    class Meta:
+        database = db
+        primary_key = CompositeKey('calculation_date', 'rank')
+        order_by = ('calculation_date', 'rank')
 
 # class OptionPrice(peewee.Model):
 #     underlying_stock = peewee.CharField()

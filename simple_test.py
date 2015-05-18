@@ -7,9 +7,9 @@ import trading_data_utility
 
 if __name__ == "__main__":
     data_manager = trading_data_management.TradingDataManager()
-    data_manager.populate_Sp500(datetime.date(2015, 4, 7))
+    #data_manager.populate_Sp500(datetime.date(2015, 4, 7))
+    #data_manager.updateSp500(datetime.date(2015, 4, 9))
 
-    #data_utility = trading_data_utility.TradingDataUtility
+    data_utility = trading_data_utility.TradingDataUtility
     #print data_utility.get_sp500_list(datetime.date(2015, 4, 9))
-
-        #print i.save_date7))
+    data_utility.create_strong_stock_table()
