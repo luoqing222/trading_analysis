@@ -20,7 +20,8 @@ class WikiDataLoader:
             result = []
             for i in range(0, len(td) / len(th)):
                 index = len(th) * i + 0
-                result.append(td[index].text)
+                symbol= td[index].text
+                result.append(symbol.replace(".","-"))
             return result
         except:
             return None
