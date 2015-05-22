@@ -3,13 +3,17 @@ __author__ = 'qingluo'
 import datetime
 import models
 from scipy import stats
+import os
 
 import trading_date_utility
 import dictionary_ids
+import numpy
+import MySQLdb
 
 
 class YahooEquityDataAnalyser:
-    def __init__(self):
+    def __init__(self,db):
+        self.db=db
         pass
 
     # this function is to calculate the rsq of symbol to the benchmark based
@@ -90,13 +94,6 @@ class YahooEquityDataAnalyser:
     def calculate_historical_rsq(symbols, benchmarks, start_date,end_date, time_window, file_name):
         file = open(file_name, "w")
 
-        #write the header
-        #file.write("date,symbol,")
-        #for index in benchmarks:
-        #    file.write(index+",")
-
-        #file.write("\n")
-
         symbol="spy"
 
         data_record = models.HistoricalPrice.select().where((models.HistoricalPrice.symbol == symbol)
@@ -158,6 +155,84 @@ class YahooEquityDataAnalyser:
                 file.write(str(average_r_square[benchmark]/total_count[benchmark])+",")
             file.write("\n")
         file.close()
+
+    #function to calculate the n days return for symbols
+    #used to calculate the strong stock
+    def get_n_days_returns_rank_by_sql(self,symbols, date, trading_date_map, days_array, weight,stock_num):
+        score = range(0,len(symbols))
+        for i in range(0,len(symbols)):
+            score[i]=0.0
+
+        for index,n in enumerate(days_array):
+            begin_date = trading_date_utility.previous_n_trading_days(date, n, trading_date_map)
+            returns = self.get_returns_between_two_days(symbols, begin_date,date)
+            #print symbols
+            #print returns
+            sorted_index = numpy.argsort(returns)
+            for i in range(0,len(sorted_index)):
+                score[sorted_index[i]]+=i*weight[index]
+            #print sorted_index
+
+        arr = numpy.array(score)
+        strong_stock=[]
+        for i in numpy.argsort(-arr)[:stock_num]:
+            strong_stock.append(symbols[i])
+        return strong_stock
+        #return score
+
+    def get_returns_between_two_days(self,symbols, begin_date,end_date):
+        cursor = self.db.cursor()
+
+        #find the mapping between symbol and adjust_close price
+        start_date = trading_date_utility.nearest_trading_day(begin_date, "US")
+        sql_statement= "select symbol,adjust_close from historicalprice where transaction_date=\""+start_date.strftime("%Y-%m-%d")+"\""
+        cursor.execute(sql_statement)
+        rows= cursor.fetchall()
+        start_price={}
+        for symbol,price in rows:
+            start_price[symbol]=price
+
+        final_date = trading_date_utility.nearest_trading_day(end_date, "US")
+        sql_statement= "select symbol,adjust_close from historicalprice where transaction_date=\""+final_date.strftime("%Y-%m-%d")+"\""
+        cursor.execute(sql_statement)
+        rows= cursor.fetchall()
+        final_price={}
+        for symbol,price in rows:
+            final_price[symbol]=price
+
+        returns = []
+        for symbol in symbols:
+            begin=start_price[symbol]
+            end=final_price[symbol]
+            if (begin is not None) and (end is not None):
+                returns.append(end/begin - 1.0)
+            else:
+                returns.append(-99)
+
+        return returns
+
+    def get_average_between_two_days(self,symbols,begin_date,end_date):
+        returns = self.get_returns_between_two_days(symbols, begin_date,end_date)
+        my_list=[number for number in returns if number != -99.0]
+
+        if len(my_list)==0:
+            return -99.0
+        else:
+            return sum(my_list)/float(len(my_list))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
