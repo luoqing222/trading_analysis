@@ -202,11 +202,11 @@ class YahooEquityDataAnalyser:
 
         returns = []
         for symbol in symbols:
-            begin=start_price[symbol]
-            end=final_price[symbol]
-            if (begin is not None) and (end is not None):
+            try:
+                begin=start_price[symbol]
+                end=final_price[symbol]
                 returns.append(end/begin - 1.0)
-            else:
+            except KeyError:
                 returns.append(-99)
 
         return returns
