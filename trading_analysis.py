@@ -289,12 +289,5 @@ if __name__ == "__main__":
     data_analyser.calculate_daily_rsq(symbol_list,index_list, None, 30, file_name)
     send_email(file_name)
 
-    # function to generate "constituents_wiki.csv"
-    #data_manager= trading_data_management.TradingDataManager()
-    # data_manager.generate_constituents("constituents_wiki.csv")
-    #data_manager.delete_holiday(2015,4,3,"US")
-    #data_manager.add_holiday(2015,4,3,"US")
-    #data_manager.populate_holiday()
-
 
 
