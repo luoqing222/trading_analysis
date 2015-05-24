@@ -286,6 +286,7 @@ if __name__ == "__main__":
         save_trading_data(symbol, symbol_most_recent_date)
         index_list.append(symbol)
 
+
     db = MySQLdb.connect(host="localhost",db=models.database, user=models.user, passwd=models.password)
     data_analyser = yahoo_data_analyser.YahooEquityDataAnalyser(db)
     file_name = "sp500_daily_rsq_"+datetime.datetime.now().strftime('%m_%d_%Y')+".csv"
