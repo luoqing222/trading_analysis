@@ -14,10 +14,10 @@ import MySQLdb
 class YahooEquityDataAnalyser:
     def __init__(self, db):
         self.db = db
-        pass
+    #    pass
 
-    def __init__(self):
-        pass
+    #def __init__(self):
+    #    pass
 
     # this function is to calculate the rsq of symbol to the benchmark based
     # data entry staring from current date and move backwards in time_window days

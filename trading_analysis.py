@@ -1,3 +1,5 @@
+import MySQLdb
+
 __author__ = 'qingluo'
 
 import emailprocessing
@@ -284,9 +286,11 @@ if __name__ == "__main__":
         save_trading_data(symbol, symbol_most_recent_date)
         index_list.append(symbol)
 
-    data_analyser = yahoo_data_analyser.YahooEquityDataAnalyser()
+    db = MySQLdb.connect(host="localhost",db=models.database, user=models.user, passwd=models.password)
+    data_analyser = yahoo_data_analyser.YahooEquityDataAnalyser(db)
     file_name = "sp500_daily_rsq_"+datetime.datetime.now().strftime('%m_%d_%Y')+".csv"
     data_analyser.calculate_daily_rsq(symbol_list,index_list, None, 30, file_name)
+    db.close()
     send_email(file_name)
 
 
