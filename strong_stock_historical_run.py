@@ -23,7 +23,7 @@ if __name__ == "__main__":
     symbols = trading_data_utility.TradingDataUtility().get_sp500_list(end_date_object.date())
     days_array=[5,20,65]
     weight=[0.5,0.3,0.2]
-    stock_num=20
+    stock_num=10
 
     db = MySQLdb.connect(host="localhost",db=models.database, user=models.user, passwd=models.password)
     data_analyser = yahoo_data_analyser.YahooEquityDataAnalyser(db)
