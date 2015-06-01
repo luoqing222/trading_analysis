@@ -26,8 +26,15 @@ class YahooOptionDataManager:
         cursor.execute(sql_statement)
         rows = cursor.fetchall()
         result=[row[0] for row in rows]
+
+        sql_statement = "select DISTINCT symbol from indexsymbol"
+        cursor.execute(sql_statement)
+        rows = cursor.fetchall()
+        for row in rows:
+            result.append(row[0])
         db.close()
 
+        #print result
         return result
 
 
