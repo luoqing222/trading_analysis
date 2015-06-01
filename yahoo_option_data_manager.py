@@ -28,10 +28,10 @@ class YahooOptionDataManager:
         result=[row[0] for row in rows]
         db.close()
 
-        print result
+        return result
 
 
-        return ["FB","MMM","MCO","BF-B","O"]
+        #return ["FB","MMM","MCO","BF-B","O"]
 
     def get_file_name(self,running_time):
         return "yahoo_option_"+running_time.strftime("%Y_%m_%d")+".csv"
