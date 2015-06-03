@@ -11,6 +11,50 @@ class EodDataDataManager:
         self.config_file = "option_data_management_setting.ini"
         pass
 
+    def decompose_option_contract(self, contract_name):
+        result=[]
+        option_name = re.compile("^[A-Z]+\.*[A-Z]+\d{6}[CP]\d{8}")
+        if not option_name.match(contract_name):
+            return None
+        underlying_stock = re.sub("\d{6}[CP]\d{8}", "", contract_name)
+        contract_name = re.sub("^[A-Z]+\.*[A-Z]+","", contract_name)
+        expiration_date = re.sub("[CP]\d{8}", "", contract_name)
+        contract_name = re.sub("^\d{6}", "", contract_name)
+        option_type= re.sub("\d{8}", "", contract_name)
+        contract_name = re.sub("^[CP]", "", contract_name)
+        strike_price = contract_name
+
+        #print "underlying_stock is ", underlying_stock
+        #print "expiration_date is ", expiration_date
+        #print "option_type is ", option_type
+        #print "strike_price is ", strike_price
+        return [underlying_stock,expiration_date,option_type,strike_price]
+
+
+    #this function conver the eod option data .txt format into .csv format
+    def option_txt_to_csv(self, src_folder, src_file, des_folder, des_file):
+        src_file_name = src_folder + "/" + src_file
+        des_file_name = des_folder + "/" + des_file
+
+        #if the file doesn't exist
+        if not os.path.exists(src_file_name):
+            print src_file_name + " does not exists at all!"
+            return
+
+        #print des_file_name
+        output = open(des_file_name,"w")
+        with open(src_file_name) as fp:
+            for line in fp:
+                [contract_name, date, open_price, high, low, close, volume, open_interest] = line.split(",")
+                temp = self.decompose_option_contract(contract_name)
+                if temp is not None:
+                    underlying_stock = temp[0]
+                    expiration_date = temp[1]
+                    option_type = temp[2]
+                    strike_price = str(int(temp[3]))
+                    output.write(underlying_stock + "," + expiration_date + "," + option_type+"," + strike_price+",")
+                    output.write(date+ "," + open_price + "," + high + "," + low + "," + close + "," + volume + "," + open_interest)
+
     def daily_run(self):
         Config = configparser.ConfigParser()
         Config.read(self.config_file)
@@ -41,3 +85,18 @@ class EodDataDataManager:
                     ftp.retrbinary('RETR '+f, open(des_file_name, 'wb').write)
 
         ftp.close()
+
+        #process the txt files after it is downloaded
+        src_folder = des_folder+"/"+running_time
+        des_folder = Config.get("csv", "data_folder")+"/"+Config.get("eod", "data_folder")
+        if not os.path.exists(des_folder):
+            os.makedirs(des_folder)
+
+        des_folder = des_folder+"/"+running_time
+        #print des_folder
+        if not os.path.exists(des_folder):
+            os.makedirs(des_folder)
+
+        self.option_txt_to_csv(src_folder,"OPRA_"+running_time+".txt",des_folder, "OPRA_"+running_time+".csv")
+
+
