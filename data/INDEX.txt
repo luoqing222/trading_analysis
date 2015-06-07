@@ -1,0 +1,1471 @@
+Symbol	Name
+ADDA	AMEX Advance Decline Difference
+ADDD	OTC Advance Decline Difference
+ADDE	ETFS Advance - Decline
+ADDN	NYSE Advance Decline Difference
+ADDQ	NASD Advance Decline Difference
+ADDS	TSX Advance Decline Difference
+ADDT	Total Advance Decline Difference
+ADDV	Tsxv Advance Decline Difference
+ADDX	CAD Total Advance Decline Difference
+ADR	Int'l Mkt Indx
+ADRA	AMEX Advance Decline Ratio
+ADRD	OTC Advance Decline Ratio
+ADRE	ETFS  Advance Decline Ratio
+ADRN	NYSE Advance Decline Ratio
+ADRQ	NASD Advance Decline Ratio
+ADRS	TSX Advance Decline Ratio
+ADRT	Total Advance Decline Ratio
+ADRV	Tsxv Advance Decline Ratio
+ADRX	CAD Total Advance Decline Ratio
+ADVA	AMEX Advancing Stocks
+ADVD	OTC Advancing Stocks
+ADVE	ETFS  Advancing Stocks
+ADVN	NYSE Advancing Stocks
+ADVQ	NASD Advancing Stocks
+ADVS	TSX Advancing Stocks
+ADVT	Total Advancing Stocks
+ADVV	Tsxv Advancing Stocks
+ADVX	CAD Total Advancing Stocks
+AEX	AEX General - Netherlands
+AMZ	Alerian Mlp Index
+ASHD	AMEX Declining Stocks
+ASHF	AMEX Advances - Declines
+ASHR	AMEX Advance Decline Ratio
+ASHU	AMEX Advancing Stocks
+ATX	ATX - Austria
+ATXR	S&P C.S. Ga-Atlanta Home Price Index
+AVDA	AMEX Advances Declines Volume Difference
+AVDD	OTC Advance Decline Volume Difference
+AVDE	ETFS  Advances - Declines Volume
+AVDN	NYSE Advances Declines Volume Difference
+AVDQ	NASD Advances Declines Volume Difference
+AVDS	TSX Advance Decline Volume Difference
+AVDT	Total Advances Declines Volume Difference
+AVDV	Tsxv Advance Decline Volume Difference
+AVDX	CAD Total Advance Decline Volume Difference
+AVLD	AMEX Declining Volume
+AVLF	AMEX Advance Decline Volume Diff
+AVLR	AMEX Advance Decline Vol Ratio
+AVLU	AMEX Advancing Volume
+AVRA	AMEX Advance Decline Volume Ratio
+AVRD	OTC Advance Decline Volume Ratio
+AVRE	ETFS  Advance / Decline Volume
+AVRN	NYSE Advance Decline Volume Ratio
+AVRQ	NASD Advance Decline Volume Ratio
+AVRS	TSX Advance Decline Volume Ratio
+AVRT	Total Advance Decline Volume Ratio
+AVRV	Tsxv Advance Decline Volume Ratio
+AVRX	CAD Total Advance Decline Volume Ratio
+AVVA	AMEX Advancing Volume
+AVVD	OTC Advancing Volume
+AVVE	ETFS  Advancing Volume
+AVVN	NYSE Advancing Volume
+AVVQ	NASD Advancing Volume
+AVVS	TSX Advancing Volume
+AVVT	Total Advancing Volume
+AVVV	Tsxv Advancing Volume
+AVVX	CAD Total Advancing Volume
+BANK	Nasdaq Bank Index
+BCMM	Barchart Market Momentum Index
+BFX	BEL 20 - Belgium
+BJE	NYSE Arca Mini-Biotechnology In-
+BKNIF	Bank Nifty
+BKX	KBW Bank Index
+BOXR	S&P C.S. Ma-Boston Home Price Index
+BSESN	BSE 30 - India
+BTK	Biotech Index
+BTS	AMEX Biotechnology Index Final
+BVSP	Bovespa - Brazil
+BWH	POWERSHARES WILDERHILL CLEAN EN
+BXD	CBOE DJIA Buywrite Index
+BXM	CBOE S&P 500 Buywrite Index
+BXN	CBOE Nasdaq-100 Buywrite Index
+BXR	CBOE Russell 2000 Buywrite Index
+BXY	CBOE S&P 500 2% Otm Buywrite Index
+BZJ	NYSE Arca Mini-Oil Index
+CAC40	Paris CAC 40
+CASE	Egyptian EGX30
+CELS	NASDAQ Clean Edge Green Energy
+CEX	S& P Chemicals Index
+CEXR	S&P C.S. Oh-Cleveland Home Price Index
+CHXR	S&P C.S. Il-Chicago Home Price Index
+CIV	Cboe/Cbot Corn Volatility Index
+CKG	S&P 600 Barra Grwth
+COMP	NASDAQ
+CPH	AMEX China Settle
+CPR	Copper Index
+CRXR	S&P C.S. Nc-Charlotte Home Price Index
+CS2R	S&P C.S. 20-City Composite Home Price Index
+CSXR	S&P C.S. 10-City Composite Home Price Index
+CVK	Smcp 600Barr Val
+CYM	Claymore Yield ETF Iopv
+CYO	Morgan Stanley Cyclical Index F
+CZH	AMEX China Indx
+DAX	Frankfurt Dax
+DAXR	S&P C.S. Tx-Dallas Home Price Index
+DCFI	DOW Comp Stocks Above 50-Day Average
+DCOF	DOW Comp Stocks Above 150-Day Average
+DCOH	DOW Comp Stocks Above 100-Day Average
+DCSE	U.S. Semiconductors Total Stock Market Index
+DCTH	DOW Comp Stocks Above 200-Day Average
+DCTW	DOW Comp Stocks Above 20-Day Average
+DDA	DJIA Volatility Index - Offer Side
+DDB	DJIA Volatility Index - Bid Side
+DDO	AMEX Disk Drive Index Final Set
+DDX	Disk Drive Ndx
+DECA	AMEX Declining Stocks
+DECD	OTC Declining Stocks
+DECE	ETFS  Declining Stocks
+DECN	NYSE Declining Stocks
+DECQ	NASD Declining Stocks
+DECS	TSX Declining Stocks
+DECT	Total Declining Stocks
+DECV	Tsxv Declining Stocks
+DECX	CAD Total Declining Stocks
+DEXR	S&P C.S. Mi-Detroit Home Price Index
+DFI	Rabo Fin. Index
+DGE	Ew Pharmaceuticl
+DHC	Dynamic Hlthcare Intell
+DHD	Dynamic Banking Intell
+DIFI	DOW Indu Stocks Above 50-Day Average
+DIOF	DOW Indu Stocks Above 150-Day Average
+DIOH	DOW Indu Stocks Above 100-Day Average
+DITH	DOW Indu Stocks Above 200-Day Average
+DITW	DOW Indu Stocks Above 20-Day Average
+DIVD	S&P 500 Annual Dividend - 10X
+DIVQ	Nasdaq Dividend Achievers Index
+DJC	Dow Jones Composite Average
+DJEC	DOW Internet Commerce Index
+DJI	DOW JONES
+DJT	DOW Transportations
+DJU	DOW Utilities
+DJWO	DOW Global Index
+DLTC	U.S. Large-Cap Technology Index
+DMT	Dly Mirrow Idx
+DNXR	S&P C.S. Co-Denver Home Price Index
+DOI	AMEX Defense Index Final Settle
+DOWE	INDUSTRIALS EU$
+DOWV	DOW Cbot Treasury Index
+DRCI	DOW Composite All Reit Index
+DREI	DOW Equity All Reit Index
+DRG	Pharmceuticl Ndx
+DRO	AMEX Pharmaceutical Index Final
+DSAE	U.S. Aerospace & Defense Index
+DSAF	U.S. Delivery Services Index
+DSAG	U.S. Asset Managers Index
+DSAI	U.S. Electronic Equipment Index
+DSAL	U.S. Aluminum Index
+DSAM	U.S. Medical Equipment Index
+DSAP	U.S. Automobiles & Parts Index
+DSAR	U.S. Airlines Index
+DSAS	U.S. Aerospace Index
+DSAT	U.S. Auto Parts Index
+DSAU	U.S. Automobiles Index
+DSAV	U.S. Media Agencies Index
+DSBC	U.S. Broadcasting & Entertainment Index
+DSBD	U.S. Building Materials & Fixtures Index
+DSBE	U.S. Business Training & Employment Agencies Ind
+DSBK	U.S. Banks Index
+DSBM	U.S. Basic Materials Index
+DSBS	U.S. Basic Resources Index
+DSBT	U.S. Biotechnology Index
+DSBV	U.S. Beverages Index
+DSCA	U.S. Gambling Index
+DSCC	U.S. Commodity Chemicals Index
+DSCE	U.S. Consumer Electronics Index
+DSCF	U.S. Clothing & Accessories Index
+DSCG	U.S. Travel & Leisure Index
+DSCH	U.S. Chemicals Index
+DSCL	U.S. Coal Index
+DSCM	U.S. Personal Products Index
+DSCN	U.S. Construction & Materials Index
+DSCP	U.S. Containers & Packaging Index
+DSCR	U.S. Computer Hardware Index
+DSCS	U.S. Specialized Consumer Services Index
+DSCT	U.S. Telecommunications Equipment Index
+DSCX	U.S. Specialty Chemicals Index
+DSCY	U.S. Consumer Services Index
+DSDB	U.S. Brewers Index
+DSDN	U.S. Defense Index
+DSDR	U.S. Food & Drug Retailers Index
+DSDS	U.S. Industrial Suppliers Index
+DSDT	U.S. Diversified Reits Index
+DSDV	U.S. Computer Services Index
+DSEC	U.S. Electrical Components & Equipment Index
+DSEE	U.S. Electronic & Electrical Equipment Index
+DSEH	U.S. Real Estate Holding & Development Index
+DSEN	U.S. Oil & Gas Index
+DSES	U.S. Real Estate Services Index
+DSEU	U.S. Electricity Index
+DSFA	U.S. Financial Administration Index
+DSFB	U.S. Food & Beverage Index
+DSFC	U.S. Fixed Line Telecommunications Index
+DSFD	U.S. Food Retailers & Wholesalers Index
+DSFE	U.S. Industrial Machinery Index
+DSFH	U.S. Furnishings Index
+DSFI	U.S. Financial Services Index
+DSFN	U.S. Financials Index
+DSFO	U.S. Food Producers Index
+DSFP	U.S. Food Products Index
+DSFR	U.S. Forestry & Paper Index
+DSFT	U.S. Footwear Index
+DSFV	U.S. Financial Services Index
+DSGF	U.S. Financial Services Index
+DSGI	U.S. General Industrials Index
+DSGT	U.S. General Retailers Index
+DSGU	U.S. Gas Distribution Index
+DSHB	U.S. Home Construction Index
+DSHC	U.S. Health Care Index
+DSHD	U.S. Durable Household Products Index
+DSHG	U.S. Household Goods & Home Construction Index
+DSHI	U.S. Home Improvement Retailers Index
+DSHL	U.S. Hotel & Lodging Reits Index
+DSHN	U.S. Nondurable Household Products Index
+DSHP	U.S. Health Care Providers Index
+DSHR	U.S. Commercial Vehicles & Trucks Index
+DSHV	U.S. Heavy Construction Index
+DSIB	U.S. Insurance Brokers Index
+DSID	U.S. Diversified Industrials Index
+DSIF	U.S. Full Line Insurance Index
+DSIG	U.S. Industrial Goods & Services Index
+DSIL	U.S. Life Insurance Index
+DSIM	U.S. Industrial Metals & Mining Index
+DSIN	U.S. Industrials Index
+DSIO	U.S. Industrial & Office Reits Index
+DSIP	U.S. Property & Casualty Insurance Index
+DSIQ	U.S. Industrial Engineering Index
+DSIR	U.S. Insurance Index
+DSIS	U.S. Support Services Index
+DSIT	U.S. Industrial Transportation Index
+DSIU	U.S. Reinsurance Index
+DSIV	U.S. Business Support Services Index
+DSIX	U.S. Nonlife Insurance Index
+DSLE	U.S. Leisure Goods Index
+DSLG	U.S. Hotels Index
+DSLW	U.S. Low-Cap Index
+DSMC	U.S. Health Care Equipment & Services Index
+DSME	U.S. Media Index
+DSMF	U.S. Mortgage Finance Index
+DSMG	U.S. Mining Index
+DSMR	U.S. Mortgage Reits Index
+DSMS	U.S. Medical Supplies Index
+DSMT	U.S. Marine Transportation Index
+DSMU	U.S. Multiutilities Index
+DSNC	U.S. Consumer Goods Index
+DSNF	U.S. Nonferrous Metals Index
+DSNG	U.S. Personal & Household Goods Index
+DSNS	U.S. Internet Index
+DSOE	U.S. Electronic Office Equipment Index
+DSOG	U.S. Oil & Gas Producers Index
+DSOI	U.S. Oil Equipment & Services Index
+DSOL	U.S. Integrated Oil & Gas Index
+DSOQ	U.S. Oil Equipment Services & Distribution Inde
+DSOS	U.S. Exploration & Production Index
+DSPB	U.S. Publishing Index
+DSPC	U.S. Waste & Disposal Services Index
+DSPG	U.S. Personal Goods Index
+DSPL	U.S. Pipelines Index
+DSPM	U.S. Gold Mining Index
+DSPN	U.S. Pharmaceuticals & Biotechnology Index
+DSPP	U.S. Paper Index
+DSPR	U.S. Pharmaceuticals Index
+DSPT	U.S. Platinum & Precious Metals Index
+DSRA	U.S. Apparel Retailers Index
+DSRB	U.S. Broadline Retailers Index
+DSRD	U.S. Drug Retailers Index
+DSRE	U.S. Real Estate Index
+DSRH	U.S. Real Estate Investment & Services Index
+DSRI	U.S. Real Estate Investment Trusts Index
+DSRL	U.S. Retail Reits Index
+DSRN	U.S. Residential Reits Index
+DSRP	U.S. Recreational Products Index
+DSRQ	U.S. Recreational Services Index
+DSRR	U.S. Railroads Index
+DSRS	U.S. Specialty Retailers Index
+DSRT	U.S. Retail Index
+DSRU	U.S. Restaurants & Bars Index
+DSSB	U.S. Investment Services Index
+DSSC	U.S. Semiconductors Index
+DSSD	U.S. Soft Drinks Index
+DSSF	U.S. Consumer Finance Index
+DSSP	U.S. Specialty Finance Index
+DSSR	U.S. Specialty Reits Index
+DSST	U.S. Iron & Steel Index
+DSSV	U.S. Software & Computer Services Index
+DSSW	U.S. Software Index
+DSTB	U.S. Tobacco Index
+DSTC	U.S. Technology Index
+DSTK	U.S. Trucking Index
+DSTL	U.S. Telecommunications Index
+DSTP	U.S. Top-Cap Index
+DSTQ	U.S. Technology Hardware & Equipment Index
+DSTR	U.S. Tires Index
+DSTS	U.S. Transportation Services Index
+DSTT	U.S. Travel & Tourism Index
+DSTY	U.S. Toys Index
+DSUO	U.S. Gas Water & Multiutilities Index
+DSUT	U.S. Utilities Index
+DSVE	U.S. Conventional Electricity Index
+DSVN	U.S. Distillers & Vintners Index
+DSWC	U.S. Mobile Telecommunications Index
+DSWU	U.S. Water Index
+DTCI	DOW Composite All Reit Tr Index
+DTEI	DOW Equity All Reit Tr Index
+DTFI	DOW Tran Stocks Above 50-Day Average
+DTFX	Cme FX Index
+DTOF	DOW Tran Stocks Above 150-Day Average
+DTOH	DOW Tran Stocks Above 100-Day Average
+DTTH	DOW Tran Stocks Above 200-Day Average
+DTTW	DOW Tran Stocks Above 20-Day Average
+DTWC	DOW Composite Tr
+DTWI	DOW Industrials Tr
+DTWT	DOW Transportation Tr
+DTWU	DOW Utilities Tr
+DUBS	DJ-UBS Commodity Index
+DUFI	DOW Util Stocks Above 50-Day Average
+DUOF	DOW Util Stocks Above 150-Day Average
+DUOH	DOW Util Stocks Above 100-Day Average
+DUSL	U.S. Large-Cap Index
+DUSM	U.S. Mid-Cap Index
+DUSS	U.S. Small-Cap Index
+DUTH	DOW Util Stocks Above 200-Day Average
+DUTW	DOW Util Stocks Above 20-Day Average
+DVAA	S&P 500 Forward Divd - 2010
+DVAB	S&P 500 Forward Divd - 2011
+DVCA	AMEX Declining Volume
+DVCD	OTC Declining Volume
+DVCE	ETFS  Declining Volume
+DVCN	NYSE Declining Volume
+DVCQ	NASD Declining Volume
+DVCS	TSX Declining Volume
+DVCT	Total Declining Volume
+DVCV	Tsxv Declining Volume
+DVCX	CAD Total Declining Volume
+DVDE	Implied Forward Dvs December
+DVJN	Implied Forward Dvs June
+DVMR	Implied Forward Dvs March
+DVS	S&P 500 Dividend Index - 10X
+DVST	Implied Forward Dvs September
+DWC	Dynamic Building And Constrcutio
+DWCB	U.S. Banks Total Stock Market Index
+DWE	Dynamic Energy Exploration & Pr
+DWJ	Dynamic Insurance Intellidex
+DWO	Dynamic Oil Services Intellidex
+DWR	Dynamic Retail Intellidex
+DWU	Dynamic Utilities Intellidex
+DWY	Dynamic Telecommunication & Wir
+DXG	AMEX Spade Defense Setl
+DXS	Spade Defense
+DXY	US Dollar Index
+DYH	Dynamic Top 200 Intell
+DYI	$Mkt Intellidex
+DYO	OTC Intellidex
+DZC	Dynamic Software Intellidex
+DZE	Dynamic Semiconductor Intellide
+DZF	Dynamic Food & Beverage Intelli
+DZH	Dynamic Hardware & Cons Elec In
+DZL	Dynamic Leisure&Entertainment I
+DZM	Dynamic Media Intellidex
+DZN	Dynamic Networking Intellidex
+DZO	Dynamic Biotech & Genome Intell
+DZR	Dynamic Pharmaceutical Intellid
+ECO	Wh Clean Energy
+EED	Claymore Bric ETF Iopv
+EMX	Mer Lyn Euro Ndx
+EPX	Sig Oil Exploration & Production
+ESX	Sel Euro 50 Ndx
+EUX	Majr 11 Intl Ndx
+EVZ	Euro FX Volatility
+EZB	Dynamic Bs Mt Intellidex
+EZF	Dynamic Fincl Intellidex
+EZK	Dynamic Enrgy Intellidex
+EZL	Dynamic Indus Intellidex
+EZS	Dynamic Cn St Intellidex
+EZV	Dynamic Techn Intellidex
+EZX	Dynamic Hlthc Intellidex
+EZZ	Dynamic Cn Ds Intellidex
+FBV	Powershrs Db G10 Fd Iopv
+FTSA	FTSE 350
+FTSE	FTSE 100 Index
+FTSM	FTSE Mid 250 Index
+FVX	5-Year Treasury Note
+GDM	AMEX Gold Miners
+GLD	Gold Index
+GLI	Mer Lyn Gbl Mkt
+GMI	Mkt Vector Gold Min Iopv
+GNX	S&P GSCI Index
+GVX	Goldman Sachs Livestock Sub Index
+GVZ	Gold Volatility
+GWI	M Lynch Spdr
+HGX	Phlx Housing Index
+HIGA	AMEX New Highs
+HIGD	OTC New Highs
+HIGN	NYSE New Highs
+HIGQ	NASD New Highs
+HIGS	TSX New Highs
+HIGV	Tsxv New Highs
+HKO	H.K. Opt [Fltng]
+HKX	H.K. 30 Warrants
+HSI	Hang Seng Index
+HUI	Gold Bugs Ndx
+HUV	AMEX Gold Bugs Index Final Sett
+HVX	Mkt Vector Env Serv Iopv
+HWI	Comp Hardwr
+HWO	Computer Hardware Index Fnl Set
+ICK	ISE Chindia Index
+IDX	S&P Midcap 400
+IEB	Dynamic Large Cap Intell
+IEK	Dynamic Mid Cap Intell
+IEY	Dynamic Small Cap Intell
+IIB	Semi Inds Plus
+ILH	Dyn Lgcp Gro
+ILJ	Dyn Mdcp Gro
+ILK	Dyn Smcp Gro
+ILP	Dyn Mdcp Val
+ILR	Dynamic Agr Grwth Intldx
+ILU	Dynamic Deep Val Inteldx
+ILW	Dyn Lgcp Val
+ILZ	Dyn Smcp Val
+INDS	Nasdaq Industrial
+INSR	Nasdaq Insurance Index
+IPSA	IPSA - Chile
+IQX	S&P 500 Equal Weight
+IQZ	S&P 1000 Index
+IRX	13-Week Treasury Bill
+IUX	Russell 2000 Index
+IVX	S&P 500 Value
+IXB	S&P Materials Select
+IXCO	Nasdaq Computer
+IXE	S&P Energy Select
+IXF	Nasdaq Financial 100
+IXHC	Nasdaq Health Care Index
+IXI	S&P Industrial Select
+IXM	S&P Financial Select
+IXR	S&P Consumer Staples Select
+IXT	Technology Sel
+IXTC	Nasdaq Telecommunications Index
+IXU	S&P Utilities Select
+IXV	S&P Health Care Select
+IXY	S&P Consumer Discretionary Select
+JBV	NYSE Arca Mini-Broker/Dealer  I-
+JKC	Ml Long/Shrt III
+JKSE	Jakarta Composite Index
+JPN	Japan Index
+JPV	AMEX Japan Index Final Settleme
+JX	Tsx Venture Composite Index
+KBK	NYSE Arca Mini-Pharmaceutical I-
+KDX	KBW Finsec Dividend Yield Index
+KDY	AMEX Hong Kong Index Float Rate
+KFX	OMX Copenhagen
+KGX	KBW Global Ex-U.S. Financials Index
+KIX	KBW Insurance Index
+KLCI	Kuala Lumpur Composite
+KLX	Mkt Vectors Steel Iopv
+KPX	KBW Property & Casualty Index
+KRX	KBW Regional Banking Index
+KS11	Seoul Composite
+KSX	KBW Capital Markets Index
+KYX	KBW Premium Yield Equity REIT Index
+LOWA	AMEX New Lows
+LOWD	OTC New Lows
+LOWN	NYSE New Lows
+LOWQ	NASD New Lows
+LOWS	TSX New Lows
+LOWV	Tsxv New Lows
+LVXR	S&P C.S. Nv-Las Vegas Home Price Index
+LXXR	S&P C.S. Ca-Los Angeles Home Price Index
+M1HA	1-Month Highs AMEX
+M1HD	1-Month Highs Otcbb
+M1HE	1-Month Highs ETFS
+M1HH	1-Month Highs Price Gt $10
+M1HL	1-Month Highs Price Lt $10
+M1HN	1-Month Highs NYSE
+M1HP	1-Month Highs Sp500
+M1HQ	1-Month Highs Nasdaq
+M1HU	1-Month Highs Volume Lt 100K
+M1HV	1-Month Highs Volume Gt 100K
+M1HX	1-Month Highs Overall
+M1LA	1-Month Lows AMEX
+M1LD	1-Month Lows Otcbb
+M1LE	1-Month Lows ETFS
+M1LH	1-Month Lows Price Gt $10
+M1LL	1-Month Lows Price Lt $10
+M1LN	1-Month Lows NYSE
+M1LP	1-Month Lows Sp500
+M1LQ	1-Month Lows Nasdaq
+M1LU	1-Month Lows Volume Lt 100K
+M1LV	1-Month Lows Volume Gt 100K
+M1LX	1-Month Lows Overall
+M3HA	3-Month Highs AMEX
+M3HD	3-Month Highs Otcbb
+M3HE	3-Month Highs ETFS
+M3HH	3-Month Highs Price Gt $10
+M3HL	3-Month Highs Price Lt $10
+M3HN	3-Month Highs NYSE
+M3HP	3-Month Highs Sp500
+M3HQ	3-Month Highs Nasdaq
+M3HU	3-Month Highs Volume Lt 100K
+M3HV	3-Month Highs Volume Gt 100K
+M3HX	3-Month Highs Overall
+M3LA	3-Month Lows AMEX
+M3LD	3-Month Lows Otcbb
+M3LE	3-Month Lows ETFS
+M3LH	3-Month Lows Price Gt $10
+M3LL	3-Month Lows Price Lt $10
+M3LN	3-Month Lows NYSE
+M3LP	3-Month Lows Sp500
+M3LQ	3-Month Lows Nasdaq
+M3LU	3-Month Lows Volume Lt 100K
+M3LV	3-Month Lows Volume Gt 100K
+M3LX	3-Month Lows Overall
+M6HA	6-Month Highs AMEX
+M6HD	6-Month Highs Otcbb
+M6HE	6-Month Highs ETFS
+M6HH	6-Month Highs Price Gt $10
+M6HL	6-Month Highs Price Lt $10
+M6HN	6-Month Highs NYSE
+M6HP	6-Month Highs Sp500
+M6HQ	6-Month Highs Nasdaq
+M6HU	6-Month Highs Volume Lt 100K
+M6HV	6-Month Highs Volume Gt 100K
+M6HX	6-Month Highs Overall
+M6LA	6-Month Lows AMEX
+M6LD	6-Month Lows Otcbb
+M6LE	6-Month Lows ETFS
+M6LH	6-Month Lows Price Gt $10
+M6LL	6-Month Lows Price Lt $10
+M6LN	6-Month Lows NYSE
+M6LP	6-Month Lows Sp500
+M6LQ	6-Month Lows Nasdaq
+M6LU	6-Month Lows Volume Lt 100K
+M6LV	6-Month Lows Volume Gt 100K
+M6LX	6-Month Lows Overall
+MAHA	12-Month Highs AMEX
+MAHD	12-Month Highs Otcbb
+MAHE	12-Month Highs ETFS
+MAHH	12-Month Highs Price Gt $10
+MAHL	12-Month Highs Price Lt $10
+MAHN	12-Month Highs NYSE
+MAHP	12-Month Highs Sp500
+MAHQ	12-Month Highs Nasdaq
+MAHU	12-Month Highs Volume Lt 100K
+MAHV	12-Month Highs Volume Gt 100K
+MAHX	12-Month Highs Overall
+MALA	12-Month Lows AMEX
+MALD	12-Month Lows Otcbb
+MALE	12-Month Lows ETFS
+MALH	12-Month Lows Price Gt $10
+MALL	12-Month Lows Price Lt $10
+MALN	12-Month Lows NYSE
+MALP	12-Month Lows Sp500
+MALQ	12-Month Lows Nasdaq
+MALU	12-Month Lows Volume Lt 100K
+MALV	12-Month Lows Volume Gt 100K
+MALX	12-Month Lows Overall
+MBO	Chinese Mps Bskt
+MDO	Mid Opn/Cls Avge
+MERV	Merval - Argentina
+MEV	AMEX Mexico Index Settlement
+MFX	KBW Mortgage Finance Index
+MGD	Midcp 400Barra
+MIA	Mid O/C/H/L Avg
+MID	Midcap 400 Idx
+MIH	Mid Hi/Lo Avge
+MIV	Mid-Cap Settle
+MIXR	S&P C.S. Fl-Miami Home Price Index
+MLO	Mer Lyn Tech 100
+MMFI	Percent of Stocks Above 50-Day Moving Average
+MMOF	Percent of Stocks Above 150-Day Moving Average
+MMOH	Percent of Stocks Above 100-Day Moving Average
+MMTH	Percent of Stocks Above 200-Day Moving Average
+MMTW	Percent of Stocks Above 20-Day Moving Average
+MNG	AMEX Mini-Natural Gas Index
+MNXR	S&P C.S. Mn-Minneapolis Home Price Index
+MOY	Morgan Stanley Internet Index F
+MSH	M Stan Hi Tech
+MTFI	CAD Percent of Stocks Above 50-Day Moving Averag
+MTOF	CAD Percent of Stocks Above 150-Day Moving Avera
+MTOH	CAD Percent of Stocks Above 100-Day Moving Avera
+MTTH	CAD Percent of Stocks Above 200-Day Moving Avera
+MTTW	CAD Percent of Stocks Above 20-Day Moving Averag
+MUV	Mdcp 400Bar Val
+MVH	Morgan Stanley High-Technology
+MXX	Mexico IPC
+MXY	Mexico Index
+MYHA	YTD Highs AMEX
+MYHD	YTD Highs Otcbb
+MYHE	YTD Highs ETFS
+MYHH	YTD Highs Price Gt $10
+MYHL	YTD Highs Price Lt $10
+MYHN	YTD Highs NYSE
+MYHP	YTD Highs Sp500
+MYHQ	YTD Highs Nasdaq
+MYHU	YTD Highs Volume Lt 100K
+MYHV	YTD Highs Volume Gt 100K
+MYHX	YTD Highs Overall
+MYLA	YTD Lows AMEX
+MYLD	YTD Lows Otcbb
+MYLE	YTD Lows ETFS
+MYLH	YTD Lows Price Gt $10
+MYLL	YTD Lows Price Lt $10
+MYLN	YTD Lows NYSE
+MYLP	YTD Lows Sp500
+MYLQ	YTD Lows Nasdaq
+MYLU	YTD Lows Volume Lt 100K
+MYLV	YTD Lows Volume Gt 100K
+MYLX	YTD Lows Overall
+NAST	Nasdaq Transportation Index
+NBI	Nasdaq Biotechnology Index
+NBZ	Nasdaq Biotech Index Final Set
+NDFI	Nasdaq 100 Stocks Above 50-Day Average
+NDOF	Nasdaq 100 Stocks Above 150-Day Average
+NDOH	Nasdaq 100 Stocks Above 100-Day Average
+NDTH	Nasdaq 100 Stocks Above 200-Day Average
+NDTW	Nasdaq 100 Stocks Above 20-Day Average
+NDX	NASDAQ 100 INDEX
+NDXT	Nasdaq 100 Technology Index
+NDXX	Nasdaq-100 Ex-Tech Sector Index
+NDY	Nasdaq 100
+NEX	Wilderhill New Energy Global In
+NFA	Cts Feed Fa
+NGV	AMEX Natural Gas Index Final Se
+NI225	Nikkei 225
+NNY	US 100
+NNYE	ENERGY IDX
+NNYI	INTERNATIONAL 100
+NNYK	FINANCIAL
+NNYL	WORLD LEADERS
+NNYP	HEALTH CARE
+NNYY	TMT IDX
+NQGM	Ndaq Global Market Composite
+NQGS	Nasdaq Global Select Market Composite Index
+NSEI	CNX Nifty
+NSHD	NYSE Declining Stocks
+NSHF	NYSE Advances - Declines
+NSHR	NYSE Advance Decline Ratio
+NSHU	NYSE Advancing Stocks
+NVLD	NYSE Declining Volume
+NVLF	NYSE Advance Decline Volume Diff
+NVLR	NYSE Advance Decline Vol Ratio
+NVLU	NYSE Advancing Volume
+NVOT	NYSE Total Volume
+NWV	AMEX Networking Index Settlemen
+NWX	Network Index
+NXTQ	Nasdaq Q-50 Index
+NYA	NYSE Composite
+NYI	NYSE International 100 Index
+NYL	NYSE World Leaders Index
+NYXR	S&P C.S. Ny-New York Home Price Index
+NZ50	NZSX 50 Index
+OEX	S&P 100 Index
+OFIN	Nasdaq Other Finance Index
+OILBR	Crude Oil Brent NYMEX
+OILSW	Crude Oil Light Sweet NYMEX
+OIV	Nymex Crude Oil Vix
+OMX	OMX Stockholm 30 Index
+ONE	S&P 100 Index
+OOI	S&P Gl 100 Id
+OSX	Phlx Oil Service
+OVX	Crude Oil Volatility
+PHN	AMEX Telecom
+PHXR	S&P C.S. Az-Phoenix Home Price Index
+PLD	Palladium Index
+PLT	Platinum Index
+POQ	CBOE POWERPACKS TELCOM INDEX
+POXR	S&P C.S. Or-Portland Home Price Index
+PSEI	Philippines Stock Exchange PSEi Index
+QSHD	NASD Declining Stocks
+QSHF	NASD Advances - Declines
+QSHR	NASD Advance Decline Ratio
+QSHU	NASD Advancing Stocks
+QVLD	NASD Declining Volume
+QVLF	NASD Advance Decline Volume Diff
+QVLR	NASD Advance Decline Vol Ratio
+QVLU	NASD Advancing Volume
+R1FI	Russell 1000 Stocks Above 50-Day Average
+R1OF	Russell 1000 Stocks Above 150-Day Average
+R1OH	Russell 1000 Stocks Above 100-Day Average
+R1TH	Russell 1000 Stocks Above 200-Day Average
+R1TW	Russell 1000 Stocks Above 20-Day Average
+R2FI	Russell 2000 Stocks Above 50-Day Average
+R2OF	Russell 2000 Stocks Above 150-Day Average
+R2OH	Russell 2000 Stocks Above 100-Day Average
+R2TH	Russell 2000 Stocks Above 200-Day Average
+R2TW	Russell 2000 Stocks Above 20-Day Average
+R3FI	Russell 3000 Stocks Above 50-Day Average
+R3OF	Russell 3000 Stocks Above 150-Day Average
+R3OH	Russell 3000 Stocks Above 100-Day Average
+R3TH	Russell 3000 Stocks Above 200-Day Average
+R3TW	Russell 3000 Stocks Above 20-Day Average
+RAG	Russell 3000 Growth
+RAV	Russell 3000 Value
+RDG	Russell Midcap Growth
+RJY	S.V. For Amex Mini-Natural Gas
+RLG	Russell 1000 Growth
+RLX	S& P Retail Index
+RMC	Russell Midcap Index
+RMV	Russell Midcap Value
+RMZ	The Msci Reit Index
+RPE	Elec Pwr Natg
+RSC	Russell SmallCap Index
+RSG	Russell SmallCap Growth
+RSV	Russell SmallCap Value
+RTCM	Tsx Income Trust Index
+RTF	Russell Top 50 Index
+RTG	Russell 2500 Growth
+RTI	Russell 2500 Index
+RTM	Russell Microcap Index
+RTRE	Tsx Reit Capped Index
+RTV	Russell 2500 Value
+RUA	Russell 3000 Index
+RUF	ISE Homebuilders Index
+RUI	Russell 1000 Index
+RUJ	Russell 2000 Value
+RUO	Russell 2000 Growth
+RUT	CBOE RUSSELL 2000 INDEX
+RVX	Russell 2000 Volatility
+RWG	Russell Top 200 Growth
+RWI	Russell Top 200 Index
+RWV	Russell Top 200 Value
+S1FI	S&P 100 Stocks Above 50-Day Average
+S1OF	S&P 100 Stocks Above 150-Day Average
+S1OH	S&P 100 Stocks Above 100-Day Average
+S1TH	S&P 100 Stocks Above 200-Day Average
+S1TR	S&P 500 Automobiles & Components [Tr]
+S1TW	S&P 100 Stocks Above 20-Day Average
+S2TR	S&P 500 Banks [Tr]
+S3TR	S&P 500 Capital Goods [Tr]
+S4FI	S&P 400 Stocks Above 50-Day Average
+S4OF	S&P 400 Stocks Above 150-Day Average
+S4OH	S&P 400 Stocks Above 100-Day Average
+S4TH	S&P 400 Stocks Above 200-Day Average
+S4TR	S&P 500 -Commercial & Professional Services [Tr]
+S4TW	S&P 400 Stocks Above 20-Day Average
+S5FI	S&P 500 Stocks Above 50-Day Average
+S5OF	S&P 500 Stocks Above 150-Day Average
+S5OH	S&P 500 Stocks Above 100-Day Average
+S5TH	S&P 500 Stocks Above 200-Day Average
+S5TR	S&P 500 Consumer Durables & Apparel [Tr]
+S5TW	S&P 500 Stocks Above 20-Day Average
+S6CD	S&P Smallcap600 Capped Consumer Discretionary [S
+S6CS	S&P Smallcap600 Capped Consumer Staples [Sector]
+S6EP	S&P Smallcap600 Capped Energy [Sector]Index
+S6FI	S&P 600 Stocks Above 50-Day Average
+S6FP	S&P Smallcap600 Capped Financials [Sector]Index
+S6HC	S&P Smallcap600 Capped Healthcare [Sector]Index
+S6IP	S&P Smallcap600 Capped Industrials [Sector]Index
+S6MP	S&P Smallcap600 Capped Materials [Sector]Index
+S6OF	S&P 600 Stocks Above 150-Day Average
+S6OH	S&P 600 Stocks Above 100-Day Average
+S6TH	S&P 600 Stocks Above 200-Day Average
+S6TP	S&P Smallcap600 Capped Information Technology [S
+S6TR	S&P 500 Consumer Services [Tr]
+S6TW	S&P 600 Stocks Above 20-Day Average
+S6UP	S&P Smallcap600 Capped Utilities & Telecom Servi
+S7TR	S&P 500 Diversified Financials [Tr]
+S8TR	S&P 500 Energy [Tr]
+S9TR	S&P 500 Food & Staples Retailing [Tr]
+SAAA	S&P Asia Alternative Energy Index
+SAAB	S&P Asia Infrastructure Index
+SAAC	S&P Asia Water Index
+SAAE	Rbs Clean Renewable Energy Usdtr Index
+SAAI	Rbs India Adr/Gdrtr Index
+SAAM	Rbs Global Metal & Mining Tr Index
+SAAW	Rbs Water Stocks Usd Tr Index
+SACC	Alpha Shares China Small Cap Index
+SACN	Alpha Shares China Technology Index
+SACP	Rbs Climate Change & Environment Eurpr Index
+SACT	Rbs Climate Change & Environment Eurtr Index
+SAEI	S&P Global Alternative Energy Index [Euro]
+SAER	S&P GSCI Agriculture Capped Component 35/20 Eur
+SAEU	S&P Global Alternative Energy Index
+SAIE	S&P Africa 40 Index [Euro]
+SAIU	S&P Africa 40 Index
+SAJR	MSCI Wise Asia Ex-Japan Top [Net Tr]
+SAJT	MSCI Wise Asia Ex-Japan Top
+SANA	S&P Agribusiness North America
+SANC	S&P Agribusiness North America Cad
+SAPE	S&P Asia Property 40 Index
+SAPT	S&P GSCI All Metals Capped Commodity 35/20 Eur I
+SAPU	S&P Asia Property 40 Index [Euro]
+SAQA	S&P Global Water Index
+SAQE	S&P Global Water Index [Euro]
+SASE	Rbs Solar Energy Tr Index
+SAUE	S&P GSCI Agriculture Capped Component 35/20 Eur
+SAWP	Rbs Wind Pr Index
+SAWT	Rbs Wind Tr Index
+SBAI	S&P Brazil Adr Index
+SBER	S&P GSCI Biofuel Index Excess Return
+SBES	Blo M Emerging Shariah Index [Nettr]
+SBIX	S&P 500 Banks non-TR
+SBNP	S&P Custom/Bnp Paribas Spectrumus Sect Or Moment
+SBRX	Rbs Bric 11 Pr Index
+SBSE	S&P Bric Shariah Index [Euro]
+SBSU	S&P Bric Shariah Index
+SBTR	S&P GSCI Biofuel Index Total Return
+SBUP	S&P Food & Beverage Select Industry Index
+SCBR	S&P Bmi Russia [Capped] [Usdollar]
+SCEI	Cs/Rt Emerging Infrastructure Index [Nettr]
+SCGD	Credit Suisse Germany Index
+SCGO	Credit Suisse Global Nanotech Index
+SCGT	Beacon Global Timber Index
+SCII	Cat China Infrastructure [Tr]
+SCIR	S&P GSCI North American Copper Index Excess Retu
+SCIS	S&P GSCI North American Copper Index
+SCIT	S&P GSCI North American Copper Index Total Retur
+SCPC	S&P Custom/Polaris China Play Index [Twd]
+SCPX	Credit Suisse Germany Price Return Index
+SCRC	S&P /Citic China 30 Index
+SCRE	Alpha Shares China Real Estate Index
+SCSC	S&P /Citic 300 Index
+SCSE	S&P /Citic 50 Index
+SCSR	Cs/Rt Emerging Infrastructure Price Return Index
+SCUT	S&P/Citic 300 -  Utilities [Sector]
+SCWI	Cat China Water [Tr]
+SCWP	S&P Developed Ex-U.S.Property [Usdollar]
+SCYE	S&P Chinese Renminbi Price Return Index
+SCYI	S&P Chinese Renminbi Total Return
+SDCG	Defined Multicap Growth Index
+SDCV	Defined Multicap Value Index
+SDDE	Wisdom Tree Domestic Dividends Index Ex Financia
+SDDM	Dwa International Developed Markets Technical Le
+SDDV	Dws Top Divide X Index [Tr]
+SDEM	Dwa International Emerging Markets Technical Lea
+SDEW	S&P 400 Midcap Equal Weighted Index
+SDGO	Defined Large Cap Growth Opportunities Index
+SDIP	S&P Dcfi Index Excess Return
+SDIS	S&P Dcfiindex
+SDIT	S&P Dcfi Index Total Return
+SDLC	Defined Large Cap Core Index
+SDMC	Defined Mid Cap Core Index
+SDPI	Goldman Sachs Brics Nifty 50 Developed Markets I
+SDSC	Defined Small Cap Core Index
+SDTI	Goldman Sachs Brics Nifty 50 Developed Markets I
+SDTR	S&P 500 Food Beverage & Tobacco [Tr]
+SDTS	S&P Diversified Trends Indicator
+SDTT	S&P Diversified Trends Total Return Indicator Le
+SDVO	Defined Large Cap Value Opportunities Index
+SDWI	Dws Infrastru X Index [Tr]
+SEAN	S&P Southeast Asia 40 Index [Nettr]
+SEBI	S-Network Emerging Infrastructure Builders Index
+SECA	S&P GSCI Enhanced Commodity Index
+SECB	S&P GSCI Enhanced Commodity Index Excess Return
+SECC	S&P GSCI Enhanced Commodity Index Total Return
+SEIB	S-Network Emerging Infrastructure Builders Index
+SEIE	S&P Global Eco Index [Euro]
+SEII	Cs/Rt Emerging Infrastructure Index
+SEIT	S&P Global Reit [Aud]
+SEIU	S&P Global Eco Index
+SEMT	Brics Nifty 50 Emerging Market Tradable Index Tr
+SENSEX	BSE SENSEX
+SEXR	S&P C.S. Wa-Seattle Home Price Index
+SFTR	S&P 500 - Pharmaceuticals Biotechnology & Life
+SFXR	S&P C.S. Ca-San Francisco Home Price Index
+SG0A	S&P GSCI Agriculture & Live Stock Index
+SG0B	S&P GSCI Agriculture & Live Stock Index Excess R
+SG0C	S&P GSCI Agriculture & Live Stock Index Total Re
+SG0D	S&P GSCI Agriculture Index Excess Return
+SG0E	S&P GSCI Agriculture Index Total Return
+SG0F	S&P GSCI All Cattle Index
+SG0G	S&P GSCI All Cattle Index Excess Return
+SG0H	S&P GSCI All Cattle Index Total Return
+SG0I	S&P GSCI All Crude Index
+SG1A	S&P GSCI All Crude Index Total Return
+SG1B	S&P GSCI All Wheat Index
+SG1C	S&P GSCI All Wheat Index Excess Return
+SG1D	S&P GSCI All Wheat Index Total Return
+SG1E	S&P GSCI Aluminum Index
+SG1F	S&P GSCI Aluminum Index Excess Return
+SG1G	S&P GSCI Aluminum Index Total Return
+SG1H	S&P GSCI Soybean Oil Index
+SG1I	S&P GSCI Soybean Oil Index Excess Return
+SG1J	S&P GSCI All Crude Index Excess Return
+SG2A	S&P GSCI Brent Crude Index
+SG2B	S&P GSCI Brent Crude Index Excess Return
+SG2C	S&P GSCI Brent Crude Index Total Return
+SG2D	S&P GSCI Cocoa Index
+SG2E	S&P GSCI Cocoa Index Excess Return
+SG2F	S&P GSCI Cocoa Index Total Return
+SG2G	S&P GSCI Coffee Index Co Index
+SG2H	S&P GSCI Coffee Index Excess Return
+SG2I	S&P GSCI Coffee Index Total Return
+SG2J	S&P GSCI Soybean Oil Index Total Return
+SG3A	S&P GSCI Copper Index Excess Return
+SG3B	S&P GSCI Copper Index Total Return
+SG3C	S&P GSCI Corn Index
+SG3D	S&P GSCI Corn Index Excess Return
+SG3E	S&P GSCI Corn Index Total Return
+SG3F	S&P GSCI Cotton Index
+SG3G	S&P GSCI Cotton Index Excess Return
+SG3H	S&P GSCI Cotton Index Total Return
+SG3I	S&P GSCI Crude Oil Index
+SG3J	S&P GSCI Copper Index
+SG4A	S&P GSCI Crude Oil Index Total Return
+SG4B	S&P GSCI Energy And Metals Index
+SG4C	S&P GSCI Energy And Metals Index Excess Return
+SG4D	S&P GSCI Energy And Metals Index Total Return
+SG4E	S&P GSCI Energy Index Excess Return
+SG4F	S&P GSCI Energy Index Total Return
+SG4G	S&P GSCI Feeder Cattle Index
+SG4H	S&P GSCI Feeder Cattle Index Excess Return
+SG4I	S&P GSCI Feeder Cattle Index Total Return
+SG4J	S&P GSCI Crude Oil Index Excess Return
+SG5A	S&P GSCI Gas Oil Index Excess Return
+SG5B	S&P GSCI Gas Oil Index Total Return
+SG5C	S&P GSCI Gold Index
+SG5D	S&P GSCI Gold Index Excess Return
+SG5E	S&P GSCI Gold Index Total Return
+SG5F	S&P GSCI Grains Index
+SG5G	S&P GSCI Grains Index Excess Return
+SG5H	S&P GSCI Grains Index Total Return
+SG5I	S&P GSCI Heating Oil Index
+SG5J	S&P GSCI Gas Oil Index
+SG6A	S&P GSCI Heating Oil Index Total Return
+SG6B	S&P GSCI Industrial Metals Index Excess Return
+SG6C	S&P GSCI Industrial Metals Index Total Return
+SG6D	S&P GSCI Kansas Wheat Index
+SG6E	S&P GSCI Kansas Wheat Index Excess Return
+SG6F	S&P GSCI Kansas Wheat Index Total Return
+SG6G	S&P GSCI Lead Index
+SG6H	S&P GSCI Lead Index Excess Return
+SG6I	S&P GSCI Lead Index Total Return
+SG6J	S&P GSCI Heating Oil Index Excess Return
+SG7A	S&P GSCI Lean Hogs Index Excess Return
+SG7B	S&P GSCI Lean Hogs Index Total Return
+SG7C	S&P GSCI Light Energy Index [Cpw4]
+SG7D	S&P GSCI Light Energy Index [Cpw4] Excess Return
+SG7E	S&P GSCI Light Energy Index [Cpw4] Total Return
+SG7F	S&P GSCI Live Cattle Index
+SG7G	S&P GSCI Live Cattle Index Excess Return
+SG7H	S&P GSCI Live Cattle Index Total Return
+SG7I	S&P GSCI Livestock Index Excess Return
+SG7J	S&P GSCI Lean Hogs Index
+SG8A	S&P GSCI Natural Gas Index
+SG8B	S&P GSCI Natural Gas Index Excess Return
+SG8C	S&P GSCI Natural Gas Index Total Return
+SG8D	S&P GSCI Nickel Index
+SG8E	S&P GSCI Nickel Index Excess Return
+SG8F	S&P GSCI Nickel Index Total Return
+SG8G	S&P GSCI Non-Energy Index Excess Return
+SG8H	S&P GSCI Non-Energy Index
+SG8I	S&P GSCI Non-Energy Index Total Return
+SG8J	S&P GSCI Livestock Index Total Return
+SG9A	S&P GSCI Non-Livestock Index Excess Return
+SG9B	S&P GSCI Non-Livestock Index Total Return
+SG9C	S&P GSCI Non-Natural Gas Index
+SG9D	S&P GSCI Non-Natural Gas Index Excess Return
+SG9E	S&P GSCI Non-Natural Gas Index Total Return
+SG9F	S&P GSCI Non-Precious Index
+SG9G	S&P GSCI Non-Precious Index Excess Return
+SG9H	S&P GSCI Non-Precious Index Total Return
+SG9I	S&P GSCI Petroleumex-Gas Oil Index
+SG9J	S&P GSCI Non-Livestock Index
+SGAA	S&P Global Agribusiness Composite Index Usd
+SGAB	S&P Global Agribusiness Composite Index Eur
+SGAC	S&P Global Agribusiness Equity Index
+SGAD	S&P Global Agribusiness Equity Index [Euro]
+SGCC	S&P GSCI Capped Commodity 35/20 Index
+SGCR	S&P GSCI All Metals Capped Index Excess Return
+SGDO	S&P Global Dividend Opportunities Index
+SGEI	Credit Suisse Emerging Market Infrastructure Ind
+SGEP	Credit Suisse Emerging Market Infrastructure Pri
+SGET	Goldman Sachs Liquefied Natural Gas Index [Euro]
+SGEY	Credit Suisse Emerging Market Infrastructure Ind
+SGIA	S&P North American Natural Resources Sector Inde
+SGIB	S&P North American Technology Sector Index
+SGIC	S&P North American Technology Hardware Index
+SGID	S&P North American Technology Software Index
+SGIE	S&P North American Technology Services Index
+SGIF	S&P North American Technology Multimedia Network
+SGIG	S&P North American Technology Internet Index
+SGIH	S&P North Americant Echnology Semiconductors Ind
+SGIR	S&P GSCI All Metals Index Excess Return
+SGJ	S&P GSCI Energy
+SGK	S&P GSCI Agriculture
+SGLE	Goldman Sachs Liquefied Natural Gas Index [Euro]
+SGLN	Sgi Global Security Index [Euro] [Tr]
+SGLS	Sgi Global Security Index [Euro]
+SGMA	S&P GSCI All Metals Index
+SGME	Sgi Global Momentum [Nettr] [Euro] [Nettr] [Newv
+SGMU	Sgi Global Momentum [Nettr] [Newva]
+SGNC	Credit Suisse Global Nanotech Index  [Swiss Fran
+SGNX	Credit Suisse Global Nanotech Index [Euro]
+SGON	S&P Global Dividend Opportunities Index [Nettr]
+SGP	S&P GSCI Precious Metals
+SGPA	S&P GSCI All Metals Capped Index
+SGPG	S&P GSCI Agriculture Capped Index
+SGPP	S&P GSCI Capped Commodity 35/20 Index Excess Ret
+SGPR	S&P GSCI Agriculture Capped Index Total Return
+SGPT	S&P GSCI Capped Commodity 35/20 Index Total Retu
+SGQA	S&P GSCI Petroleumex-Gas Oil Index Total Return
+SGQB	S&P GSCI Petroleum Index
+SGQC	S&P GSCI Petroleum Index Excess Return
+SGQD	S&P GSCI Petroleum Index Total Return
+SGQE	S&P GSCI Precious Metals Index Excess Return
+SGQF	S&P GSCI Precious Metals Index Total Return
+SGQG	S&P GSCI Reduced Energy Index [Cpw2]
+SGQH	S&P GSCI Reduced Energy Index [Cpw2] Excess Retu
+SGQI	S&P GSCI Reduced Energy Index [Cpw2] Total Retur
+SGQJ	S&P GSCI Petroleumex Gasoil Index Excess Return
+SGRC	S&P GSCI All Metals Capped Commodity 35/20 Eur I
+SGRE	S&P GSCI All Metals Capped Commodity 35/20 Eur I
+SGRG	S&P GSCI Agriculture Capped Index Excess Return
+SGRM	Cohen & Steers Global Realty Majors Portfolio [T
+SGRT	S&P GSCI Agriculture Capped Component 35/20 Eur
+SGSA	S&P GSCI Silver Index
+SGSB	S&P GSCI Silver Index Excess Return
+SGSC	S&P GSCI Silver Index Total Return
+SGSD	S&P GSCI Soybeans Index
+SGSE	S&P GSCI Excess Return
+SGSF	S&P GSCI Soybeans Index Excess Return
+SGSG	S&P GSCI Soybeans Index Total Return
+SGSH	S&P GSCI Sugar Index
+SGSJ	S&P GSCI Sugar Index Excess Return
+SGSK	S&P GSCI Sugar Index Total Return
+SGSM	S&P GSCI Ultra-Light Energy Index [Cpw8] Excess
+SGSN	S&P GSCI Ultra-Light Energy Index [Cpw8] Total R
+SGSO	S&P GSCI Unleaded Gasoline Index
+SGSP	S&P GSCI Unleaded Gasoline Index Excess Return
+SGSQ	S&P GSCI Unleaded Gasoline Index Total Return
+SGSR	S&P GSCI Wheat Index
+SGSS	S&P GSCI Wheat Index Excess Return
+SGST	S&P GSCI Wheat Index Total Return
+SGSU	S&P GSCI Zinc Index
+SGSV	S&P GSCI Zinc Index Excess Return
+SGSW	S&P GSCI Zinc Index Total Return
+SGSX	S&P GSCI Ultra-Lightenergyindex [Cpw8]
+SGT	S&P GSCI Total Return
+SGTR	S&P GSCI All Metals Capped Index Total Return
+SGV	S&P GSCI Livestock
+SGWC	Credit Suisse Global Warming Price Index
+SGWE	Credit Suisse Global Warming Index Eur
+SGWM	Credit Suisse Global Warming Index
+SGWN	Sgi Global Wealth Effect [Nettr]
+SGWP	Sgi Global Wealth Effect
+SGWT	S&P GSCI Select Equal Weight Index Tr
+SGX	S&P GSCI FPI Index
+SGY	S&P GSCI Industrial Metals
+SHEP	Credit Suisse Hs60 Europe Index Powered By Holt
+SHEU	Hs60 Europe Index
+SHSB	Hs60 Index
+SHSD	Hs60-Euro Index
+SHTR	S&P 500 Healthcare Equipment & Services [Tr]
+SHUS	Hs60 US Index
+SIDO	S&P International Dividend Opportunities Index
+SIII	Indus India Index
+SIIN	S&P India Select Index
+SIIP	S&P Dffi Index Excess Return
+SIIS	S&P Dffi Index
+SIIT	S&P Dffi Index Total Return
+SIN	ISE Sindex Index
+SINE	S&P India 10 Index [Euro]
+SINU	S&P India 10 Index
+SIPR	Brics Nifty 50 Emerging Market Tradable Index Pr
+SIRI	S&P Indian Rupee Total Return
+SIRP	Cohen & Steers International Realty Majors Portf
+SIS	Semicond Idx
+SITR	S&P 500 Insurance [Tr]
+SIUT	S&P 500 2X Inverse Daily Index
+SIV	Cboe/Cbot Soybean Volatility Index
+SJPA	S&P Japan 500
+SJPB	S&P Japan Mid Cap 100
+SJPC	S&P Japan Small Cap 250 Index
+SJPD	S&P Topix Yen
+SJPE	S&P Jes100
+SJRI	S&P Japan Regional Index-Tokai
+SJTR	S&P 500 Semiconductors & Semiconductor Equipment
+SKTR	S&P 500 Materials [Tr]
+SLAC	S&P Lac40 [Us$] [Euro] [Nettr]
+SLCN	S&P US Carbon Efficient Index U.S. Carbci Index
+SLCT	S&P U.S. Carbon Efficient Index [Tr]
+SLCU	S&P U.S. Carbon Efficient Index [Nettr]
+SLEE	S&P GSCI Light Energy Eur Index
+SLER	S&P GSCI Light Energy Eur Index Er
+SLEW	S&P 600 Smallcap Equal Weighted Index
+SLPE	Global Listed Private Equity Index
+SLPX	Cushing 30 Mlp Index Usd Price Return
+SLQR	S&P  500 Low Quality Rankings
+SLRT	S&P GSCI Light Energy Eur Index Tr
+SLUN	S&P 500 2X Leverage Daily Index
+SLUT	S&P 500 Gold Hedged Index
+SLV	Silver Index
+SML	S&P Smallcap 600
+SMPR	Goldman Sachs Brics Nifty 50 Emerging Markets In
+SMRW	Revenue Shares Midcap Fund
+SMSS	Morgan Stanley Smart Money Equity Index [Tr]
+SMTI	Goldman Sachs Brics Nifty 50 Emerging Markets In
+SMTR	S&P GSCI All Metals Index Total Return
+SMXT	Dws Mega Trends Index [Nettrw/Fees]
+SNAC	Alpha Shares China All Cap Index
+SNCH	Next 11 Core 8 Index
+SNCT	Next 11 Core 8 Index [Tr]
+SNEI	S&P Global Nuclear Energy Index [Euro]
+SNER	S&P GSCI Non-Energy Eur Indexer
+SNEU	S&P Global Nuclear Energy Index
+SNNE	S&P Global Infrastructure Index [Euro] [Nettr]
+SNNT	S&P Global Infrastructure Index [Nettr]
+SNRE	S&P Global Natural Resources Index [Euro]
+SNRT	S&P GSCI Non-Energy Eur Index Tr
+SNRU	S&P Global Natural Resources Index
+SNTE	Next 11 Core 5 Index [Tr]
+SNUI	S&P GSCI Non-Energy Eur Index
+SNXR	S&P C.S. Ca-San Diego Home Price Index
+SOBC	Sgi-Orbeo Carbon Credit Index [Eur-Totalreturn]
+SOCC	Sgi-Orbeo Carbon Credit Index [Usd-Totalreturn]
+SOTR	S&P 500 Media [Tr]
+SOX	PHLX Semiconductor
+SP500	S&P 500 Index
+SPAA	Sgi Pan Africa Index [Nettr] Panri Indexet
+SPAB	Sgi Pan Africa Index [Euro] [Nettr]
+SPAC	Sgi Pan Africa Index
+SPAD	S&P GSCI Palladium Index
+SPEE	S&P Listed Private Equity Index [Euro]
+SPER	S&P GSCI Palladium Index Excess Return
+SPEY	S&P Listed Private Equity Index
+SPIN	S&P GSCI Platinum Index
+SPIR	S&P GSCI Platinum Index Excess Return
+SPLR	S&P GSCI Platinum Index Total Return
+SPPR	S&P International Preferred Stock Index
+SPRL	Sgi Premium List [Nettr]
+SPRT	S&P GSCI Palladium Index Total Return
+SPSU	S& P COMPOSITE 1500 IN DEX
+SPUS	S&P  Global Ex-U.S. Property [Us Dollar]
+SPX	S&P 500 Index
+SPXT	S&P 500 [Tr]
+SQTR	S&P 500 Software & Services [Tr]
+SRER	S&P Indian Rupee Price Return Index
+SRFF	Sgi Fed Funds Index
+SRIC	S&P Bric 40 Index [Nettr]
+SRIE	S&P Bric 40 Index [Euro] [Nettr]
+SRMP	Cohen & Steers US Realty Majors Portfolio [Tr]
+SRPR	S&P Global Reit [Usd]
+SRTR	S&P 500 Real Estate [Tr]
+SRUP	S&P 500 High Quality Rankings Index
+SRVA	Rogers Energy Producers Index [Euro]
+SRVB	Rogers Metals Producers Index [Euro]
+SRVC	Rogers Agricultural Producers Index [Euro]
+SRVD	Rogers Energy Producers Index
+SRVE	Rogers Metals Producers Index
+SRVF	Rogers Agricultural Producers Index
+SRVG	Rogers Producers Index
+SRVH	Rogers Producers US Extra Liquid Index
+SRVI	Rogers Producers Index [Euro]
+SRVJ	Rogers Producers US Extra Liquid Index [Euro]
+SRWI	Revenue Shares Large Cap Fund
+SS1E	S&P 500 Equal Weighted Materials [Sector]
+SS1J	S&P 500 Equal Weighted Energy [Sector]
+SS2E	S&P 500 Equal Weighted Consumer Discretionary [S
+SS2J	S&P 500 Equal Weighted Industrials [Sector]
+SS3E	S&P 500 Equal Weighted Healthcare [Sector]
+SS3J	S&P 500 Equal Weighted Consumer Staples [Sector]
+SS4E	S&P 500 Equal Weighted Information Technology [S
+SS4J	S&P 500 Equal Weighted Financials [Sector]
+SS5E	S&P 500 Equal Weighted Utilities [Sector]
+SS5J	S&P 500 Equal Weighted Telecommunication Service
+SSAE	S&P Southeast Asia 40 Index [Euro]
+SSAI	S&P Southeast Asia 40 Index [Euro] [Nettr]
+SSAU	S&P Southeast Asia 40 Index
+SSAX	S&P Asia50
+SSBE	S&P Bric 40 Index [Euro]
+SSBR	S&P Bric 40 Index
+SSCA	S&P Asia Pacific Emerging Bmi [Usdollar]
+SSCB	S&P Mid-East And Africa Bmi [Usdollar]
+SSCE	S&P /Citigroup Bmi Epac Index
+SSCH	S&P China Bmi [Usdollar]
+SSCK	S&P Em Bmi [Usdollar]
+SSCL	S&P Latin America Bmi [Usdollar]
+SSCM	Schwab 1000 Index
+SSCP	S&P /Citigroup Bmi Asia Pacific Index
+SSCQ	S&P European Emerging Bmi [Capped] [Usdollar]
+SSCS	S&P Developed Ex US Under Usd 2 Billion [Usdolla
+SSCU	S&P /Citigroup Bmi Europe Index
+SSCW	S&P Developed Ex-U.S.Bmi [Usdollar]
+SSDI	S&P 500 Dividend Index
+SSEC	Shanghai Composite
+SSEN	Sgi Global Senior [Nettr]
+SSER	Spectrum-Long/Short 8% Index Er [Newva]
+SSEW	S&P GSCI Select Equal Weight Index Spot
+SSFA	Credit Suisse Family Index
+SSFB	Sgi Double Short Bund Index
+SSFE	Credit Suisse Family Index [Eur] [Price Return]
+SSFP	Credit Suisse Family Index [Usd] [Price Return]
+SSFT	Credit Suisse Family Index [Chf] [Price Return]
+SSFU	Credit Suisse Family Index Eur
+SSGA	Sgi Global Agriculture
+SSGC	S&P GSCI Enhanced Capped Index
+SSGD	S&P Global1200-Consumer Discretionary [Sector]
+SSGE	S&P Global1200-Energy [Sector]
+SSGF	S&P Global1200-Financials [Sector]
+SSGG	Sgi Global Generics Index [Euro] [Nettr]
+SSGH	S&P Global1200-Healthcare [Sector]
+SSGI	S&P Global1200-Information Technology [Sector]
+SSGL	S&P Global1200
+SSGM	S&P Global1200-Materials [Sector]
+SSGN	S&P Global1200-Industrials [Sector]
+SSGO	S&P GSCI E27 WTI Index
+SSGP	S&P GSCI Enhanced Capped Index Excess Return
+SSGR	S&P GSCI Enhanced Capped Index Total Return
+SSGS	S&P Global1200-Consumer Staples [Sector]
+SSGT	S&P Global1200-Telecommunication Services [Secto
+SSGU	S&P Global1200-Utilities [Sector]
+SSGX	S&P GSCI E27Wti Index Excess Return
+SSGZ	S&P GSCI E27Wti Index Total Return
+SSHE	S&P Europe 350 Shariah Index
+SSHF	Credit Suisse Family Index Chf
+SSHJ	S&P Japan 500 Shariah Index
+SSHX	S&P 500 Shariah Index
+SSIA	Credit Suisse Social Awareness Index
+SSIB	S&P GSCI Softs Index Excess Return
+SSIC	S&P GSCI Softs Index Total Return
+SSIP	S&P Dfi Index Excess Return
+SSIS	S&P Dfi Index
+SSIT	S&P Dfi Index Total Return
+SSLF	S&P Select Frontier Index
+SSLS	S&P Custom/Bnp Paribas-Spectrum [Griptest]
+SSMI	Swiss Market
+SSNI	Sgi Global Nanotechnology Index [Nettr]
+SSPA	S&P Adr Index
+SSPE	S&P Europe 350
+SSPF	S&P Europe 350 - Financials [Sector]
+SSPI	S&P Europe 350 - Information Technology [Sector]
+SSPL	S&P 500Telecom&It
+SSPN	S&P 500Energy[Sector]
+SSPT	S&P Europe 350 - Telecommunication Services [Sec
+SSPU	S&P Euro
+SSRF	S&P Preferred Stock Index
+SSRW	Revenue Shares Small Cap Fund
+SSTR	Spectrum-Long/Short 8% Index Tr [Newva]
+SSTU	S&P 500 Equal Weighted Utilities & Telecommunica
+SSUC	S&P GSCI Capped Component 35/20 Index
+SSUP	S&P GSCI Capped Component 35/20 Index Excess Ret
+SSUT	S&P GSCI Capped Component 35/20 Index Total Retu
+SSWP	S&P GSCI Select Equal Weight Index Er
+SSWT	Credit Suisse Water Index
+SSXP	Credit Suisse Social Awareness Index [Price]
+SSXT	Dws Swi X Index [Nettrw/Fees]
+STCE	S&P Global Clean Energy Index [Euro]
+STCL	S&P Global Clean Energy Index
+STDA	S&P Target Date Retirement Income Index
+STDB	S&P Target Date 2010 Index
+STDC	S&P Target Date 2015 Index
+STDD	S&P Target Date 2020 Index
+STDE	S&P Target Date 2025 Index
+STDF	S&P Target Date 2030 Index
+STDG	S&P Target Date 2035 Index
+STDH	S&P Target Date 2040 Index
+STDI	S&P Target Date 2045 Index
+STFE	S&P Global Timber And Forestry Index [Euro]
+STFU	S&P Global Timber And Forestry Index
+STI	STI Index
+STIC	S&P Cti Total Return Usd
+STIF	S&P Global Infrastructure Index [Euro]
+STIL	Sgi Smart WTI Long Invest Index [Newva]
+STIR	S&P Global Infrastructure Index
+STIS	S&P Commodity Trends Indicator
+STMP	Tortoise Mlp Index
+STNC	Tsx American Preferred Stock Index
+STNU	S&P/Tsx North American Pref Stock Index
+STOXX	DJ Stoxx 50 Index Euro
+STRA	S&P Target Risk Aggressive Index
+STRB	S&P Target Risk Moderate Index
+STRC	S&P Target Risk Growth Index
+STRD	S&P Target Risk Conservative Index
+STRL	S&P Lac40 [Us$] [Nettr]
+STRN	S&P 500 [Nettr]
+STRP	Credit Suisse Water Index [Usd] Price
+STRS	S&P 500 Tr Short
+STRT	S&P 500 Telecommunication Services [Tr]
+STRU	S&P 500 Household & Personal Products [Tr]
+STSI	Sgi Smart WTI Short Invest Index [Newva]
+STSU	S&P Top Ix150 Shariah [Usd]
+STSY	S&P Top Ix150 Shariah
+STTR	S&P 500 Technology Hardware & Equipment [Tr]
+SUCD	S&P Select Sector Capped 20% Consumer Discretion
+SUCS	S&P Select Sector Capped 20% Consumer Staples In
+SUEP	S&P Select Sector Capped 20% Energy Index Net Tr
+SUFP	S&P Select Sector Capped 20% Financials Index Ne
+SUHC	S&P Select Sector Capped 20% Healthcare Index Ne
+SUIP	S&P Select Sector Capped 20% Industrials Index N
+SUJP	S&P Mitsubishi Corporate Group Index
+SUKP	S&P United Kingdom [Pds]
+SUKS	S&P United Kingdom [Usd]
+SUMI	S&P Select Sector Capped 20% Materials Index Net
+SUNI	Mac Global Solar Energy Index Tr
+SUPI	S&P Select Sector Capped 20% Utilities Index Net
+SURI	S&P /Citigroup Bmi Reit Sus Index
+SUTP	S&P Select Sector Capped 20% Technology Index Ne
+SVO	Sig Energy Mlp Index
+SVTR	Next 11 Vietnam [Totalreturn] Index
+SW0B	S&P Developed Ex-U.S.Bmi [Capped] Energy
+SW0C	S&P Developed Ex-U.S.Bmi [Capped] Materials
+SW0D	S&P Developed Ex-U.S.Bmi [Capped] Industrials
+SW0E	S&P Developed Ex-U.S.Bmi [Capped] Consumer Discr
+SW0F	S&P Developed Ex-U.S.Bmi [Capped] Consumer Stapl
+SW0G	S&P Developed Ex-U.S.Bmi [Capped] Healthcare
+SW0H	S&P Developed Ex-U.S.Bmi [Capped] Financials
+SW0I	S&P Developed Ex-U.S.Bmi [Capped] Information Te
+SW1A	S&P Developed Ex-U.S.Bmi [Capped] Utilities
+SW1B	S&P Developed Ex-U.S.Cap Range Companies Between
+SW1C	S&P Emerging Under Usd 2 Billion
+SW1J	S&P Developed Ex-U.S.Bmi [Capped] Telecommunicat
+SWCH	Credit Suisse Water Index  [Chf]
+SWDI	Vtl Navellier Revenue Weighted Index
+SWDR	Vtl Revenue Weighted Adr Index
+SWET	Credit Suisse Water Index [Euro]
+SWFI	Revenue Shares Large Cap Fund Financials [Sector
+SWIB	Sgi Wise Bottom
+SWIT	Sgi Wise Top
+SWML	Wachovia Mlp Index
+SWSP	S&P World Commodity Index
+SWTE	Wisdom Tree Earnings 500 Index
+SWTM	Wisdom Tree Mid Cap Earnings Index
+SWTS	Wisdom Tree Small Cap Earnings Index
+SWTT	Wisdom Tree Earnings Index
+SWTV	Wisdom Tree Large Cap Value Index
+SWUB	Sgi Wise US Bottom
+SWUL	Sgi Wise US Long/Short [Newva]
+SWUT	Sgi Wise US Top
+SXTR	S&P 500 Utilities [Industry Group] [Tr]
+SYTR	S&P 500 Transportation [Industry Group] [Tr]
+SZTR	S&P 500 Retailing [Industry Group] [Tr]
+TA25	Tel Aviv 25 Index
+TACK	AMEX Tick
+TACX	AMEX Tick
+TASI	Tadawul All Shares Index
+TBO	AMEX Tobacco Index Settlement
+TCFI	TSX Comp Stocks Above 50-Day Average
+TCOF	TSX Comp Stocks Above 150-Day Average
+TCOH	TSX Comp Stocks Above 100-Day Average
+TCTH	TSX Comp Stocks Above 200-Day Average
+TCTW	TSX Comp Stocks Above 20-Day Average
+TICK	NYSE Tick
+TICX	NYSE Tick
+TIKI	DOW Tick
+TIKX	DOW Tick
+TNX	10-Year Treasury Note
+TOB	Tobacco Index
+TOOC	Tsx Capped Composite Index
+TPXR	S&P C.S. Fl-Tampa Home Price Index
+TQCK	NASD Tick
+TQCX	NASD Tick
+TRA	Nasdaq Transportation
+TRCCI	CRB Commodity Continuous Index
+TRIA	AMEX Trin
+TRIN	NYSE Trin
+TRIQ	NASD Trin
+TSFI	TSX 60 Stocks Above 50-Day Average
+TSOF	TSX 60 Stocks Above 150-Day Average
+TSOH	TSX 60 Stocks Above 100-Day Average
+TSTH	TSX 60 Stocks Above 200-Day Average
+TSTW	TSX 60 Stocks Above 20-Day Average
+TSX	Tsx Composite Index
+TTCD	Tsx Consumer Discretionary Capped Index
+TTCS	Tsx Consumer Staples Capped Index
+TTEN	Tsx Capped Energy Index
+TTFS	Tsx Financials Capped Index
+TTGD	Tsx Global Gold Index
+TTHC	Tsx Health Care Capped Index
+TTIN	Tsx Industrials Capped Index
+TTMN	Tsx Metals And Mining Capped Index
+TTMT	Tsx Materials Capped Index
+TTRE	Tsx Real Estate Capped Index
+TTTK	Tsx Information Tech Capped Index
+TTTS	Tsx Telecom Services Capped Index
+TTUT	Tsx Utilities Capped Index
+TVFI	TSX Venture Stocks Above 50-Day Average
+TVOF	TSX Venture Stocks Above 150-Day Average
+TVOH	TSX Venture Stocks Above 100-Day Average
+TVTH	TSX Venture Stocks Above 200-Day Average
+TVTW	TSX Venture Stocks Above 20-Day Average
+TWII	Taiwan Weighted Index
+TXBE	Tsx Global Base Metals Ew Index
+TXBM	Tsx Global Base Metals Index
+TXCT	Tsx Clean Technology Index
+TXDC	Tsx Composite Dividend Index
+TXDE	Tsx Diversified Banks Ew Index
+TXDV	Tsx Canadian Dividend Aristocrats Index
+TXEI	Tsx Equity Income Index
+TXEW	Tsx 60 Equal Weight Index
+TXFO	Tsx Completion Index
+TXGM	Tsx Global Mining Index
+TXOE	Tsx Oil And Gas Ew Index
+TXPR	Tsx Preferred Share Index
+TXSC	Tsx 60 Capped Index
+TXSI	Tsx 60 Shariah Index
+TXSX	Tsx 60 Index
+TXTW	Tsx Smallcap Index
+TYX	30-Year Treasury Bond
+UNCA	AMEX Unchanged Stocks
+UNCD	OTC Unchanged Stocks
+UNCE	ETFS  Unchanged Stocks
+UNCN	NYSE Unchanged Stocks
+UNCQ	NASD Unchanged Stocks
+UNCS	TSX Unchanged Stocks
+UNCT	Total Unchanged Stocks
+UNCV	Tsxv Unchanged Stocks
+UNCX	CAD Total Unchanged Stocks
+UOI	US Oil Iopv
+UTY	Phlx Utility Index
+UVCA	AMEX Unchanged Volume
+UVCD	OTC Unchanged Volume
+UVCE	ETFS  Unchanged Volume
+UVCN	NYSE Unchanged Volume
+UVCQ	NASD Unchanged Volume
+UVCS	TSX Unchanged Volume
+UVCT	Total Unchanged Volume
+UVCV	Tsxv Unchanged Volume
+UVCX	CAD Total Unchanged Volume
+VFTSE	FTSE Volatility Index
+VFWA	Vol Index First Forward Implied Volatility
+VFWB	Vol Index Second Forward Implied Volatility
+VFY	Mini Biotechnology Index
+VGH	Mini Pharmaceutical Index
+VIO	CBOE Oil Index Reduced Leap
+VIX	CBOE Volatility Index
+VJW	Mini Securities Broker Dealer In
+VLA	Value Line Index
+VLG	Value Line Geometric
+VVOL	Vol Index Average Forward Implied Volatility
+VWA	Spx Ask - Market Volatility
+VWB	Spx Bid - Market Volatility
+VXB	Jumbo CBOE Volatility
+VXD	DJIA Volatility
+VXDE	Dec CBOE Volatility
+VXJU	Jun CBOE Volatility
+VXMA	Mar CBOE Volatility
+VXN	Nasdaq 100 Volatility
+VXO	S&P 100 Volatility
+VXSE	Sep CBOE Volatility
+VXV	S&P 500 3M Volatility
+WDXR	S&P C.S. Dc-Washington Home Price Index
+WIV	Cboe/Cbot Wheat Volatility Index
+WIX	Cboe/Cbot Wheat Volatility Index
+WMX	ISE Walmart Suplr Index
+XAL	Airline Index
+XAO	XAO All Ordinaries
+XAU	Phlx Gold/Silver Index
+XAX	AMEX Composite
+XBD	Sec Broker Dealr
+XBEL	Brussels BEL 20
+XBS	AMEX Securities Broker/Dealer I
+XCI	Computer Tech
+XEO	S&P 100 Index European Style
+XFI	Financial Ndx
+XHL	Healthcare Ndx
+XIBX	IBEX 35
+XID	Industrial Ndx
+XII	Institutionl Ndx
+XIT	Info Tech Ndx
+XJO	S&P/ASX 200
+XMI	Major Market Index
+XNA	Nat Resource Ndx
+XNG	Natural Gas
+XOI	Oil Index
+XSP	S& P 500 MINI-SPX OPTIO    IND
+XSV	AMEX Institutional Index Open S
+XTC	N.A. Telecom Ndx
+XTV	North American Telecommunicatio
+XU100	Borsa Istanbul 100 Index
+ZAX	Zacks Micro Cap Index
+ZOC	CBOE Technology Index Reduced Leap
