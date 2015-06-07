@@ -15,7 +15,7 @@ import urllib
 import BeautifulSoup
 import re
 import dictionary_ids
-import trading_data_management
+import trading_data_manager
 
 
 

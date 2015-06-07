@@ -1,7 +1,7 @@
 __author__ = 'qingluo'
 
 import wiki_data_loader
-import trading_data_management
+import trading_data_manager
 import datetime
 import trading_data_utility
 import trading_date_utility

@@ -13,7 +13,7 @@ import urllib
 import BeautifulSoup
 import re
 import dictionary_ids
-import trading_data_management
+import trading_data_manager
 import trading_date_utility
 import wiki_data_loader
 
