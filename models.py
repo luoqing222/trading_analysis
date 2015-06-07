@@ -9,11 +9,12 @@ from peewee import *
 
 Config = configparser.ConfigParser()
 Config.read("database_setting.ini")
+host = Config.get("database","host")
 database = Config.get("database", "database")
 user = Config.get("database", "user")
 password = Config.get("database", "passwd")
 
-db = MySQLDatabase(database, user=user, passwd=password)
+db = MySQLDatabase(host=host, database=database, user=user, passwd=password)
 
 
 class HolidayCalendar(peewee.Model):
@@ -34,6 +35,37 @@ class Sp500Symbol(peewee.Model):
 
     class Meta:
         database = db
+
+#correpond to table NYSEList in the database
+class NYSEList(peewee.Model):
+    symbol=peewee.CharField()
+    last_update_date=peewee.DateField()
+    description=peewee.CharField()
+
+    class Meta:
+        database = db
+        primary_key = CompositeKey('last_update_date', 'symbol')
+
+#correponds to table NasdaqList in the database
+class NasdaqList(peewee.Model):
+    symbol=peewee.CharField()
+    last_update_date=peewee.DateField()
+    description=peewee.CharField()
+
+    class Meta:
+        database = db
+        primary_key = CompositeKey('last_update_date', 'symbol')
+
+
+#correspond to table IndexList in the database
+class IndexList(peewee.Model):
+    symbol=peewee.CharField()
+    last_update_date=peewee.DateField()
+    description=peewee.CharField()
+
+    class Meta:
+        database = db
+        primary_key = CompositeKey('last_update_date', 'symbol')
 
 
 # this table save the time series of sp500 list
