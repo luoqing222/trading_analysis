@@ -8,7 +8,7 @@ import sets
 import pandas as pd
 from datetime import timedelta
 import peewee
-
+import re
 
 # this class is used for the simple data utility functionality
 #such as delete, update data tables
@@ -113,6 +113,47 @@ class TradingDataUtility:
     @staticmethod
     def create_strong_stock_table():
         models.db.create_table(models.StrongStock)
+
+
+#function to manage the NYSEList table
+#input
+    def populate_NYSEList(self,file_name, update_date):
+        models.db.connect()
+        if not models.NYSEList.table_exists():
+            models.db.create_table(models.NYSEList)
+
+        with open(file_name,"r") as f:
+            next(f)
+            for line in f:
+                [symbol, description] = re.split(r'\t', line, maxsplit=2)
+                description = description[:-1]
+                models.NYSEList.create(last_update_date=update_date, symbol= symbol, description=description)
+
+#function to manage the NasdaqList table
+    def populate_NasdaqList(self, file_name, update_date):
+        models.db.connect()
+        if not models.NasdaqList.table_exists():
+            models.db.create_table(models.NasdaqList)
+
+        with open(file_name,"r") as f:
+            next(f)
+            for line in f:
+                [symbol, description] = re.split(r'\t', line, maxsplit=2)
+                description = description[:-1]
+                models.NasdaqList.create(last_update_date=update_date, symbol= symbol, description=description)
+
+#function to manage the IndexList table
+    def populate_IndexList(self, file_name, update_date):
+        models.db.connect()
+        if not models.IndexList.table_exists():
+            models.db.create_table(models.IndexList)
+
+        with open(file_name,"r") as f:
+            next(f)
+            for line in f:
+                [symbol, description] = re.split(r'\t', line, maxsplit=2)
+                description = description[:-1]
+                models.IndexList.create(last_update_date=update_date, symbol= symbol, description=description)
 
 
 

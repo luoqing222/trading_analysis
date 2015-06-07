@@ -36,6 +36,24 @@ class TradingDataManager:
             self.data_utility.add_symbol(date,symbol)
 
 
+    #function to populate the NYSEList table
+    def populate_NYSEList(self, file_name, date):
+        self.data_utility.populate_NYSEList(file_name,date)
+
+    def populate_NasdaqList(self, file_name, date):
+        self.data_utility.populate_NasdaqList(file_name,date)
+
+    def populate_IndexList(self, file_name, date):
+        self.data_utility.populate_IndexList(file_name,date)
+
+
+
+
+
+
+
+
+
 
 
 
