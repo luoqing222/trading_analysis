@@ -5,6 +5,7 @@ import datetime
 import re
 import os
 from ftplib import FTP
+import shutil
 
 class EodDataDataManager:
     def __init__(self):
@@ -31,7 +32,7 @@ class EodDataDataManager:
         return [underlying_stock,expiration_date,option_type,strike_price]
 
 
-    #this function conver the eod option data .txt format into .csv format
+    #this function convert the eod option data .txt format into .csv format
     def option_txt_to_csv(self, src_folder, src_file, des_folder, des_file):
         src_file_name = src_folder + "/" + src_file
         des_file_name = des_folder + "/" + des_file
@@ -54,6 +55,17 @@ class EodDataDataManager:
                     strike_price = str(int(temp[3]))
                     output.write(underlying_stock + "," + expiration_date + "," + option_type+"," + strike_price+",")
                     output.write(date+ "," + open_price + "," + high + "," + low + "," + close + "," + volume + "," + open_interest)
+
+    #this function to copy the equity data .txt format into .csv format
+    def copy_txt_to_csv(self,src_folder, src_file, des_folder, des_file):
+        src_file_name = src_folder + "/" + src_file
+        des_file_name = des_folder + "/" + des_file
+        #if the file doesn't exist
+        if not os.path.exists(src_file_name):
+            print src_file_name + " does not exists at all!"
+            return
+
+        shutil.copyfile(src_file_name, des_file_name)
 
     def daily_run(self):
         Config = configparser.ConfigParser()
@@ -98,5 +110,8 @@ class EodDataDataManager:
             os.makedirs(des_folder)
 
         self.option_txt_to_csv(src_folder,"OPRA_"+running_time+".txt",des_folder, "OPRA_"+running_time+".csv")
+        self.copy_txt_to_csv(src_folder,"NYSE_"+running_time+".txt",des_folder, "NYSE_"+running_time+".csv")
+        self.copy_txt_to_csv(src_folder,"NASDAQ_"+running_time+".txt",des_folder, "NASDAQ_"+running_time+".csv")
+
 
 
