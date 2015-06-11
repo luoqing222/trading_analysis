@@ -294,8 +294,8 @@ if __name__ == "__main__":
     data_analyser.calculate_daily_rsq(symbol_list,index_list, None, 30, file_name)
     db.close()
 
-    #mail_list=["luoqing222@gmail.com", "fanlinzhu@yahoo.com"]
-    mail_list=["luoqing222@gmail.com"]
+    mail_list=["luoqing222@gmail.com", "fanlinzhu@yahoo.com"]
+    #mail_list=["luoqing222@gmail.com"]
     send_email(file_name, mail_list)
 
 
