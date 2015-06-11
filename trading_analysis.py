@@ -19,15 +19,16 @@ import trading_data_manager
 
 
 
-def send_email(file_name):
+def send_email(file_name,mail_list):
     gm = emailprocessing.Gmail('raki1978wmc6731@gmail.com', 'Fapkc1897Fapkc')
 
     subject = "analysis report on " + datetime.datetime.now().strftime('%m_%d_%Y')
     message = "This is a test message"
-    to = "luoqing222@gmail.com"
+    #to = "luoqing222@gmail.com"
 
     # gm.send_message(subject, message, 'luoqing222@gmail.com')
-    gm.send_text_attachment(subject, to, file_name)
+    for to in mail_list:
+        gm.send_text_attachment(subject, to, file_name)
 
 
 def send_email2():
@@ -292,7 +293,11 @@ if __name__ == "__main__":
     file_name = "sp500_daily_rsq_"+datetime.datetime.now().strftime('%m_%d_%Y')+".csv"
     data_analyser.calculate_daily_rsq(symbol_list,index_list, None, 30, file_name)
     db.close()
-    send_email(file_name)
+
+    mail_list=["luoqing222@gmail.com", "fanlinzhu@yahoo.com"]
+    send_email(file_name, mail_list)
+
+
 
 
 
