@@ -23,10 +23,17 @@ class YahooOptionDataManager:
         cursor = db.cursor()
 
         #find the mapping between symbol and adjust_close price
-        sql_statement = "select DISTINCT symbol from sp500list"
+        #sql_statement = "select DISTINCT symbol from sp500list"
+        sql_statement = "select DISTINCT symbol from nyselist"
         cursor.execute(sql_statement)
         rows = cursor.fetchall()
         result=[row[0] for row in rows]
+
+        sql_statement = "select DISTINCT symbol from nasdaqlist"
+        cursor.execute(sql_statement)
+        rows = cursor.fetchall()
+        for row in rows:
+            result.append(row[0])
 
         sql_statement = "select DISTINCT symbol from indexsymbol"
         cursor.execute(sql_statement)
@@ -35,7 +42,7 @@ class YahooOptionDataManager:
             result.append(row[0])
         db.close()
 
-        #print result
+        result=list(set(result))
         return result
 
 
