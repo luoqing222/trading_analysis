@@ -16,6 +16,9 @@ import BeautifulSoup
 import re
 import dictionary_ids
 import trading_data_manager
+import eoddata_data_manager
+import yahoo_option_data_manager
+import time
 
 
 
@@ -297,6 +300,18 @@ if __name__ == "__main__":
     mail_list=["luoqing222@gmail.com", "fanlinzhu@yahoo.com"]
     #mail_list=["luoqing222@gmail.com"]
     send_email(file_name, mail_list)
+
+    #mail_list=["luosqing222@gmail.com"]
+    #file_name= "eod_daily_dowload_"
+    #eod_data_manager=eoddata_data_manager.EodDataDataManager()
+    #eod_data_manager.daily_run()
+
+    start_time = time.time()
+
+    option_data_manager=yahoo_option_data_manager.YahooOptionDataManager()
+    option_data_manager.daily_run()
+
+    print("--- %s seconds ---" % (time.time() - start_time))
 
 
 
