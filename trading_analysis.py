@@ -251,6 +251,8 @@ def get_average_daily_return(symbol, start_date, end_date):
 
 
 if __name__ == "__main__":
+    if not is_trading_day(datetime.datetime.now(), "US"):
+        sys.exit(0)
 
     initialize_holiday_table()
     initialize_index_fund_table()
@@ -298,7 +300,6 @@ if __name__ == "__main__":
     db.close()
 
     mail_list=["luoqing222@gmail.com", "fanlinzhu@yahoo.com"]
-    #mail_list=["luoqing222@gmail.com"]
     send_email(file_name, mail_list)
 
     #mail_list=["luosqing222@gmail.com"]
