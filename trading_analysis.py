@@ -247,8 +247,8 @@ if __name__ == "__main__":
     update_sp500list_table(data_manager, current_date)
 
     # check if the day that is not trading day, stop running
-    #if not is_trading_day(datetime.datetime.now(), "US"):
-    #    sys.exit(0)
+    if not is_trading_day(datetime.datetime.now(), "US"):
+        sys.exit(0)
 
     initialize_holiday_table()
     initialize_index_fund_table()
@@ -299,33 +299,33 @@ if __name__ == "__main__":
     data_analyser.calculate_daily_rsq(symbol_list, index_list, None, 30, message_folder + "/" + file_name)
     db.close()
 
-    #mail_list = ["luoqing222@gmail.com", "fanlinzhu@yahoo.com"]
-    mail_list = ["luoqing222@gmail.com"]
+    mail_list = ["luoqing222@gmail.com", "fanlinzhu@yahoo.com"]
+    #mail_list = ["luoqing222@gmail.com"]
     send_email(file_name, mail_list, message_folder)
 
     # function to collect the end of day NYSE, Dasdaq and option data
     # data is saved in the data_folder defined in option_data_management_setting.ini
-    mail_list = ["luosqing222@gmail.com"]
+    mail_list = ["luoqing222@gmail.com"]
     file_name = "eod_data_download_" + datetime.datetime.now().strftime('%m_%d_%Y') + ".csv"
     file_stream = open(message_folder + "/" + file_name, "w")
     file_stream.write("begin downloading eod data")
     try:
         eod_data_manager = eoddata_data_manager.EodDataDataManager()
-        #eod_data_manager.daily_run()
+        eod_data_manager.daily_run()
     except Exception, e:
         file_stream.write(str(e))
     file_stream.close()
     send_email(file_name,mail_list, message_folder)
 
     #function to download the yahoo option data
-    mail_list = ["luosqing222@gmail.com"]
+    mail_list = ["luoqing222@gmail.com"]
     file_name = "yahoo_option_data_download_" + datetime.datetime.now().strftime('%m_%d_%Y') + ".csv"
     file_stream = open(message_folder + "/" + file_name, "w")
     file_stream.write("begin download yahoo option data")
     start_time = time.time()
     try:
         option_data_manager = yahoo_option_data_manager.YahooOptionDataManager()
-        #option_data_manager.daily_run()
+        option_data_manager.daily_run()
     except Exception, e:
         file_stream.write(str(e))
     file_stream.close()

@@ -31,7 +31,10 @@ class YahooOptionDataLoader:
                         output_file.write(expire_date + ",")
                         cols = row.findAll("td")
                         for col in cols:
-                            output_file.write(col.text.strip() + ",")
+                            temp = col.text.strip()
+                            if ',' in temp:
+                                temp = temp.replace(',','')
+                            output_file.write(temp + ",")
                         output_file.write("\n")
         except:
             pass
