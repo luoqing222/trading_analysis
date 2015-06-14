@@ -253,7 +253,6 @@ if __name__ == "__main__":
 
     initialize_holiday_table()
     initialize_index_fund_table()
-    update_sp500list_table()
     initialize_historical_price_table()
 
 
