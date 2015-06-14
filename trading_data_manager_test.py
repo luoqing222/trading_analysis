@@ -11,8 +11,10 @@ if __name__ == "__main__":
     current_date=datetime.datetime.now().date()
     data_manager=trading_data_manager.TradingDataManager()
 
-    for symbol in data_manager.updateSp500(current_date):
-        print symbol, "has been removed from S&P"
+    delist = data_manager.updateSp500(current_date)
+    if delist is not None:
+        for symbol in delist:
+            print symbol, "has been removed from S&P"
 
     # file_name=os.path.dirname(__file__)+"/data/NASDAQ.txt"
     # data_manager.populate_NasdaqList(file_name,current_date)
