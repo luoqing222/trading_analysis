@@ -45,9 +45,6 @@ class YahooOptionDataManager:
         result=list(set(result))
         return result
 
-
-        #return ["FB","MMM","MCO","BF-B","O"]
-
     def get_file_name(self,running_time):
         return "yahoo_option_"+running_time.strftime("%Y_%m_%d")+".csv"
 
@@ -63,7 +60,6 @@ class YahooOptionDataManager:
         symbol_list = self.get_symbol_list(Config)
         for symbol in symbol_list:
             self.data_loader.web_crawler(symbol,temp_data_file)
-            #time.sleep(10)
         temp_data_file.close()
 
     def add_date_column_to_temp_data_file(self,Config,running_time):

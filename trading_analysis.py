@@ -17,15 +17,16 @@ import trading_data_manager
 import eoddata_data_manager
 import yahoo_option_data_manager
 import time
+import os
 
 
-
-def send_email(file_name,mail_list):
+def send_email(file_name, mail_list):
     gm = emailprocessing.Gmail('raki1978wmc6731@gmail.com', 'Fapkc1897Fapkc')
 
-    subject = "analysis report on " + datetime.datetime.now().strftime('%m_%d_%Y')
+    #subject = "analysis report on " + datetime.datetime.now().strftime('%m_%d_%Y')
+    subject = file_name
     message = "This is a test message"
-    #to = "luoqing222@gmail.com"
+    # to = "luoqing222@gmail.com"
 
     # gm.send_message(subject, message, 'luoqing222@gmail.com')
     for to in mail_list:
@@ -193,13 +194,11 @@ def initialize_index_fund_table():
         models.IndexSymbol.create(symbol='spy', name='SPDR S&P 500 ETF')
         models.IndexSymbol.create(symbol='voo', name='Vanguard S&P 500 ETF')
 
+
 def initialize_historical_price_table():
     models.db.connect()
     if not models.HistoricalPrice.table_exists():
         models.db.create_table(models.HistoricalPrice)
-
-
-
 
 
 def get_daily_returns(symbol, dates):
@@ -213,7 +212,7 @@ def get_daily_returns(symbol, dates):
             prev_date = next_business_day(date, "US", -1)
             prev_record = models.HistoricalPrice.select().where((models.HistoricalPrice.symbol == symbol)
                                                                 & (
-                models.HistoricalPrice.transaction_date == prev_date))
+                                                                    models.HistoricalPrice.transaction_date == prev_date))
             if prev_record.count() != 0:
                 ticker = dictionary_ids.DailyTickerID(symbol, date)
                 daily_return_table[ticker] = data_record[0].adjust_close / prev_record[0].adjust_close - 1.0
@@ -233,6 +232,7 @@ def get_average_daily_return(symbol, start_date, end_date):
     result[symbol] = sum(daily_return_table.values()) / len(daily_return_table)
     return result
 
+
 def update_sp500list_table(data_manager, current_date):
     de_list = data_manager.updateSp500(current_date)
     if de_list is not None:
@@ -240,14 +240,15 @@ def update_sp500list_table(data_manager, current_date):
             print s, "has been removed from S&P"
     return
 
+
 if __name__ == "__main__":
-    data_manager=trading_data_manager.TradingDataManager()
-    current_date=datetime.datetime.now().date()
+    data_manager = trading_data_manager.TradingDataManager()
+    current_date = datetime.datetime.now().date()
     update_sp500list_table(data_manager, current_date)
 
-    #check if the day that is not trading day, stop running
-    if not is_trading_day(datetime.datetime.now(), "US"):
-        sys.exit(0)
+    # check if the day that is not trading day, stop running
+    #if not is_trading_day(datetime.datetime.now(), "US"):
+    #    sys.exit(0)
 
     initialize_holiday_table()
     initialize_index_fund_table()
@@ -271,45 +272,63 @@ if __name__ == "__main__":
         SP500_recent_date = item.recent_date
 
     # item in the query is latest sp500 tick
-    symbol_list= []
+    symbol_list = []
     query = models.Sp500List.select().where(models.Sp500List.save_date == SP500_recent_date)
     for item in query:
         symbol = item.symbol
         save_trading_data(symbol, symbol_most_recent_date)
         symbol_list.append(symbol)
 
-    #do the same thing for index fund
+    # do the same thing for index fund
     query = models.IndexSymbol.select()
-    index_list= []
+    index_list = []
     for item in query:
         symbol = item.symbol
         save_trading_data(symbol, symbol_most_recent_date)
         index_list.append(symbol)
 
+    # make the directory for the messages to monitor
+    current_folder = os.getcwd()
+    message_folder = current_folder + "/" + "messages"
+    if not os.path.exists(message_folder):
+        os.makedirs(message_folder)
 
-    db = MySQLdb.connect(host="localhost",db=models.database, user=models.user, passwd=models.password)
+    db = MySQLdb.connect(host="localhost", db=models.database, user=models.user, passwd=models.password)
     data_analyser = yahoo_data_analyser.YahooEquityDataAnalyser(db)
-    file_name = "sp500_daily_rsq_"+datetime.datetime.now().strftime('%m_%d_%Y')+".csv"
-    data_analyser.calculate_daily_rsq(symbol_list,index_list, None, 30, file_name)
+    file_name = message_folder + "/" + "sp500_daily_rsq_" + datetime.datetime.now().strftime('%m_%d_%Y') + ".csv"
+    data_analyser.calculate_daily_rsq(symbol_list, index_list, None, 30, file_name)
     db.close()
 
-    mail_list=["luoqing222@gmail.com", "fanlinzhu@yahoo.com"]
+    #mail_list = ["luoqing222@gmail.com", "fanlinzhu@yahoo.com"]
+    mail_list = ["luoqing222@gmail.com"]
     send_email(file_name, mail_list)
 
-    #mail_list=["luosqing222@gmail.com"]
+    # function to collect the end of day NYSE, Dasdaq and option data
+    # data is saved in the data_folder defined in option_data_management_setting.ini
+    mail_list = ["luosqing222@gmail.com"]
+    file_name = message_folder + "/" + "eod_data_download_" + datetime.datetime.now().strftime('%m_%d_%Y') + ".csv"
+    file_stream = open(file_name, "w")
+    file_stream.write("begin downloading eod data")
+    try:
+        eod_data_manager = eoddata_data_manager.EodDataDataManager()
+        eod_data_manager.daily_run()
+    except Exception, e:
+        file_stream.write(str(e))
+    file_stream.close()
+    send_email(file_name,mail_list)
 
-    #function to collect the end of day NYSE, Dasdaq and option data
-    #data is saved in the data_folder defined in option_data_management_setting.ini
-    eod_data_manager=eoddata_data_manager.EodDataDataManager()
-    eod_data_manager.daily_run()
-
+    #function to download the yahoo option data
+    mail_list = ["luosqing222@gmail.com"]
+    file_name = message_folder + "/" + "yahoo_option_data_download_" + datetime.datetime.now().strftime('%m_%d_%Y') + ".csv"
+    file_stream = open(file_name, "w")
+    file_stream.write("begin download yahoo option data")
     start_time = time.time()
-    option_data_manager=yahoo_option_data_manager.YahooOptionDataManager()
-    option_data_manager.daily_run()
+    try:
+        option_data_manager = yahoo_option_data_manager.YahooOptionDataManager()
+        option_data_manager.daily_run()
+    except Exception, e:
+        file_stream.write(str(e))
+    file_stream.close()
+    send_email(file_name, mail_list)
 
     print("--- %s seconds ---" % (time.time() - start_time))
-
-
-
-
-

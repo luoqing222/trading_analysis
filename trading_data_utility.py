@@ -104,6 +104,10 @@ class TradingDataUtility:
 
     @staticmethod
     def get_sp500_list(date):
+        ''' methdo to return the sp500 list that has closest save_date ahead to date
+        :param date: date
+        :return: the sp500 list that has closest save_date ahead to date
+        '''
         sp_list = []
         for sp in models.Sp500List.select(models.Sp500List.save_date).distinct():
             sp_list.append(sp.save_date)
