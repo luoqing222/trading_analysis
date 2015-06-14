@@ -196,16 +196,16 @@ def initialize_index_fund_table():
         models.IndexSymbol.create(symbol='voo', name='Vanguard S&P 500 ETF')
 
 
-def initialize_sp500_table():
-    models.db.connect()
-    if not models.Sp500Symbol.table_exists():
-        models.db.create_table(models.Sp500Symbol)
-        file_name = "constituents.csv"
-        with open(file_name) as f:
-            for line in f:
-                symbol, name, sector = line.split(",")
-                models.Sp500Symbol.create(symbol=symbol, name=name, sector=sector,
-                                          save_date=datetime.datetime.date(datetime.datetime.today()))
+# def initialize_sp500_table():
+#     models.db.connect()
+#     if not models.Sp500Symbol.table_exists():
+#         models.db.create_table(models.Sp500Symbol)
+#         file_name = "constituents.csv"
+#         with open(file_name) as f:
+#             for line in f:
+#                 symbol, name, sector = line.split(",")
+#                 models.Sp500Symbol.create(symbol=symbol, name=name, sector=sector,
+#                                           save_date=datetime.datetime.date(datetime.datetime.today()))
 
 
 def initialize_historical_price_table():
@@ -251,6 +251,7 @@ def get_average_daily_return(symbol, start_date, end_date):
 
 
 if __name__ == "__main__":
+    #check if the day that is not trading day, stop running
     if not is_trading_day(datetime.datetime.now(), "US"):
         sys.exit(0)
 
@@ -303,12 +304,13 @@ if __name__ == "__main__":
     send_email(file_name, mail_list)
 
     #mail_list=["luosqing222@gmail.com"]
-    #file_name= "eod_daily_dowload_"
-    #eod_data_manager=eoddata_data_manager.EodDataDataManager()
-    #eod_data_manager.daily_run()
+
+    #function to collect the end of day NYSE, Dasdaq and option data
+    #data is saved in the data_folder defined in option_data_management_setting.ini
+    eod_data_manager=eoddata_data_manager.EodDataDataManager()
+    eod_data_manager.daily_run()
 
     start_time = time.time()
-
     option_data_manager=yahoo_option_data_manager.YahooOptionDataManager()
     option_data_manager.daily_run()
 

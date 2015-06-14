@@ -26,15 +26,15 @@ class HolidayCalendar(peewee.Model):
         primary_key = CompositeKey('date', 'country_code')
 
 
-class Sp500Symbol(peewee.Model):
-    id = peewee.PrimaryKeyField()
-    symbol = peewee.CharField()
-    name = peewee.CharField()
-    sector = peewee.CharField()
-    save_date = peewee.DateField()
-
-    class Meta:
-        database = db
+# class Sp500Symbol(peewee.Model):
+#     id = peewee.PrimaryKeyField()
+#     symbol = peewee.CharField()
+#     name = peewee.CharField()
+#     sector = peewee.CharField()
+#     save_date = peewee.DateField()
+#
+#     class Meta:
+#         database = db
 
 #correpond to table NYSEList in the database
 class NYSEList(peewee.Model):

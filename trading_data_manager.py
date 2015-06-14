@@ -12,29 +12,34 @@ class TradingDataManager:
 
     #function to check and update sp500 list in daily run
     def updateSp500(self, date):
-        sp500_wiki=self.data_loader.get_latest_sp500()
-        sp500_in_table= self.data_utility.get_sp500_list(date)
-        if set(sp500_wiki) ==set(sp500_in_table):
-            return None
-        else:
-            diff= set(sp500_in_table)-set(sp500_wiki)
-            #something might be wrong in the wiki page parsing, so just return the difference to the main
-            if(len(diff)>10):
-                return diff
-            #just update the sp500list table using the wiki data
-            else:
+        '''
+        :param date: function to update Sp500List in the daily run
+        :return: None means no update in Sp500List, otherwise return the new added symbols
+        '''
+        try:
+            sp500_wiki=self.data_loader.get_latest_sp500()
+            if self.data_utility.create_sp500_list():
                 for symbol in sp500_wiki:
                     self.data_utility.add_symbol(date,symbol)
-                return diff
+                return None
 
-    #function to populate sp500 list after when initialize the table
-    def populate_Sp500(self, date):
-        sp500_list = self.data_loader.get_latest_sp500()
-        self.data_utility.create_sp500_list()
-
-        for symbol in sp500_list:
-            self.data_utility.add_symbol(date,symbol)
-
+            sp500_in_table= self.data_utility.get_sp500_list(date)
+            print "comparing the sp500 list"
+            if set(sp500_wiki) ==set(sp500_in_table):
+                return None
+            else:
+                diff= set(sp500_in_table)-set(sp500_wiki)
+                #something might be wrong in the wiki page parsing, so just return the difference
+                #and no need to update the Sp500List
+                if(len(diff)>10):
+                    return diff
+                #update the sp500list table using the wiki data
+                else:
+                    for symbol in sp500_wiki:
+                        self.data_utility.add_symbol(date,symbol)
+                    return diff
+        except:
+            return None
 
     #function to populate the NYSEList table
     def populate_NYSEList(self, file_name, date):
