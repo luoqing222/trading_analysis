@@ -3,11 +3,9 @@ import MySQLdb
 __author__ = 'qingluo'
 
 import emailprocessing
-import yahoo_data_loader
 import yahoo_data_analyser
 import datetime
 import models
-import os
 import sys
 from peewee import fn
 import pandas as pd
