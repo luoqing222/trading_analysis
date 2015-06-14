@@ -12,7 +12,7 @@ class TradingDataManager:
 
     #function to check and update sp500 list in daily run
     def updateSp500(self, date):
-        '''
+        ''' function to update sp500list. has been tested
         :param date: function to update Sp500List in the daily run
         :return: None means no update in Sp500List, otherwise return the new added symbols
         '''
@@ -24,7 +24,7 @@ class TradingDataManager:
                 return None
 
             sp500_in_table= self.data_utility.get_sp500_list(date)
-            print "comparing the sp500 list"
+
             if set(sp500_wiki) ==set(sp500_in_table):
                 return None
             else:

@@ -195,27 +195,13 @@ def initialize_index_fund_table():
         models.IndexSymbol.create(symbol='spy', name='SPDR S&P 500 ETF')
         models.IndexSymbol.create(symbol='voo', name='Vanguard S&P 500 ETF')
 
-
-# def initialize_sp500_table():
-#     models.db.connect()
-#     if not models.Sp500Symbol.table_exists():
-#         models.db.create_table(models.Sp500Symbol)
-#         file_name = "constituents.csv"
-#         with open(file_name) as f:
-#             for line in f:
-#                 symbol, name, sector = line.split(",")
-#                 models.Sp500Symbol.create(symbol=symbol, name=name, sector=sector,
-#                                           save_date=datetime.datetime.date(datetime.datetime.today()))
-
-
 def initialize_historical_price_table():
     models.db.connect()
     if not models.HistoricalPrice.table_exists():
         models.db.create_table(models.HistoricalPrice)
 
 
-def update_sp500_table():
-    initialize_sp500_table()
+
 
 
 def get_daily_returns(symbol, dates):
@@ -249,15 +235,25 @@ def get_average_daily_return(symbol, start_date, end_date):
     result[symbol] = sum(daily_return_table.values()) / len(daily_return_table)
     return result
 
+def update_sp500list_table(data_manager, current_date):
+    de_list = data_manager.updateSp500(current_date)
+    if de_list is not None:
+        for s in de_list:
+            print s, "has been removed from S&P"
+    return
 
 if __name__ == "__main__":
+    data_manager=trading_data_manager.TradingDataManager()
+    current_date=datetime.datetime.now().date()
+    update_sp500list_table(data_manager, current_date)
+
     #check if the day that is not trading day, stop running
     if not is_trading_day(datetime.datetime.now(), "US"):
         sys.exit(0)
 
     initialize_holiday_table()
     initialize_index_fund_table()
-    initialize_sp500_table()
+    update_sp500list_table()
     initialize_historical_price_table()
 
 
