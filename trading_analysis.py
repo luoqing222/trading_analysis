@@ -325,7 +325,7 @@ if __name__ == "__main__":
     start_time = time.time()
     try:
         option_data_manager = yahoo_option_data_manager.YahooOptionDataManager()
-        option_data_manager.daily_run()
+        #option_data_manager.daily_run()
     except Exception, e:
         file_stream.write(str(e))
     file_stream.close()
