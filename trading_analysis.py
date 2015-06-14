@@ -20,7 +20,7 @@ import time
 import os
 
 
-def send_email(file_name, mail_list):
+def send_email(file_name, mail_list, folder):
     gm = emailprocessing.Gmail('raki1978wmc6731@gmail.com', 'Fapkc1897Fapkc')
 
     #subject = "analysis report on " + datetime.datetime.now().strftime('%m_%d_%Y')
@@ -30,7 +30,7 @@ def send_email(file_name, mail_list):
 
     # gm.send_message(subject, message, 'luoqing222@gmail.com')
     for to in mail_list:
-        gm.send_text_attachment(subject, to, file_name)
+        gm.send_text_attachment(subject, to, file_name, folder)
 
 
 def send_email2():
@@ -295,32 +295,32 @@ if __name__ == "__main__":
 
     db = MySQLdb.connect(host="localhost", db=models.database, user=models.user, passwd=models.password)
     data_analyser = yahoo_data_analyser.YahooEquityDataAnalyser(db)
-    file_name = message_folder + "/" + "sp500_daily_rsq_" + datetime.datetime.now().strftime('%m_%d_%Y') + ".csv"
-    data_analyser.calculate_daily_rsq(symbol_list, index_list, None, 30, file_name)
+    file_name = "sp500_daily_rsq_" + datetime.datetime.now().strftime('%m_%d_%Y') + ".csv"
+    data_analyser.calculate_daily_rsq(symbol_list, index_list, None, 30, message_folder + "/" + file_name)
     db.close()
 
     #mail_list = ["luoqing222@gmail.com", "fanlinzhu@yahoo.com"]
     mail_list = ["luoqing222@gmail.com"]
-    send_email(file_name, mail_list)
+    send_email(file_name, mail_list, message_folder)
 
     # function to collect the end of day NYSE, Dasdaq and option data
     # data is saved in the data_folder defined in option_data_management_setting.ini
     mail_list = ["luosqing222@gmail.com"]
-    file_name = message_folder + "/" + "eod_data_download_" + datetime.datetime.now().strftime('%m_%d_%Y') + ".csv"
-    file_stream = open(file_name, "w")
+    file_name = "eod_data_download_" + datetime.datetime.now().strftime('%m_%d_%Y') + ".csv"
+    file_stream = open(message_folder + "/" + file_name, "w")
     file_stream.write("begin downloading eod data")
     try:
         eod_data_manager = eoddata_data_manager.EodDataDataManager()
-        eod_data_manager.daily_run()
+        #eod_data_manager.daily_run()
     except Exception, e:
         file_stream.write(str(e))
     file_stream.close()
-    send_email(file_name,mail_list)
+    send_email(file_name,mail_list, message_folder)
 
     #function to download the yahoo option data
     mail_list = ["luosqing222@gmail.com"]
-    file_name = message_folder + "/" + "yahoo_option_data_download_" + datetime.datetime.now().strftime('%m_%d_%Y') + ".csv"
-    file_stream = open(file_name, "w")
+    file_name = "yahoo_option_data_download_" + datetime.datetime.now().strftime('%m_%d_%Y') + ".csv"
+    file_stream = open(message_folder + "/" + file_name, "w")
     file_stream.write("begin download yahoo option data")
     start_time = time.time()
     try:
@@ -329,6 +329,6 @@ if __name__ == "__main__":
     except Exception, e:
         file_stream.write(str(e))
     file_stream.close()
-    send_email(file_name, mail_list)
+    send_email(file_name, mail_list, message_folder)
 
     print("--- %s seconds ---" % (time.time() - start_time))

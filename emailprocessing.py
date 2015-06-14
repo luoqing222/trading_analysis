@@ -33,11 +33,11 @@ class Gmail(object):
             to,
             headers + "\r\n\r\n" + body)
 
-    def send_text_attachment(self, subject, to, text_file):
+    def send_text_attachment(self, subject, to, text_file, folder):
         msg = MIMEMultipart()
         msg['Subject'] = subject
         msg['To'] = to
-        fp = open(text_file, 'rb')
+        fp = open(folder + "/" +text_file, 'rb')
         attachment = MIMEText(fp.read())
         fp.close()
         attachment.add_header("Content-Disposition", "attachment", filename=text_file)
