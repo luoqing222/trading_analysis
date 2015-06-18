@@ -45,7 +45,12 @@ class YahooOptionDataManager:
         result=list(set(result))
         return result
 
+
     def get_file_name(self,running_time):
+        '''  to generate the file name when call the yahoo option manager. has been tested.
+        :param running_time: the running time that the funciton is called
+        :return: the file name
+        '''
         return "yahoo_option_"+running_time.strftime("%Y_%m_%d")+".csv"
 
     def generate_temp_option_data(self,Config,running_time):
