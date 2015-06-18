@@ -60,6 +60,7 @@ class YahooOptionDataManager:
         symbol_list = self.get_symbol_list(Config)
         for symbol in symbol_list:
             self.data_loader.web_crawler(symbol,temp_data_file)
+            temp_data_file.flush()
         temp_data_file.close()
 
     def add_date_column_to_temp_data_file(self,Config,running_time):

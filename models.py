@@ -9,7 +9,7 @@ from peewee import *
 
 Config = configparser.ConfigParser()
 Config.read("database_setting.ini")
-host = Config.get("database","host")
+host = Config.get("database", "host")
 database = Config.get("database", "database")
 user = Config.get("database", "user")
 password = Config.get("database", "passwd")
@@ -27,7 +27,7 @@ class HolidayCalendar(peewee.Model):
 
 
 # class Sp500Symbol(peewee.Model):
-#     id = peewee.PrimaryKeyField()
+# id = peewee.PrimaryKeyField()
 #     symbol = peewee.CharField()
 #     name = peewee.CharField()
 #     sector = peewee.CharField()
@@ -38,19 +38,20 @@ class HolidayCalendar(peewee.Model):
 
 #correpond to table NYSEList in the database
 class NYSEList(peewee.Model):
-    symbol=peewee.CharField()
-    last_update_date=peewee.DateField()
-    description=peewee.CharField()
+    symbol = peewee.CharField()
+    last_update_date = peewee.DateField()
+    description = peewee.CharField()
 
     class Meta:
         database = db
         primary_key = CompositeKey('last_update_date', 'symbol')
 
+
 #correponds to table NasdaqList in the database
 class NasdaqList(peewee.Model):
-    symbol=peewee.CharField()
-    last_update_date=peewee.DateField()
-    description=peewee.CharField()
+    symbol = peewee.CharField()
+    last_update_date = peewee.DateField()
+    description = peewee.CharField()
 
     class Meta:
         database = db
@@ -59,9 +60,9 @@ class NasdaqList(peewee.Model):
 
 #correspond to table IndexList in the database
 class IndexList(peewee.Model):
-    symbol=peewee.CharField()
-    last_update_date=peewee.DateField()
-    description=peewee.CharField()
+    symbol = peewee.CharField()
+    last_update_date = peewee.DateField()
+    description = peewee.CharField()
 
     class Meta:
         database = db
@@ -115,19 +116,30 @@ class StrongStock(peewee.Model):
         primary_key = CompositeKey('calculation_date', 'rank')
         order_by = ('calculation_date', 'rank')
 
-# class OptionPrice(peewee.Model):
-#     underlying_stock = peewee.CharField()
-#     transaction_date = peewee.DateField()
-#     expire_date = peewee.DateField()
-#     #strike price is 100 times the actual strike price so it can be saved as integer
-#     strike_price = peewee.IntegerField()
-#     #type is the option type, 0 for put and 1 for call
-#     type = peewee.IntegerField()
-#
-#
-#     class Meta:
-#         database = db
-#         primary_key= CompositeKey('underlying_stock', 'transaction_date', 'expire_date', 'strike_price', 'type')
+
+class YahooOption(peewee.Model):
+    contract = peewee.CharField()
+    transaction_date = peewee.DateField()
+    underlying_stock = peewee.CharField()
+    expire_date = peewee.DateField()
+    #strike price is 1000 times the actual strike price so it can be saved as integer
+    strike_price = peewee.IntegerField()
+    option_type = peewee.CharField()
+    last = peewee.FloatField()
+    bid = peewee.FloatField()
+    ask = peewee.FloatField()
+    change = peewee.FloatField()
+    pct_change = peewee.FloatField()
+    volume = peewee.IntegerField()
+    open_interest = peewee.IntegerField()
+    implied_vol = peewee.FloatField()
+
+    class Meta:
+        database = db
+        primary_key = CompositeKey('contract', 'transaction_date')
+
+
+
 
 
 
