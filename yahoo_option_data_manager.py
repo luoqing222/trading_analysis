@@ -90,7 +90,7 @@ class YahooOptionDataManager:
             models.db.create_table(models.YahooOption)
         des_folder= config.get("csv", "option_data_folder")
         des_file_name = des_folder+ "/" + file_name
-        print des_file_name
+        #print des_file_name
         records = []
         if os.path.exists(des_file_name):
             with open(des_file_name) as fp:
@@ -124,9 +124,10 @@ class YahooOptionDataManager:
         Config = configparser.ConfigParser()
         Config.read(self.config_file)
         running_time=datetime.datetime.now()
-        #self.generate_temp_option_data(Config,running_time)
-        #self.add_date_column_to_temp_data_file(Config,running_time)
-        self.upload_csv_to_db(Config, "yahoo_option_2015_05_31.csv")
+        self.generate_temp_option_data(Config,running_time)
+        self.add_date_column_to_temp_data_file(Config,running_time)
+        file_name= self.get_file_name(running_time)
+        self.upload_csv_to_db(Config, file_name)
 
 
 
