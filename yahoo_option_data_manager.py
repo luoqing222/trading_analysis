@@ -134,6 +134,14 @@ class YahooOptionDataManager:
         file_name= self.get_file_name(running_time)
         self.upload_csv_to_db(Config, file_name)
 
+    def save_historical_data(self):
+        Config = configparser.ConfigParser()
+        Config.read(self.config_file)
+        files_names = ["2015_05_31","2015_06_01","2015_06_02","2015_06_03","2015_06_04","2015_06_05","2015_06_08","2015_06_09","2015_06_10","2015_06_12","2015_06_15","2015_06_16","2015_06_18"]
+        for name in files_names:
+            file_name = "yahoo_option_"+ name +".csv"
+            self.upload_csv_to_db(Config,file_name)
+
 
 
 
