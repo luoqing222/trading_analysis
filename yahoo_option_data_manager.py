@@ -6,6 +6,7 @@ import os
 import MySQLdb
 import time
 import yahoo_option_data_loader
+import models
 
 class YahooOptionDataManager:
     def __init__(self):
@@ -83,13 +84,48 @@ class YahooOptionDataManager:
 
         des_file.close()
 
+    def upload_csv_to_db(self, config, file_name):
+        models.db.connect()
+        if not models.YahooOption.table_exists():
+            models.db.create_table(models.YahooOption)
+        des_folder= config.get("csv", "option_data_folder")
+        des_file_name = des_folder+ "/" + file_name
+        records = []
+        if os.path.exists(des_file_name):
+            with open(des_file_name) as fp:
+                for line in fp:
+                    line = line.replace('-','0')
+                    splited_item = line.split(',')
+                    if len(splited_item) == 15:
+                        [transaction_date, underlying_stock, option_type, expire_date,strike_price,
+                         contract, last, bid, ask,  price_change, pct_change, volume, open_interest, implied_vol,temp] = splited_item
+                        try:
+                            records.append((transaction_date, underlying_stock, option_type[0], expire_date,int(float(strike_price)*1000),
+                             contract, float(last), float(bid), float(ask),  float(price_change), float(pct_change.strip('%'))/100.0,
+                                            int(volume), int(open_interest), float(implied_vol.strip('%'))/100.0))
+                        except:
+                            pass
+
+        host = config.get("database", "host")
+        database = config.get("database","database")
+        user = config.get("database","user")
+        password = config.get("database", "passwd")
+        db = MySQLdb.connect(host=host,db=database, user=user, passwd=password)
+
+        cursor = db.cursor()
+        sql_statement = "insert into yahoooption(transaction_date, underlying_stock, option_type,expire_date,strike_price,contract, last, bid, ask,price_change, pct_change, volume,open_interest, implied_vol) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+        cursor.executemany(sql_statement, records)
+        db.commit()
+        cursor.close()
+        db.close()
 
     def daily_run(self):
         Config = configparser.ConfigParser()
         Config.read(self.config_file)
         running_time=datetime.datetime.now()
-        self.generate_temp_option_data(Config,running_time)
-        self.add_date_column_to_temp_data_file(Config,running_time)
+        #self.generate_temp_option_data(Config,running_time)
+        #self.add_date_column_to_temp_data_file(Config,running_time)
+        self.upload_csv_to_db(Config, "yahoo_option_2015_05_31.csv")
 
 
 

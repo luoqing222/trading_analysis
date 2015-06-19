@@ -8,7 +8,7 @@ from peewee import *
 
 
 Config = configparser.ConfigParser()
-Config.read("database_setting.ini")
+Config.read("option_data_management_setting.ini")
 host = Config.get("database", "host")
 database = Config.get("database", "database")
 user = Config.get("database", "user")
@@ -128,7 +128,7 @@ class YahooOption(peewee.Model):
     last = peewee.FloatField()
     bid = peewee.FloatField()
     ask = peewee.FloatField()
-    change = peewee.FloatField()
+    price_change = peewee.FloatField()
     pct_change = peewee.FloatField()
     volume = peewee.IntegerField()
     open_interest = peewee.IntegerField()
@@ -136,7 +136,7 @@ class YahooOption(peewee.Model):
 
     class Meta:
         database = db
-        primary_key = CompositeKey('contract', 'transaction_date')
+        primary_key = CompositeKey('transaction_date','underlying_stock','expire_date','strike_price','option_type')
 
 
 
