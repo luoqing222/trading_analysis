@@ -120,7 +120,7 @@ class YahooOptionDataManager:
             db.commit()
         except:
             db.rollback()
-            raise
+            #raise
         finally:
             cursor.close()
             db.close()
