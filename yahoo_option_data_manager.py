@@ -115,17 +115,22 @@ class YahooOptionDataManager:
 
         cursor = db.cursor()
         sql_statement = "insert into yahoooption(transaction_date, underlying_stock, option_type,expire_date,strike_price,contract, last, bid, ask,price_change, pct_change, volume,open_interest, implied_vol) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-        cursor.executemany(sql_statement, records)
-        db.commit()
-        cursor.close()
-        db.close()
+        try:
+            cursor.executemany(sql_statement, records)
+            db.commit()
+        except:
+            db.rollback()
+            raise
+        finally:
+            cursor.close()
+            db.close()
 
     def daily_run(self):
         Config = configparser.ConfigParser()
         Config.read(self.config_file)
         running_time=datetime.datetime.now()
-        self.generate_temp_option_data(Config,running_time)
-        self.add_date_column_to_temp_data_file(Config,running_time)
+        #self.generate_temp_option_data(Config,running_time)
+        #self.add_date_column_to_temp_data_file(Config,running_time)
         file_name= self.get_file_name(running_time)
         self.upload_csv_to_db(Config, file_name)
 
