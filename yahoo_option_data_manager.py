@@ -90,6 +90,7 @@ class YahooOptionDataManager:
             models.db.create_table(models.YahooOption)
         des_folder= config.get("csv", "option_data_folder")
         des_file_name = des_folder+ "/" + file_name
+        print des_file_name
         records = []
         if os.path.exists(des_file_name):
             with open(des_file_name) as fp:
