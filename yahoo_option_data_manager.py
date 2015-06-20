@@ -15,7 +15,7 @@ class YahooOptionDataManager:
         pass
 
     def get_symbol_list(self,config):
-        host = config.get("database", "localhost")
+        host = config.get("database", "host")
         database = config.get("database","database")
         user = config.get("database","user")
         password = config.get("database", "passwd")
@@ -24,7 +24,6 @@ class YahooOptionDataManager:
         cursor = db.cursor()
 
         #find the mapping between symbol and adjust_close price
-        #sql_statement = "select DISTINCT symbol from sp500list"
         sql_statement = "select DISTINCT symbol from nyselist"
         cursor.execute(sql_statement)
         rows = cursor.fetchall()
@@ -64,6 +63,7 @@ class YahooOptionDataManager:
         temp_full_file_name = temp_folder+"/"+file_name
         temp_data_file = open(temp_full_file_name,"w")
         symbol_list = self.get_symbol_list(Config)
+        #symbol_list =["FB"]
         for symbol in symbol_list:
             self.data_loader.web_crawler(symbol,temp_data_file)
             temp_data_file.flush()
@@ -72,10 +72,8 @@ class YahooOptionDataManager:
     def add_date_column_to_temp_data_file(self,Config,running_time):
         src_file_name= Config.get("csv","temp_folder")+"/"+self.get_file_name(running_time)
 
-        des_folder= Config.get("csv","option_data_folder")
-        if not os.path.exists(des_folder):
-            os.makedirs(des_folder)
-        des_file_name= des_folder+"/"+self.get_file_name(running_time)
+        des_folder = self.get_yahoo_data_dir(Config, running_time)
+        des_file_name = des_folder + "/" + self.get_file_name(running_time)
 
         des_file=open(des_file_name,"w")
         with open(src_file_name) as fp:
@@ -84,13 +82,27 @@ class YahooOptionDataManager:
 
         des_file.close()
 
+    def get_yahoo_data_dir(self, config, running_time):
+        '''
+        :param config: config file
+        :param running_time: running time
+        :return: the location where yahoo data should be located
+        '''
+        des_folder = config.get("csv", "data_folder") + "/" + "daily_run" + "/" + running_time.strftime("%Y_%m_%d") + "/" +"yahoo"
+        if not os.path.exists(des_folder):
+            os.makedirs(des_folder)
+        return des_folder
+
     def upload_csv_to_db(self, config, file_name):
+        '''
+        :param config: config information to contain database information
+        :param file_name: the file to be uploaded. file name includes the path
+        :return:
+        '''
         models.db.connect()
         if not models.YahooOption.table_exists():
             models.db.create_table(models.YahooOption)
-        des_folder= config.get("csv", "option_data_folder")
-        des_file_name = des_folder+ "/" + file_name
-        #print des_file_name
+        des_file_name = file_name
         records = []
         if os.path.exists(des_file_name):
             with open(des_file_name) as fp:
@@ -131,16 +143,19 @@ class YahooOptionDataManager:
         running_time=datetime.datetime.now()
         self.generate_temp_option_data(Config,running_time)
         self.add_date_column_to_temp_data_file(Config,running_time)
-        file_name= self.get_file_name(running_time)
+        file_name= self.get_yahoo_data_dir(Config,running_time)+"/"+self.get_file_name(running_time)
         self.upload_csv_to_db(Config, file_name)
 
-    def save_historical_data(self):
-        Config = configparser.ConfigParser()
-        Config.read(self.config_file)
-        files_names = ["2015_05_31","2015_06_01","2015_06_02","2015_06_03","2015_06_04","2015_06_05","2015_06_08","2015_06_09","2015_06_10","2015_06_12","2015_06_15","2015_06_16","2015_06_18"]
-        for name in files_names:
-            file_name = "yahoo_option_"+ name +".csv"
-            self.upload_csv_to_db(Config,file_name)
+    # def save_historical_data(self):
+    #     Config = configparser.ConfigParser()
+    #     Config.read(self.config_file)
+    #     files_names = ["2015_05_31","2015_06_01","2015_06_02","2015_06_03","2015_06_04","2015_06_05","2015_06_08","2015_06_09","2015_06_10","2015_06_12","2015_06_15","2015_06_16","2015_06_18"]
+    #     for name in files_names:
+    #         file_name = "yahoo_option_"+ name +".csv"
+    #         self.upload_csv_to_db(Config,file_name)
+
+
+
 
 
 

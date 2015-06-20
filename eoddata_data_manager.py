@@ -67,12 +67,24 @@ class EodDataDataManager:
 
         shutil.copyfile(src_file_name, des_file_name)
 
+    def get_eod_data_dir(self, config, running_time):
+        '''
+        :param config: config file
+        :param running_time: running time
+        :return: the location where yahoo data should be located
+        '''
+        des_folder = config.get("csv", "data_folder") + "/" + "daily_run" + "/" + running_time.strftime("%Y_%m_%d") + "/" +"eod"
+        if not os.path.exists(des_folder):
+            os.makedirs(des_folder)
+        return des_folder
+
     def daily_run(self):
         Config = configparser.ConfigParser()
         Config.read(self.config_file)
 
         #only download the data that is on running time day
-        running_time=datetime.datetime.now().strftime("%Y%m%d")
+        running_time_time = datetime.datetime.now()
+        running_time=running_time_time.strftime("%Y%m%d")
 
         host = Config.get("eod","host")
         user = Config.get("eod","user")
@@ -100,18 +112,19 @@ class EodDataDataManager:
 
         #process the txt files after it is downloaded
         src_folder = des_folder+"/"+running_time
-        des_folder = Config.get("csv", "data_folder")+"/"+Config.get("eod", "data_folder")
-        if not os.path.exists(des_folder):
-            os.makedirs(des_folder)
-
-        des_folder = des_folder+"/"+running_time
-        #print des_folder
-        if not os.path.exists(des_folder):
-            os.makedirs(des_folder)
+        des_folder = self.get_eod_data_dir(Config, running_time_time)
 
         self.option_txt_to_csv(src_folder,"OPRA_"+running_time+".txt",des_folder, "OPRA_"+running_time+".csv")
         self.copy_txt_to_csv(src_folder,"NYSE_"+running_time+".txt",des_folder, "NYSE_"+running_time+".csv")
         self.copy_txt_to_csv(src_folder,"NASDAQ_"+running_time+".txt",des_folder, "NASDAQ_"+running_time+".csv")
+
+        txtfiles = [ f for f in os.listdir(src_folder) if os.path.isfile(os.path.join(src_folder,f))]
+        string_pattern = '[a-zA-Z]+_'+running_time+'.txt\Z'
+        file_pattern = re.compile(string_pattern)
+        for txtfile in txtfiles:
+            if file_pattern.match(txtfile):
+                self.copy_txt_to_csv(src_folder, txtfile, des_folder, txtfile)
+
 
 
 
