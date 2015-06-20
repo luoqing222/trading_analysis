@@ -8,6 +8,8 @@ import datetime
 import boto.glacier
 import boto
 from boto.glacier.exceptions import UnexpectedHTTPResponseError
+import sys
+
 
 ACCESS_KEY_ID = "AKIAIDD7XJVDDWL2EPWQ"
 SECRET_ACCESS_KEY = "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"
@@ -55,8 +57,8 @@ class GlacierVault:
         """
         Upload filename and store the archive id for future retrieval
         """
+        #archive_id = self.vault.upload_archive(filename, description=filename)
         archive_id = self.vault.create_archive_from_file(filename, description=filename)
-
         # Storing the filename => archive_id data.
         with glacier_shelve() as d:
             if not d.has_key("archives"):
@@ -71,6 +73,7 @@ class GlacierVault:
         Get the archive_id corresponding to the filename
         """
         with glacier_shelve() as d:
+            print d
             if not d.has_key("archives"):
                 d["archives"] = dict()
 
@@ -151,9 +154,9 @@ if __name__ == "__main__":
     if not os.path.exists(des_folder):
         os.makedirs(des_folder)
     zip_file_name = running_time.strftime("%Y_%m_%d") + ".zip"
-    zip_daily_data(src_folder, des_folder, zip_file_name)
+    #zip_daily_data(src_folder, des_folder, zip_file_name)
 
     vault_name = "Qing_Backup_Data"
-    #print boto.ec2.regions()
-
     GlacierVault(vault_name).upload(des_folder + "/" + zip_file_name)
+    #GlacierVault(vault_name).retrieve(des_folder + "/" + zip_file_name)
+    #print GlacierVault(vault_name).get_archive_id(des_folder + "/" + zip_file_name)
