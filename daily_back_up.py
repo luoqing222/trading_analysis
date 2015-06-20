@@ -238,10 +238,10 @@ if __name__ == "__main__":
         os.makedirs(des_folder)
     zip_file_name = running_time.strftime("%Y_%m_%d") + ".zip"
     #zip_file_name = "2015_06_19.zip"
-    #zip_daily_data(src_folder, des_folder, zip_file_name)
-    #GlacierVault(VAULT_NAME).upload(des_folder + "/" + zip_file_name)
+    zip_daily_data(src_folder, des_folder, zip_file_name)
+    GlacierVault(VAULT_NAME).upload(des_folder + "/" + zip_file_name)
     #GlacierVault(VAULT_NAME).retrieve(des_folder + "/" + zip_file_name)
-    print GlacierVault(VAULT_NAME).get_archives_name()
+    #print GlacierVault(VAULT_NAME).get_archives_name()
     #print GlacierVault(vault_name).get_archive_id(des_folder + "/" + zip_file_name)
     mail_list = ["luoqing222@gmail.com"]
     send_email(SHELVE_FILE_NAME, mail_list, os.path.expanduser("~"))
