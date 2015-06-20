@@ -15,7 +15,7 @@ ACCESS_KEY_ID = "AKIAIDD7XJVDDWL2EPWQ"
 SECRET_ACCESS_KEY = "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"
 REGION="us-west-1"
 SHELVE_FILE_NAME= ".glaciervault.db"
-SHELVE_FILE = os.path.expanduser("~/."+SHELVE_FILE_NAME)
+SHELVE_FILE = os.path.expanduser("~/"+SHELVE_FILE_NAME)
 VAULT_NAME = "Qing_Backup_Data"
 
 
