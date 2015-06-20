@@ -8,13 +8,15 @@ import datetime
 import boto.glacier
 import boto
 from boto.glacier.exceptions import UnexpectedHTTPResponseError
-import sys
+import emailprocessing
 
 
 ACCESS_KEY_ID = "AKIAIDD7XJVDDWL2EPWQ"
 SECRET_ACCESS_KEY = "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"
 REGION="us-west-1"
-SHELVE_FILE = os.path.expanduser("~/.glaciervault.db")
+SHELVE_FILE_NAME= ".glaciervault.db"
+SHELVE_FILE = os.path.expanduser("~/."+SHELVE_FILE_NAME)
+VAULT_NAME = "Qing_Backup_Data"
 
 
 class glacier_shelve(object):
@@ -84,6 +86,21 @@ class GlacierVault:
 
         return None
 
+    def get_archives_name(self):
+        '''
+        :return: the the archives name in the vault
+        '''
+        with glacier_shelve() as d:
+            print d
+            if not d.has_key("archives"):
+                d["archives"] = dict()
+
+            archives = d["archives"]
+
+            return [filename for filename in archives]
+
+        return None
+
     def retrieve(self, filename, wait_mode=False):
         """
         Initiate a Job, check its status, and download the archive when it's completed.
@@ -135,6 +152,66 @@ class GlacierVault:
         else:
             print "Not completed yet"
 
+    def delete(self,filename, wait_mode=False):
+        """
+        Initiate a Job, check its status, and download the archive when it's completed.
+        """
+        archive_id = self.get_archive_id(filename)
+        if not archive_id:
+            return
+
+        with glacier_shelve() as d:
+            if not d.has_key("jobs"):
+                d["jobs"] = dict()
+
+            jobs = d["jobs"]
+            job = None
+
+            if filename in jobs:
+                # The job is already in shelve
+                job_id = jobs[filename]
+                try:
+                    job = self.vault.get_job(job_id)
+                except UnexpectedHTTPResponseError:  # Return a 404 if the job is no more available
+                    pass
+
+            if not job:
+                # Job initialization
+                job = self.vault.delete_archive(archive_id)
+                jobs[filename] = job.id
+                job_id = job.id
+
+            # Commiting changes in shelve
+            d["jobs"] = jobs
+
+        print "Job {action}: {status_code} ({creation_date}/{completion_date})".format(**job.__dict__)
+
+        # checking manually if job is completed every 10 secondes instead of using Amazon SNS
+        if wait_mode:
+            import time
+
+            while 1:
+                job = self.vault.get_job(job_id)
+                if not job.completed:
+                    time.sleep(10)
+                else:
+                    break
+
+        if job.completed:
+            print "deletion completed"
+            #remove the file and archive id from shelve
+            with glacier_shelve() as d:
+                if not d.has_key("archives"):
+                    d["archives"] = dict()
+
+                archives = d["archives"]
+                try:
+                    del archives[filename]
+                except KeyError:
+                    pass
+                d["archives"] = archives
+        else:
+            print "Not completed yet"
 
 def zip_daily_data(src_directory, des_directory, zip_file_name):
     zf = zipfile.ZipFile(des_directory + "/" + zip_file_name, 'w')
@@ -143,6 +220,12 @@ def zip_daily_data(src_directory, des_directory, zip_file_name):
         for filename in files:
             zf.write(os.path.join(dir_name, filename))
 
+def send_email(file_name, mail_list, folder):
+    gm = emailprocessing.Gmail('raki1978wmc6731@gmail.com', 'Fapkc1897Fapkc')
+
+    subject = file_name
+    for to in mail_list:
+        gm.send_text_attachment(subject, to, file_name,folder)
 
 if __name__ == "__main__":
     config_file = "option_data_management_setting.ini"
@@ -154,9 +237,12 @@ if __name__ == "__main__":
     if not os.path.exists(des_folder):
         os.makedirs(des_folder)
     zip_file_name = running_time.strftime("%Y_%m_%d") + ".zip"
+    #zip_file_name = "2015_06_19.zip"
     #zip_daily_data(src_folder, des_folder, zip_file_name)
-
-    vault_name = "Qing_Backup_Data"
-    GlacierVault(vault_name).upload(des_folder + "/" + zip_file_name)
-    #GlacierVault(vault_name).retrieve(des_folder + "/" + zip_file_name)
+    #GlacierVault(VAULT_NAME).upload(des_folder + "/" + zip_file_name)
+    #GlacierVault(VAULT_NAME).retrieve(des_folder + "/" + zip_file_name)
+    print GlacierVault(VAULT_NAME).get_archives_name()
     #print GlacierVault(vault_name).get_archive_id(des_folder + "/" + zip_file_name)
+    mail_list = ["luoqing222@gmail.com"]
+    send_email(SHELVE_FILE_NAME, mail_list, os.path.expanduser("~"))
+
