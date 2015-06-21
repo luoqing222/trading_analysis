@@ -116,7 +116,7 @@ class StrongStock(peewee.Model):
         primary_key = CompositeKey('calculation_date', 'rank')
         order_by = ('calculation_date', 'rank')
 
-
+#this table save the option per day. data source is finance.yahoo.com
 class YahooOption(peewee.Model):
     contract = peewee.CharField()
     transaction_date = peewee.DateField()
@@ -138,7 +138,20 @@ class YahooOption(peewee.Model):
         database = db
         primary_key = CompositeKey('transaction_date','underlying_stock','expire_date','strike_price','option_type')
 
+#this table save the equity information. data source is eod
+class EodEquity(peewee.Model):
+    symbol = peewee.CharField()
+    transaction_date = peewee.DateField()
+    open_price = peewee.FloatField()
+    high_price = peewee.FloatField()
+    low_price = peewee.FloatField()
+    close_price = peewee.FloatField()
+    volume = peewee.BigIntegerField()
+    exchange = peewee.CharField()
 
+    class Meta:
+        database = db
+        primary_key = CompositeKey('transaction_date','symbol', 'exchange')
 
 
 

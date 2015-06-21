@@ -200,16 +200,6 @@ class GlacierVault:
         if job.completed:
             print "deletion completed"
             #remove the file and archive id from shelve
-            with glacier_shelve() as d:
-                if not d.has_key("archives"):
-                    d["archives"] = dict()
-
-                archives = d["archives"]
-                try:
-                    del archives[filename]
-                except KeyError:
-                    pass
-                d["archives"] = archives
         else:
             print "Not completed yet"
 
@@ -241,6 +231,7 @@ if __name__ == "__main__":
     zip_daily_data(src_folder, des_folder, zip_file_name)
     GlacierVault(VAULT_NAME).upload(des_folder + "/" + zip_file_name)
     #GlacierVault(VAULT_NAME).retrieve(des_folder + "/" + zip_file_name)
+    #GlacierVault(VAULT_NAME).delete(des_folder + "/" + zip_file_name)
     #print GlacierVault(VAULT_NAME).get_archives_name()
     #print GlacierVault(vault_name).get_archive_id(des_folder + "/" + zip_file_name)
     mail_list = ["luoqing222@gmail.com"]
