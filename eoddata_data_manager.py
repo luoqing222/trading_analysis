@@ -6,6 +6,8 @@ import re
 import os
 from ftplib import FTP
 import shutil
+import models
+import MySQLdb
 
 class EodDataDataManager:
     def __init__(self):
@@ -78,6 +80,48 @@ class EodDataDataManager:
             os.makedirs(des_folder)
         return des_folder
 
+    def upload_equity_csv_to_db(self, config, file_name,folder):
+        ''' this function is to upload csv files into database
+        :param config: config
+        :param file_name: file name
+        :param folder: folder
+        :return:
+        '''
+        models.db.connect()
+        if not models.EodEquity.table_exists():
+            models.db.create_table(models.EodEquity)
+        des_file_name = folder + "/" + file_name
+        exchange = file_name.split("_")[0]
+        records = []
+        if os.path.exists(des_file_name):
+            with open(des_file_name) as fp:
+                for line in fp:
+                    splited_item = line.split(',')
+                    if len(splited_item) == 7:
+                        [symbol,transaction_date,open_price, high_price,low_price, close_price,volume]= splited_item
+                        transaction_date = datetime.datetime.strptime(transaction_date, '%Y%m%d').strftime("%Y-%m-%d")
+                        try:
+                            records.append((symbol, transaction_date, float(open_price),float(high_price),float(low_price), float(close_price),int(volume.strip()),exchange))
+                        except:
+                            pass
+
+        host = config.get("database", "host")
+        database = config.get("database","database")
+        user = config.get("database","user")
+        password = config.get("database", "passwd")
+        db = MySQLdb.connect(host=host,db=database, user=user, passwd=password)
+        cursor = db.cursor()
+        sql_statement = "insert into eodequity(symbol,transaction_date,open_price, high_price,low_price, close_price,volume, exchange) values(%s,%s,%s,%s,%s,%s,%s,%s)"
+        try:
+            cursor.executemany(sql_statement, records)
+            db.commit()
+        except:
+            db.rollback()
+            raise
+        finally:
+            cursor.close()
+            db.close()
+
     def daily_run(self):
         Config = configparser.ConfigParser()
         Config.read(self.config_file)
@@ -114,9 +158,13 @@ class EodDataDataManager:
         src_folder = des_folder+"/"+running_time
         des_folder = self.get_eod_data_dir(Config, running_time_time)
 
+
         self.option_txt_to_csv(src_folder,"OPRA_"+running_time+".txt",des_folder, "OPRA_"+running_time+".csv")
         self.copy_txt_to_csv(src_folder,"NYSE_"+running_time+".txt",des_folder, "NYSE_"+running_time+".csv")
         self.copy_txt_to_csv(src_folder,"NASDAQ_"+running_time+".txt",des_folder, "NASDAQ_"+running_time+".csv")
+
+        self.upload_equity_csv_to_db(Config, "NASDAQ_"+running_time+".csv",des_folder)
+        self.upload_equity_csv_to_db(Config, "NYSE_"+running_time+".csv",des_folder)
 
         txtfiles = [ f for f in os.listdir(src_folder) if os.path.isfile(os.path.join(src_folder,f))]
         string_pattern = '[a-zA-Z]+_'+running_time+'.txt\Z'
