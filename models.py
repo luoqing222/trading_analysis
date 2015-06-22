@@ -153,6 +153,25 @@ class EodEquity(peewee.Model):
         database = db
         primary_key = CompositeKey('transaction_date','symbol', 'exchange')
 
+#this table save the option per day. data source is finance.yahoo.com
+class EodOption(peewee.Model):
+    contract = peewee.CharField()
+    transaction_date = peewee.DateField()
+    underlying_stock = peewee.CharField()
+    expire_date = peewee.DateField()
+    strike_price = peewee.IntegerField()
+    option_type = peewee.CharField()
+    open_price = peewee.FloatField()
+    low_price = peewee.FloatField()
+    high_price = peewee.FloatField()
+    close_price = peewee.FloatField()
+    volume = peewee.IntegerField()
+    open_interest = peewee.IntegerField()
+
+    class Meta:
+        database = db
+        primary_key = CompositeKey('transaction_date','underlying_stock','expire_date','strike_price','option_type')
+
 
 
 
