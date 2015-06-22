@@ -55,8 +55,12 @@ class EodDataDataManager:
                     expiration_date = temp[1]
                     option_type = temp[2]
                     strike_price = str(int(temp[3]))
-                    output.write(underlying_stock + "," + expiration_date + "," + option_type+"," + strike_price+",")
-                    output.write(date+ "," + open_price + "," + high + "," + low + "," + close + "," + volume + "," + open_interest)
+                    date = datetime.datetime.strptime(date, "%Y%m%d").strftime("%Y/%m/%d")
+                    expiration_date = datetime.datetime.strptime(expiration_date, "%y%m%d").strftime("%Y/%m/%d")
+                    output.write(date + "," + underlying_stock + "," + option_type + "," + expiration_date + ",")
+                    output.write(strike_price + ","+ contract_name + "," + open_price + "," + high + "," + low + "," + close + "," + volume + "," + open_interest)
+                    #output.write(underlying_stock + "," + expiration_date + "," + option_type+"," + strike_price+",")
+                    #output.write(date+ "," + open_price + "," + high + "," + low + "," + close + "," + volume + "," + open_interest)
 
     #this function to copy the equity data .txt format into .csv format
     def copy_txt_to_csv(self,src_folder, src_file, des_folder, des_file):
