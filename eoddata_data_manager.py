@@ -9,6 +9,7 @@ import shutil
 import models
 import MySQLdb
 from _mysql_exceptions import IntegrityError
+import pandas.io.sql as sql
 
 
 class EodDataDataManager:
@@ -226,17 +227,42 @@ class EodDataDataManager:
             cursor.close()
             db.close()
 
-
-
     def filter_stock_by_volume(self, target_date, date_window, filter_parameter):
         ''' function to list all the stocks that have relative huge volume compared with average volume in date_window
         :param target_date:
         :param date_window:
         :param filter_parameter:
-        :return:
+        :return: the dictionary that contains the symbol and the symbol weighted price
         '''
-        pass
+        config = configparser.ConfigParser()
+        config.read(self.config_file)
 
+        host = config.get("database", "host")
+        database = config.get("database","database")
+        user = config.get("database","user")
+        password = config.get("database", "passwd")
+        db = MySQLdb.connect(host=host,db=database, user=user, passwd=password)
+        eod_equity_table_name = "eodequity"
+
+        min_date = min(target_date,min(date_window))
+        max_date = max(target_date,max(date_window))
+
+        min_date_str = min_date.strftime('%Y-%m-%d')
+        max_date_str = max_date.strftime('%Y-%m-%d')
+        sql_statement = ("select * from %(table_name)s where transaction_date >= '%(begin_date)s' and transaction_date<='%(end_date)s'")
+        eod_data= sql.read_sql(sql_statement%{'begin_date':min_date_str,'end_date':max_date_str, 'table_name': eod_equity_table_name},db)
+        db.close()
+        target_data = eod_data[eod_data.transaction_date == target_date.date()]
+        target_data = target_data.set_index("symbol")
+
+        date_window_in_date = [x.date() for x in date_window]
+        bench_data = eod_data[eod_data['transaction_date'].apply(lambda x: x in date_window_in_date)]
+        bench_avg_volume = bench_data.groupby("symbol")['volume'].mean()
+
+        joined_data = target_data.join(bench_avg_volume,how='inner',rsuffix='_avg')
+        filtered_data = joined_data[joined_data.volume/joined_data.volume_avg > filter_parameter]
+        #print filtered_data
+        return [x for x in filtered_data.index]
 
     def daily_run(self):
         Config = configparser.ConfigParser()
