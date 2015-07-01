@@ -115,7 +115,7 @@ def generate_previous_trading_date_dict(start_date, end_date, max_move_days):
     country = "US"
     extended_start_date = nearest_trading_day(start_date + datetime.timedelta(days=-max_move_days), country)
     extended_end_date = nearest_trading_day(end_date + datetime.timedelta(days=max_move_days), country)
-    while extended_end_date != extended_start_date:
+    while extended_end_date > extended_start_date:
         pre_date = prev_business_day(extended_end_date, country)
         result[extended_end_date.date()] = pre_date.date()
         extended_end_date = pre_date
