@@ -293,18 +293,10 @@ if __name__ == "__main__":
     if not os.path.exists(message_folder):
         os.makedirs(message_folder)
 
-    db = MySQLdb.connect(host="localhost", db=models.database, user=models.user, passwd=models.password)
-    data_analyser = yahoo_data_analyser.YahooEquityDataAnalyser(db)
-    file_name = "sp500_daily_rsq_" + datetime.datetime.now().strftime('%m_%d_%Y') + ".csv"
-    data_analyser.calculate_daily_rsq(symbol_list, index_list, None, 30, message_folder + "/" + file_name)
-    db.close()
 
-    mail_list = ["luoqing222@gmail.com", "fanlinzhu@yahoo.com"]
-    #mail_list = ["luoqing222@gmail.com"]
-    send_email(file_name, mail_list, message_folder)
 
-    # function to collect the end of day NYSE, Dasdaq and option data
-    # data is saved in the data_folder defined in option_data_management_setting.ini
+    #function to collect the end of day NYSE, Dasdaq and option data
+    #data is saved in the data_folder defined in option_data_management_setting.ini
     mail_list = ["luoqing222@gmail.com"]
     file_name = "eod_data_download_" + datetime.datetime.now().strftime('%m_%d_%Y') + ".csv"
     file_stream = open(message_folder + "/" + file_name, "w")
@@ -329,6 +321,15 @@ if __name__ == "__main__":
     except Exception, e:
         file_stream.write(str(e))
     file_stream.close()
+    send_email(file_name, mail_list, message_folder)
+
+    db = MySQLdb.connect(host="localhost", db=models.database, user=models.user, passwd=models.password)
+    data_analyser = yahoo_data_analyser.YahooEquityDataAnalyser(db)
+    file_name = "sp500_daily_rsq_" + datetime.datetime.now().strftime('%m_%d_%Y') + ".csv"
+    data_analyser.calculate_daily_rsq(symbol_list, index_list, None, 30, message_folder + "/" + file_name)
+    db.close()
+
+    mail_list = ["luoqing222@gmail.com", "fanlinzhu@yahoo.com"]
     send_email(file_name, mail_list, message_folder)
 
     print("--- %s seconds ---" % (time.time() - start_time))
