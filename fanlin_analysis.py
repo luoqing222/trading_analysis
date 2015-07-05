@@ -14,6 +14,7 @@ import sys
 import os
 from peewee import fn
 import emailprocessing
+import yahoo_equity_data_loader
 
 def get_messages_folder():
     current_folder = os.getcwd()
@@ -85,15 +86,15 @@ def calculate_strong_stock(start_date_object, end_date_object):
 
 def calculate_sp500_rsq(running_date_object):
     # find the tick that in the HistoricalPrice
-    #query = models.HistoricalPrice.select(models.HistoricalPrice.symbol,
-    #                                      fn.Max(models.HistoricalPrice.transaction_date).
-    #                                      alias('recent_date')).group_by(models.HistoricalPrice.symbol)
+    query = models.HistoricalPrice.select(models.HistoricalPrice.symbol,
+                                         fn.Max(models.HistoricalPrice.transaction_date).
+                                         alias('recent_date')).group_by(models.HistoricalPrice.symbol)
 
-    #symbol_most_recent_date = {}
-    # mapping from symbol to most recent date is saved in dictionary symbol_most_recent_date
-    # including the index fund price
-    #for item in query:
-    #    symbol_most_recent_date[item.symbol] = item.recent_date
+    symbol_most_recent_date = {}
+    #mapping from symbol to most recent date is saved in dictionary symbol_most_recent_date
+    #including the index fund price
+    for item in query:
+       symbol_most_recent_date[item.symbol] = item.recent_date
 
     # get the SP500 list with most recent save date
     query = models.Sp500List.select(fn.Max(models.Sp500List.save_date).alias('recent_date'))
@@ -103,9 +104,11 @@ def calculate_sp500_rsq(running_date_object):
     # item in the query is latest sp500 tick
     symbol_list = []
     query = models.Sp500List.select().where(models.Sp500List.save_date == SP500_recent_date)
+    the_data_loader = yahoo_equity_data_loader.YahooEquityDataLoader()
+
     for item in query:
         symbol = item.symbol
-        #save_trading_data(symbol, symbol_most_recent_date)
+        the_data_loader.save_trading_data(symbol, symbol_most_recent_date)
         symbol_list.append(symbol)
 
     # do the same thing for index fund
@@ -113,7 +116,7 @@ def calculate_sp500_rsq(running_date_object):
     index_list = []
     for item in query:
         symbol = item.symbol
-        #save_trading_data(symbol, symbol_most_recent_date)
+        the_data_loader.save_trading_data(symbol, symbol_most_recent_date)
         index_list.append(symbol)
 
     # make the directory for the messages to monitor
@@ -123,7 +126,6 @@ def calculate_sp500_rsq(running_date_object):
 
     db = MySQLdb.connect(host=models.host, db=models.database, user=models.user, passwd=models.password)
     data_analyser = yahoo_data_analyser.YahooEquityDataAnalyser(db)
-    #file_name = "sp500_daily_rsq_" + running_date_object.strftime('%m_%d_%Y') + ".csv"
     file_name = generate_rsq_file_name(running_date_object)
     data_analyser.calculate_daily_rsq(symbol_list, index_list, running_date_object, 30, message_folder + "/" + file_name)
     db.close()
@@ -134,12 +136,10 @@ if __name__ == "__main__":
     if not trading_date_utility.is_trading_day(current_time, "US"):
         sys.exit(0)
 
-    calculate_strong_stock(current_time+datetime.timedelta(days = -1),current_time)
-
     calculate_sp500_rsq(current_time)
-
-    #mail_list = ["luoqing222@gmail.com", "fanlinzhu@yahoo.com"]
-    mail_list = ["luoqing222@gmail.com"]
+    calculate_strong_stock(current_time+datetime.timedelta(days = -1),current_time)
+    mail_list = ["luoqing222@gmail.com", "fanlinzhu@yahoo.com"]
+    #mail_list = ["luoqing222@gmail.com"]
     send_email(generate_rsq_file_name(current_time), mail_list,get_messages_folder())
     send_email(generate_strong_stock_file_name(current_time), mail_list,get_messages_folder())
 
