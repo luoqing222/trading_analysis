@@ -125,7 +125,7 @@ def generate_previous_trading_date_dict(start_date, end_date, max_move_days):
 
 
 def previous_n_trading_days(trading_date, n, trading_date_map):
-    start_date = trading_date
+    start_date = nearest_trading_day(trading_date,"US")
     for i in range(0, n):
         start_date = trading_date_map[start_date]
     return start_date
