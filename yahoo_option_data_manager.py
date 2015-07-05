@@ -7,6 +7,8 @@ import MySQLdb
 import time
 import yahoo_option_data_loader
 import models
+import pandas.io.sql as sql
+import pandas as pd
 
 class YahooOptionDataManager:
     def __init__(self):
@@ -137,6 +139,47 @@ class YahooOptionDataManager:
             cursor.close()
             db.close()
 
+    def filter_stock_by_option_volume(self, analysis_date, date_window, filter_parameter):
+        '''
+        :param analysis_date: the date that is doing analysis
+        :param date_window: the date window as the bench mark
+        :param filter_parameter: the parameters
+        :return: stock list
+        '''
+        config = configparser.ConfigParser()
+        config.read(self.config_file)
+
+        host = config.get("database", "host")
+        database = config.get("database","database")
+        user = config.get("database","user")
+        password = config.get("database", "passwd")
+        db = MySQLdb.connect(host=host,db=database, user=user, passwd=password)
+        table_name = "yahoooption"
+
+        min_date = min(analysis_date,min(date_window))
+        max_date = max(analysis_date,max(date_window))
+
+        min_date_str = min_date.strftime('%Y-%m-%d')
+        max_date_str = max_date.strftime('%Y-%m-%d')
+        sql_statement = ("select * from %(table_name)s where transaction_date >= '%(begin_date)s' and transaction_date<='%(end_date)s'")
+        data_frame= sql.read_sql(sql_statement%{'begin_date':min_date_str,'end_date':max_date_str, 'table_name': table_name},db)
+        db.close()
+        analysis_data = data_frame[data_frame.transaction_date == analysis_date.date()]
+        analysis_data = analysis_data.groupby(["underlying_stock","option_type"])['volume'].sum()
+        analysis_data.name = "sum"
+
+        date_window_in_date = [x.date() for x in date_window]
+        bench_data = data_frame[data_frame['transaction_date'].apply(lambda x: x in date_window_in_date)]
+        bench_avg_volume = bench_data.groupby(["underlying_stock","option_type"])['volume'].sum()
+        bench_avg_volume.name = "total"
+
+        joined_data= pd.concat([analysis_data, bench_avg_volume], axis=1).reset_index()
+        joined_data["ratio"]=joined_data["sum"]/joined_data["total"]
+        #return joined_data
+        filtered_data = joined_data[joined_data.ratio > filter_parameter]
+        return [x for x in filtered_data.underlying_stock]
+
+
     def daily_run(self):
         Config = configparser.ConfigParser()
         Config.read(self.config_file)
@@ -146,13 +189,6 @@ class YahooOptionDataManager:
         file_name= self.get_yahoo_data_dir(Config,running_time)+"/"+self.get_file_name(running_time)
         self.upload_csv_to_db(Config, file_name)
 
-    # def save_historical_data(self):
-    #     Config = configparser.ConfigParser()
-    #     Config.read(self.config_file)
-    #     files_names = ["2015_05_31","2015_06_01","2015_06_02","2015_06_03","2015_06_04","2015_06_05","2015_06_08","2015_06_09","2015_06_10","2015_06_12","2015_06_15","2015_06_16","2015_06_18"]
-    #     for name in files_names:
-    #         file_name = "yahoo_option_"+ name +".csv"
-    #         self.upload_csv_to_db(Config,file_name)
 
 
 
