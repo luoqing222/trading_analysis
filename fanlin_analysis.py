@@ -133,8 +133,8 @@ def calculate_sp500_rsq(running_date_object):
 if __name__ == "__main__":
     # check if the day that is not trading day, stop running
     current_time = datetime.datetime.now()
-    if not trading_date_utility.is_trading_day(current_time, "US"):
-        sys.exit(0)
+    #if not trading_date_utility.is_trading_day(current_time, "US"):
+    #    sys.exit(0)
 
     calculate_sp500_rsq(current_time)
     calculate_strong_stock(current_time+datetime.timedelta(days = -1),current_time)
