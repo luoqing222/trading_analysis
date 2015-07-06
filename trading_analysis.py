@@ -124,7 +124,7 @@ if __name__ == "__main__":
     file_stream.write("begin downloading eod data")
     try:
         eod_data_manager = eoddata_data_manager.EodDataDataManager()
-        #eod_data_manager.daily_run()
+        eod_data_manager.daily_run()
     except Exception, e:
         file_stream.write(str(e))
     file_stream.close()
