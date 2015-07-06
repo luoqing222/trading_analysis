@@ -45,14 +45,15 @@ def calculate_strong_stock(start_date_object, end_date_object):
     :param end_date_object: end_date in the running
     :return:
     '''
-    trading_date_mapping = trading_date_utility.generate_previous_trading_date_dict(start_date_object,end_date_object,100)
+    trading_date_mapping = trading_date_utility.generate_previous_trading_date_dict(start_date_object.date(),end_date_object.date(),120)
     symbols = trading_data_utility.TradingDataUtility().get_sp500_list(end_date_object.date())
     days_array=[5,20,65]
     weight=[0.5,0.3,0.2]
     stock_num=10
     db = MySQLdb.connect(host=models.host,db=models.database, user=models.user, passwd=models.password)
     data_analyser = yahoo_data_analyser.YahooEquityDataAnalyser(db)
-    temp_date_object=end_date_object.date()
+    #temp_date_object=end_date_object.date()
+    temp_date_object=end_date_object
 
     message_folder = get_messages_folder()
     if not os.path.exists(message_folder):
@@ -67,6 +68,7 @@ def calculate_strong_stock(start_date_object, end_date_object):
     file.write("avg_return")
     file.write("\n")
 
+    temp_date_object = temp_date_object.date()
     while temp_date_object>start_date_object.date():
         print "running calculation on ", temp_date_object
         last_week_date=trading_date_utility.previous_n_trading_days(temp_date_object,5,trading_date_mapping)
@@ -127,18 +129,20 @@ def calculate_sp500_rsq(running_date_object):
     db = MySQLdb.connect(host=models.host, db=models.database, user=models.user, passwd=models.password)
     data_analyser = yahoo_data_analyser.YahooEquityDataAnalyser(db)
     file_name = generate_rsq_file_name(running_date_object)
+    running_date_object = running_date_object.date()
     data_analyser.calculate_daily_rsq(symbol_list, index_list, running_date_object, 30, message_folder + "/" + file_name)
     db.close()
 
 if __name__ == "__main__":
     # check if the day that is not trading day, stop running
     current_time = datetime.datetime.now()
-    #if not trading_date_utility.is_trading_day(current_time, "US"):
-    #    sys.exit(0)
+    #current_time = datetime.datetime(2015,7,2,0,0,0)
+    if not trading_date_utility.is_trading_day(current_time, "US"):
+        sys.exit(0)
 
     calculate_sp500_rsq(current_time)
     calculate_strong_stock(current_time+datetime.timedelta(days = -1),current_time)
-    mail_list = ["luoqing222@gmail.com", "fanlinzhu@yahoo.com"]
+    ail_list = ["luoqing222@gmail.com", "fanlinzhu@yahoo.com"]
     #mail_list = ["luoqing222@gmail.com"]
     send_email(generate_rsq_file_name(current_time), mail_list,get_messages_folder())
     send_email(generate_strong_stock_file_name(current_time), mail_list,get_messages_folder())

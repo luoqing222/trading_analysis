@@ -8,6 +8,11 @@ import peewee
 
 # find the first available trading day before date
 def prev_business_day(date, country):
+    '''
+    :param date: the date object
+    :param country: default is "US"
+    :return: the date object that is the previous business date
+    '''
     next_day = pd.to_datetime(date) + pd.DateOffset(days=-1)
     (year, week, weekday) = next_day.isocalendar()
     year, month, day = next_day.year, next_day.month, next_day.day
@@ -25,11 +30,16 @@ def prev_business_day(date, country):
                                                         & (models.HolidayCalendar.date.day == day)
                                                         & (models.HolidayCalendar.country_code == country))
 
-    return datetime.datetime(year, month, day)
+    return datetime.datetime(year, month, day).date()
 
 
 # find the next available trading date after date
 def next_business_day(date, country):
+    '''
+    :param date: date object
+    :param country: default is "US"
+    :return: the date object that is the next business day
+    '''
     next_day = pd.to_datetime(date) + pd.DateOffset(days=1)
     (year, week, weekday) = next_day.isocalendar()
     year, month, day = next_day.year, next_day.month, next_day.day
@@ -47,7 +57,7 @@ def next_business_day(date, country):
                                                         & (models.HolidayCalendar.date.day == day)
                                                         & (models.HolidayCalendar.country_code == country))
 
-    return datetime.datetime(year, month, day)
+    return datetime.datetime(year, month, day).date()
 
 
 def next_trading_day(date, country, delta):
@@ -92,6 +102,11 @@ def is_trading_day(date, country):
     #For example, is_trading_day("03/29/2015", "US") will return False
     #is_trading_day("03/30/2015, "US") will return True
 def nearest_trading_day(date, country):
+    '''
+    :param date: date object
+    :param country: default is "US"
+    :return: date object
+    '''
     if is_trading_day(date, country):
         return date
     return prev_business_day(date, country)
@@ -119,13 +134,13 @@ def generate_previous_trading_date_dict(start_date, end_date, max_move_days):
     extended_end_date = nearest_trading_day(end_date + datetime.timedelta(days=max_move_days), country)
     while extended_end_date > extended_start_date:
         pre_date = prev_business_day(extended_end_date, country)
-        result[extended_end_date.date()] = pre_date.date()
+        result[extended_end_date] = pre_date
         extended_end_date = pre_date
     return result
 
 
 def previous_n_trading_days(trading_date, n, trading_date_map):
-    start_date = nearest_trading_day(trading_date,"US").date()
+    start_date = nearest_trading_day(trading_date,"US")
     for i in range(0, n):
         start_date = trading_date_map[start_date]
     return start_date
