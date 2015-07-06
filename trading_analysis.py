@@ -101,8 +101,8 @@ if __name__ == "__main__":
     update_sp500list_table(data_manager, current_date)
 
     # check if the day that is not trading day, stop running
-    if not trading_date_utility.is_trading_day(datetime.datetime.now(), "US"):
-        sys.exit(0)
+    #if not trading_date_utility.is_trading_day(datetime.datetime.now(), "US"):
+    #    sys.exit(0)
 
     initialize_holiday_table()
     initialize_index_fund_table()
