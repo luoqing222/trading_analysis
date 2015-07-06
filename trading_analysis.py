@@ -101,14 +101,12 @@ if __name__ == "__main__":
     update_sp500list_table(data_manager, current_date)
 
     # check if the day that is not trading day, stop running
-    #if not trading_date_utility.is_trading_day(datetime.datetime.now(), "US"):
-    #    sys.exit(0)
+    if not trading_date_utility.is_trading_day(datetime.datetime.now(), "US"):
+        sys.exit(0)
 
     initialize_holiday_table()
     initialize_index_fund_table()
     initialize_historical_price_table()
-
-
 
     # make the directory for the messages to monitor
     current_folder = os.getcwd()
@@ -138,7 +136,7 @@ if __name__ == "__main__":
     start_time = time.time()
     try:
         option_data_manager = yahoo_option_data_manager.YahooOptionDataManager()
-        #option_data_manager.daily_run()
+        option_data_manager.daily_run()
     except Exception, e:
         file_stream.write(str(e))
     file_stream.close()
