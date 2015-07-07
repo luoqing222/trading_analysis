@@ -142,7 +142,7 @@ if __name__ == "__main__":
 
     calculate_sp500_rsq(current_time)
     calculate_strong_stock(current_time+datetime.timedelta(days = -1),current_time)
-    ail_list = ["luoqing222@gmail.com", "fanlinzhu@yahoo.com"]
+    mail_list = ["luoqing222@gmail.com", "fanlinzhu@yahoo.com"]
     #mail_list = ["luoqing222@gmail.com"]
     send_email(generate_rsq_file_name(current_time), mail_list,get_messages_folder())
     send_email(generate_strong_stock_file_name(current_time), mail_list,get_messages_folder())
