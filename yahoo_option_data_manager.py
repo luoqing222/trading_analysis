@@ -16,20 +16,20 @@ class YahooOptionDataManager:
         self.config_file = "option_data_management_setting.ini"
         pass
 
-    def get_symbol_list(self,config):
+    def get_symbol_list(self, config):
         host = config.get("database", "host")
-        database = config.get("database","database")
-        user = config.get("database","user")
+        database = config.get("database", "database")
+        user = config.get("database", "user")
         password = config.get("database", "passwd")
-        db = MySQLdb.connect(host=host,db=database, user=user, passwd=password)
+        db = MySQLdb.connect(host=host, db=database, user=user, passwd=password)
 
         cursor = db.cursor()
 
-        #find the mapping between symbol and adjust_close price
+        # find the mapping between symbol and adjust_close price
         sql_statement = "select DISTINCT symbol from nyselist"
         cursor.execute(sql_statement)
         rows = cursor.fetchall()
-        result=[row[0] for row in rows]
+        result = [row[0] for row in rows]
 
         sql_statement = "select DISTINCT symbol from nasdaqlist"
         cursor.execute(sql_statement)
@@ -44,43 +44,42 @@ class YahooOptionDataManager:
             result.append(row[0])
         db.close()
 
-        result=list(set(result))
+        result = list(set(result))
         return result
 
-
-    def get_file_name(self,running_time):
+    def get_file_name(self, running_time):
         '''  to generate the file name when call the yahoo option manager. has been tested.
         :param running_time: the running time that the funciton is called
         :return: the file name
         '''
-        return "yahoo_option_"+running_time.strftime("%Y_%m_%d")+".csv"
+        return "yahoo_option_" + running_time.strftime("%Y_%m_%d") + ".csv"
 
-    def generate_temp_option_data(self,Config,running_time):
+    def generate_temp_option_data(self, Config, running_time):
         temp_folder = Config.get("csv", "temp_folder")
         # check if the folder exist or not, if not then make it
         if not os.path.exists(temp_folder):
             os.makedirs(temp_folder)
 
         file_name = self.get_file_name(running_time)
-        temp_full_file_name = temp_folder+"/"+file_name
-        temp_data_file = open(temp_full_file_name,"w")
+        temp_full_file_name = temp_folder + "/" + file_name
+        temp_data_file = open(temp_full_file_name, "w")
         symbol_list = self.get_symbol_list(Config)
-        #symbol_list =["FB"]
+        # symbol_list =["FB"]
         for symbol in symbol_list:
-            self.data_loader.web_crawler(symbol,temp_data_file)
+            self.data_loader.web_crawler(symbol, temp_data_file)
             temp_data_file.flush()
         temp_data_file.close()
 
-    def add_date_column_to_temp_data_file(self,Config,running_time):
-        src_file_name= Config.get("csv","temp_folder")+"/"+self.get_file_name(running_time)
+    def add_date_column_to_temp_data_file(self, Config, running_time):
+        src_file_name = Config.get("csv", "temp_folder") + "/" + self.get_file_name(running_time)
 
         des_folder = self.get_yahoo_data_dir(Config, running_time)
         des_file_name = des_folder + "/" + self.get_file_name(running_time)
 
-        des_file=open(des_file_name,"w")
+        des_file = open(des_file_name, "w")
         with open(src_file_name) as fp:
             for line in fp:
-                des_file.write(running_time.strftime("%Y/%m/%d")+","+line)
+                des_file.write(running_time.strftime("%Y/%m/%d") + "," + line)
 
         des_file.close()
 
@@ -90,7 +89,8 @@ class YahooOptionDataManager:
         :param running_time: running time
         :return: the location where yahoo data should be located
         '''
-        des_folder = config.get("csv", "data_folder") + "/" + "daily_run" + "/" + running_time.strftime("%Y_%m_%d") + "/" +"yahoo"
+        des_folder = config.get("csv", "data_folder") + "/" + "daily_run" + "/" + running_time.strftime(
+            "%Y_%m_%d") + "/" + "yahoo"
         if not os.path.exists(des_folder):
             os.makedirs(des_folder)
         return des_folder
@@ -109,23 +109,26 @@ class YahooOptionDataManager:
         if os.path.exists(des_file_name):
             with open(des_file_name) as fp:
                 for line in fp:
-                    line = line.replace('-','0')
+                    line = line.replace('-', '0')
                     splited_item = line.split(',')
                     if len(splited_item) == 15:
-                        [transaction_date, underlying_stock, option_type, expire_date,strike_price,
-                         contract, last, bid, ask,  price_change, pct_change, volume, open_interest, implied_vol,temp] = splited_item
+                        [transaction_date, underlying_stock, option_type, expire_date, strike_price,
+                         contract, last, bid, ask, price_change, pct_change, volume, open_interest, implied_vol,
+                         temp] = splited_item
                         try:
-                            records.append((transaction_date, underlying_stock, option_type[0], expire_date,int(float(strike_price)*1000),
-                             contract, float(last), float(bid), float(ask),  float(price_change), float(pct_change.strip('%'))/100.0,
-                                            int(volume), int(open_interest), float(implied_vol.strip('%'))/100.0))
+                            records.append((transaction_date, underlying_stock, option_type[0], expire_date,
+                                            int(float(strike_price) * 1000),
+                                            contract, float(last), float(bid), float(ask), float(price_change),
+                                            float(pct_change.strip('%')) / 100.0,
+                                            int(volume), int(open_interest), float(implied_vol.strip('%')) / 100.0))
                         except:
                             pass
 
         host = config.get("database", "host")
-        database = config.get("database","database")
-        user = config.get("database","user")
+        database = config.get("database", "database")
+        user = config.get("database", "user")
         password = config.get("database", "passwd")
-        db = MySQLdb.connect(host=host,db=database, user=user, passwd=password)
+        db = MySQLdb.connect(host=host, db=database, user=user, passwd=password)
 
         cursor = db.cursor()
         sql_statement = "insert into yahoooption(transaction_date, underlying_stock, option_type,expire_date,strike_price,contract, last, bid, ask,price_change, pct_change, volume,open_interest, implied_vol) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
@@ -150,53 +153,119 @@ class YahooOptionDataManager:
         config.read(self.config_file)
 
         host = config.get("database", "host")
-        database = config.get("database","database")
-        user = config.get("database","user")
+        database = config.get("database", "database")
+        user = config.get("database", "user")
         password = config.get("database", "passwd")
-        db = MySQLdb.connect(host=host,db=database, user=user, passwd=password)
+        db = MySQLdb.connect(host=host, db=database, user=user, passwd=password)
         table_name = "yahoooption"
 
-        min_date = min(analysis_date,min(date_window))
-        max_date = max(analysis_date,max(date_window))
+        min_date = min(analysis_date, min(date_window))
+        max_date = max(analysis_date, max(date_window))
 
         min_date_str = min_date.strftime('%Y-%m-%d')
         max_date_str = max_date.strftime('%Y-%m-%d')
-        sql_statement = ("select * from %(table_name)s where transaction_date >= '%(begin_date)s' and transaction_date<='%(end_date)s'")
-        data_frame= sql.read_sql(sql_statement%{'begin_date':min_date_str,'end_date':max_date_str, 'table_name': table_name},db)
+        sql_statement = (
+            "select * from %(table_name)s where transaction_date >= '%(begin_date)s' and transaction_date<='%(end_date)s'")
+        data_frame = sql.read_sql(
+            sql_statement % {'begin_date': min_date_str, 'end_date': max_date_str, 'table_name': table_name}, db)
+
+        # get the equity data from eodequity
+        sql_statement = (
+            "select symbol as underlying_stock, volume as stock_volume, close_price from eodequity where transaction_date ='%(transaction_date)s'")
+        eod_equity_frame = sql.read_sql(sql_statement % {'transaction_date': analysis_date.date()}, db)
         db.close()
-        analysis_data = data_frame[data_frame.transaction_date == analysis_date.date()]
-        analysis_data = analysis_data.groupby(["underlying_stock","option_type"])['volume'].sum()
+        eod_equity_frame.to_csv("eod_equity.csv")
+
+        analysis_all_data = data_frame[data_frame.transaction_date == analysis_date.date()]
+        analysis_data = analysis_all_data.groupby(["underlying_stock", "option_type"])['volume'].sum()
         analysis_data.name = "sum"
 
         date_window_in_date = [x.date() for x in date_window]
         bench_data = data_frame[data_frame['transaction_date'].apply(lambda x: x in date_window_in_date)]
-        bench_avg_volume = bench_data.groupby(["underlying_stock","option_type"])['volume'].sum()
+        bench_avg_volume = bench_data.groupby(["underlying_stock", "option_type"])['volume'].sum()
         bench_avg_volume.name = "total"
 
-        joined_data= pd.concat([analysis_data, bench_avg_volume], axis=1).reset_index()
-        joined_data["ratio"]=joined_data["sum"]/joined_data["total"]
-        #return joined_data
+        joined_data = pd.concat([analysis_data, bench_avg_volume], axis=1).reset_index()
+        joined_data = joined_data[joined_data["total"] != 0]
+        joined_data["ratio"] = joined_data["sum"] / joined_data["total"]
+        # return joined_data
         filtered_data = joined_data[joined_data.ratio > filter_parameter]
-        return [x for x in filtered_data.underlying_stock]
+        stock_list = [x for x in filtered_data.underlying_stock]
+        type_list = [y for y in filtered_data.option_type]
+
+        # pick the selected stock
+        stock_selected = []
+        for underlying_stock, option_type in zip(stock_list, type_list):
+            if stock_list.count(underlying_stock) == 1:
+                stock_selected.append((underlying_stock, option_type))
+
+        # calculate the statistics for each stock selected
+        result_table = pd.DataFrame()
+        for underlying_stock, option_type in stock_selected:
+            print underlying_stock, option_type
+            option_data = analysis_all_data[(analysis_all_data.underlying_stock == underlying_stock) & (
+                analysis_all_data.option_type == option_type)]
+            total_option_volume = sum(option_data['volume'])
+            option_data['total_option_volume'] = pd.Series([total_option_volume] * len(option_data),
+                                                           index=option_data.index)
+            result_table = result_table.append(option_data.ix[option_data['volume'].idxmax()])
+        result_table = pd.merge(result_table, eod_equity_frame, how='left', on=['underlying_stock'])
+        result_table['volume_ratio'] = 100 * result_table['volume'] / result_table['stock_volume']
+        result_table['option_ratio'] = result_table['volume'] / result_table['total_option_volume']
+        result_table['option_cost'] = 100 * result_table['volume'] * result_table['last']
+        result_table.to_csv("test.csv")
+        #return_stock_list=[]
+        stock_list = [x for x in result_table.underlying_stock]
+        expire_date = [x for x in result_table.expire_date]
+        #print zip(stock_list,expire_date)
+        return zip(stock_list,expire_date)
+
+    def generate_option_sum_bar(self, start_date, end_date, underlying_stock, ax, expire_date):
+        ''' function to generate the bar plot for underlying_stock
+        :param start_date: start date
+        :param end_date:
+        :param underlying_stock:
+        :param ax:
+        :param expire_date: Only for illustration purpose, not essential in the calculation
+        :return:
+        '''
+        config = configparser.ConfigParser()
+        config.read(self.config_file)
+
+        host = config.get("database", "host")
+        database = config.get("database", "database")
+        user = config.get("database", "user")
+        password = config.get("database", "passwd")
+        db = MySQLdb.connect(host=host, db=database, user=user, passwd=password)
+        table_name = "yahoooption"
+
+        start_date_str = start_date.strftime('%Y-%m-%d')
+        end_date_str = end_date.strftime('%Y-%m-%d')
+
+        sql_statement = (
+            "select transaction_date, sum(volume) from %(table_name)s where underlying_stock "
+            "= '%(underlying_stock)s' and transaction_date between '%(begin_date)s' and '%(end_date)s' "
+            "and option_type = '%(option_type)s' group by transaction_date order by transaction_date asc")
+        option_type = 'C'
+        data_frame = sql.read_sql(
+            sql_statement % {'begin_date': start_date_str, 'end_date': end_date_str, 'table_name': table_name, 'option_type': option_type, 'underlying_stock': underlying_stock}, db)
+        bar_data_C = pd.Series(list(data_frame['sum(volume)']),index = data_frame['transaction_date'],name = option_type)
+
+        option_type = 'P'
+        data_frame = sql.read_sql(
+            sql_statement % {'begin_date': start_date_str, 'end_date': end_date_str, 'table_name': table_name, 'option_type': option_type, 'underlying_stock': underlying_stock}, db)
+        bar_data_P = pd.Series(list(data_frame['sum(volume)']),index = data_frame['transaction_date'],name = option_type)
+
+        bar_data= pd.concat([bar_data_C, bar_data_P], axis=1)
+        bar_data.plot(kind = 'bar', ax = ax, title = underlying_stock + "("+expire_date.strftime('%Y_%m_%d') + ")")
+        db.close()
 
 
     def daily_run(self):
         Config = configparser.ConfigParser()
         Config.read(self.config_file)
-        running_time=datetime.datetime.now()
-        self.generate_temp_option_data(Config,running_time)
-        self.add_date_column_to_temp_data_file(Config,running_time)
-        file_name= self.get_yahoo_data_dir(Config,running_time)+"/"+self.get_file_name(running_time)
+        running_time = datetime.datetime.now()
+        self.generate_temp_option_data(Config, running_time)
+        self.add_date_column_to_temp_data_file(Config, running_time)
+        file_name = self.get_yahoo_data_dir(Config, running_time) + "/" + self.get_file_name(running_time)
         self.upload_csv_to_db(Config, file_name)
-
-
-
-
-
-
-
-
-
-
-
-
