@@ -213,11 +213,10 @@ class YahooOptionDataManager:
         result_table['volume_ratio'] = 100 * result_table['volume'] / result_table['stock_volume']
         result_table['option_ratio'] = result_table['volume'] / result_table['total_option_volume']
         result_table['option_cost'] = 100 * result_table['volume'] * result_table['last']
+        result_table['price_ratio'] = result_table['close_price']/result_table['last']
         result_table.to_csv("test.csv")
-        #return_stock_list=[]
         stock_list = [x for x in result_table.underlying_stock]
         expire_date = [x for x in result_table.expire_date]
-        #print zip(stock_list,expire_date)
         return zip(stock_list,expire_date)
 
     def generate_option_sum_bar(self, start_date, end_date, underlying_stock, ax, expire_date):
@@ -259,7 +258,6 @@ class YahooOptionDataManager:
         bar_data= pd.concat([bar_data_C, bar_data_P], axis=1)
         bar_data.plot(kind = 'bar', ax = ax, title = underlying_stock + "("+expire_date.strftime('%Y_%m_%d') + ")")
         db.close()
-
 
     def daily_run(self):
         Config = configparser.ConfigParser()
