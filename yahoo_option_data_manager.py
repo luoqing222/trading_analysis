@@ -9,6 +9,8 @@ import yahoo_option_data_loader
 import models
 import pandas.io.sql as sql
 import pandas as pd
+import re
+
 
 class YahooOptionDataManager:
     def __init__(self):
@@ -142,8 +144,24 @@ class YahooOptionDataManager:
             cursor.close()
             db.close()
 
+    @staticmethod
+    def decompose_option_contract(contract_name):
+        result = []
+        option_name = re.compile("^[A-Z]+\.*[A-Z]+\d{6}[CP]\d{8}")
+        if not option_name.match(contract_name):
+            return None
+        underlying_stock = re.sub("\d{6}[CP]\d{8}", "", contract_name)
+        contract_name = re.sub("^[A-Z]+\.*[A-Z]+", "", contract_name)
+        expiration_date = re.sub("[CP]\d{8}", "", contract_name)
+        contract_name = re.sub("^\d{6}", "", contract_name)
+        option_type = re.sub("\d{8}", "", contract_name)
+        contract_name = re.sub("^[CP]", "", contract_name)
+        strike_price = contract_name
+
+        return [underlying_stock, expiration_date, option_type, strike_price]
+
     def filter_stock_by_option_volume(self, analysis_date, date_window, filter_parameter):
-        '''
+        ''' function to select the contract that has significant volume change
         :param analysis_date: the date that is doing analysis
         :param date_window: the date window as the bench mark
         :param filter_parameter: the parameters
@@ -202,22 +220,24 @@ class YahooOptionDataManager:
         # calculate the statistics for each stock selected
         result_table = pd.DataFrame()
         for underlying_stock, option_type in stock_selected:
-            print underlying_stock, option_type
+            #print underlying_stock, option_type
             option_data = analysis_all_data[(analysis_all_data.underlying_stock == underlying_stock) & (
                 analysis_all_data.option_type == option_type)]
             total_option_volume = sum(option_data['volume'])
             option_data['total_option_volume'] = pd.Series([total_option_volume] * len(option_data),
                                                            index=option_data.index)
-            result_table = result_table.append(option_data.ix[option_data['volume'].idxmax()])
+            #result_table = result_table.append(option_data.ix[option_data['volume'].idxmax()])
+            result_table = result_table.append(option_data.loc[option_data['volume'].idxmax()])
         result_table = pd.merge(result_table, eod_equity_frame, how='left', on=['underlying_stock'])
         result_table['volume_ratio'] = 100 * result_table['volume'] / result_table['stock_volume']
         result_table['option_ratio'] = result_table['volume'] / result_table['total_option_volume']
         result_table['option_cost'] = 100 * result_table['volume'] * result_table['last']
-        result_table['price_ratio'] = result_table['close_price']/result_table['last']
-        result_table.to_csv("test.csv")
-        stock_list = [x for x in result_table.underlying_stock]
-        expire_date = [x for x in result_table.expire_date]
-        return zip(stock_list,expire_date)
+        result_table['price_ratio'] = result_table['close_price'] / result_table['last']
+        # result_table.to_csv("test.csv")
+        # stock_list = [x for x in result_table.underlying_stock]
+        # expire_date = [x for x in result_table.expire_date]
+        # return [x for x in result_table.contract]
+        return result_table
 
     def generate_option_sum_bar(self, start_date, end_date, underlying_stock, ax, expire_date):
         ''' function to generate the bar plot for underlying_stock
@@ -225,7 +245,7 @@ class YahooOptionDataManager:
         :param end_date:
         :param underlying_stock:
         :param ax:
-        :param expire_date: Only for illustration purpose, not essential in the calculation
+        :param expire_date: Only for illustration purpose, not essential in the calculation, can be any value
         :return:
         '''
         config = configparser.ConfigParser()
@@ -247,17 +267,92 @@ class YahooOptionDataManager:
             "and option_type = '%(option_type)s' group by transaction_date order by transaction_date asc")
         option_type = 'C'
         data_frame = sql.read_sql(
-            sql_statement % {'begin_date': start_date_str, 'end_date': end_date_str, 'table_name': table_name, 'option_type': option_type, 'underlying_stock': underlying_stock}, db)
-        bar_data_C = pd.Series(list(data_frame['sum(volume)']),index = data_frame['transaction_date'],name = option_type)
+            sql_statement % {'begin_date': start_date_str, 'end_date': end_date_str, 'table_name': table_name,
+                             'option_type': option_type, 'underlying_stock': underlying_stock}, db)
+        bar_data_C = pd.Series(list(data_frame['sum(volume)']), index=data_frame['transaction_date'], name=option_type)
 
         option_type = 'P'
         data_frame = sql.read_sql(
-            sql_statement % {'begin_date': start_date_str, 'end_date': end_date_str, 'table_name': table_name, 'option_type': option_type, 'underlying_stock': underlying_stock}, db)
-        bar_data_P = pd.Series(list(data_frame['sum(volume)']),index = data_frame['transaction_date'],name = option_type)
+            sql_statement % {'begin_date': start_date_str, 'end_date': end_date_str, 'table_name': table_name,
+                             'option_type': option_type, 'underlying_stock': underlying_stock}, db)
+        bar_data_P = pd.Series(list(data_frame['sum(volume)']), index=data_frame['transaction_date'], name=option_type)
 
-        bar_data= pd.concat([bar_data_C, bar_data_P], axis=1)
-        bar_data.plot(kind = 'bar', ax = ax, title = underlying_stock + "("+expire_date.strftime('%Y_%m_%d') + ")")
+        bar_data = pd.concat([bar_data_C, bar_data_P], axis=1)
+        bar_data.plot(kind='bar', ax=ax, title=underlying_stock + "(" + expire_date + ")")
         db.close()
+
+    def generate_contract_bar(self, start_date, end_date, contract, ax):
+        ''' function to generate the bar with given contract between start date and end date
+        :param start_date:
+        :param end_date:
+        :param contract:
+        :param ax:
+        :return:
+        '''
+        config = configparser.ConfigParser()
+        config.read(self.config_file)
+
+        host = config.get("database", "host")
+        database = config.get("database", "database")
+        user = config.get("database", "user")
+        password = config.get("database", "passwd")
+        db = MySQLdb.connect(host=host, db=database, user=user, passwd=password)
+        table_name = "yahoooption"
+
+        start_date_str = start_date.strftime('%Y-%m-%d')
+        end_date_str = end_date.strftime('%Y-%m-%d')
+
+        sql_statement = (
+            "select transaction_date, sum(volume) from %(table_name)s where contract "
+            "= '%(contract)s' and transaction_date between '%(begin_date)s' and '%(end_date)s' "
+            " group by transaction_date order by transaction_date asc")
+        data_frame = sql.read_sql(
+            sql_statement % {'begin_date': start_date_str, 'end_date': end_date_str, 'table_name': table_name,
+                             'contract': contract}, db)
+
+        stock_data = pd.Series(list(data_frame['sum(volume)']), index=data_frame['transaction_date'], name='volume')
+        stock_data.plot(kind='bar', ax=ax, title=contract)
+        db.close()
+
+    def save_abnormal_options(self, result_table):
+        config = configparser.ConfigParser()
+        config.read(self.config_file)
+
+        models.db.connect()
+        if not models.AbnormalOption.table_exists():
+            models.db.create_table(models.AbnormalOption)
+        if result_table is not None:
+            records = []
+            for index, row in result_table.iterrows():
+                records.append((float(row['ask']), float(row['bid']), row['contract'], row['expire_date'],
+                               float(row['implied_vol']), float(row['last']), \
+                               int(row['open_interest']), row['option_type'], float(row['pct_change']),
+                               float(row['price_change']), int(row['strike_price']), \
+                               int(row['total_option_volume']), row['transaction_date'], row['underlying_stock'],
+                               int(row['volume']), int(row['stock_volume']), \
+                               float(row['close_price']), float(row['volume_ratio']), float(row['option_ratio']),
+                               float(row['option_cost']), float(row['price_ratio'])))
+            host = config.get("database", "host")
+            database = config.get("database", "database")
+            user = config.get("database", "user")
+            password = config.get("database", "passwd")
+            db = MySQLdb.connect(host=host, db=database, user=user, passwd=password)
+
+            cursor = db.cursor()
+            sql_statement = "insert into abnormaloption(ask,bid,contract,expire_date,implied_vol,last,open_interest,\
+            option_type,pct_change,price_change,strike_price,total_option_volume,transaction_date,underlying_stock,\
+            contract_volume,stock_volume,stock_close_price,option_stock_volume_ratio,contract_total_option_volume_ratio,\
+            option_cost,stock_price_option_price_ratio) \
+            values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            try:
+                cursor.executemany(sql_statement, records)
+                db.commit()
+            except:
+                db.rollback()
+                raise
+            finally:
+                cursor.close()
+                db.close()
 
     def daily_run(self):
         Config = configparser.ConfigParser()

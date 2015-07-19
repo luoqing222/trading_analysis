@@ -189,4 +189,31 @@ class Bar1MinEodData(peewee.Model):
         database = db
         primary_key = CompositeKey('transaction_time','symbol', 'exchange')
 
+class AbnormalOption(peewee.Model):
+    ask = peewee.FloatField()
+    bid = peewee.FloatField()
+    contract = peewee.CharField()
+    expire_date = peewee.DateField()
+    implied_vol = peewee.FloatField()
+    last = peewee.FloatField()
+    open_interest = peewee.IntegerField()
+    option_type = peewee.CharField()
+    pct_change = peewee.FloatField()
+    price_change = peewee.FloatField()
+    strike_price = peewee.IntegerField()
+    total_option_volume = peewee.IntegerField()
+    transaction_date = peewee.DateField()
+    underlying_stock = peewee.CharField()
+    contract_volume = peewee.IntegerField()
+    stock_volume = peewee.BigIntegerField()
+    stock_close_price = peewee.FloatField()
+    option_stock_volume_ratio = peewee.FloatField()
+    contract_total_option_volume_ratio = peewee.FloatField()
+    option_cost = peewee.FloatField()
+    stock_price_option_price_ratio = peewee.FloatField()
+
+    class Meta:
+        database = db
+        primary_key = CompositeKey('contract', 'transaction_date')
+
 
