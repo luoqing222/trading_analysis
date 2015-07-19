@@ -81,9 +81,9 @@ if __name__ == "__main__":
     start_date = datetime.datetime(year=2015, month=6,day=1)
     end_date=datetime.datetime(year=2015,month=7,day=17)
 
-    #for i in range(0,20):
-    for i in range(0,1):
-        analysis_date = datetime.datetime(year=2015,month=7,day=16)+datetime.timedelta(days = -i)
+    for i in range(0,20):
+    #for i in range(0,1):
+        analysis_date = datetime.datetime(year=2015,month=7,day=17)+datetime.timedelta(days = -i)
         if trading_date_utility.is_trading_day(analysis_date,"US"):
             result_table = find_contracts_with_significant_volume_change(analysis_date, num_of_days_before_analysis,filter_parameter)
             save_abnormal_options(result_table)
