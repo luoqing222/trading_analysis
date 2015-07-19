@@ -86,9 +86,9 @@ if __name__ == "__main__":
         analysis_date = datetime.datetime(year=2015,month=7,day=17)+datetime.timedelta(days = -i)
         if trading_date_utility.is_trading_day(analysis_date,"US"):
             result_table = find_contracts_with_significant_volume_change(analysis_date, num_of_days_before_analysis,filter_parameter)
-            save_abnormal_options(result_table)
-            contract_list = [x for x in result_table.contract]
-            if contract_list is not None:
+            if result_table is not None:
+                save_abnormal_options(result_table)
+                contract_list = [x for x in result_table.contract]
                 current_folder = os.getcwd()
                 message_folder = current_folder + "/" + "messages"
                 file_name = "contract_" + analysis_date.strftime('%m_%d_%Y') + ".pdf"
