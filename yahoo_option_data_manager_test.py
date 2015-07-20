@@ -33,6 +33,8 @@ def create_options_bar_pdf(start_date,end_date, contract_list, folder, file_name
             for plot_num in range(0,num_of_sub_plot):
                 index = page_num*num_of_sub_plot+plot_num
                 if index < len(contract_list):
+                    print index
+                    print contract_list[index]
                     [underlying_stock, expire_date, option_type, strike_price]=option_data_manager.decompose_option_contract(contract_list[index])
                     ax = fig.add_subplot(num_of_sub_plot, 1, plot_num + 1)
                     option_data_manager.generate_option_sum_bar(start_date, end_date, underlying_stock, ax, expire_date)
@@ -81,6 +83,7 @@ if __name__ == "__main__":
     start_date = datetime.datetime(year=2015, month=6,day=1)
     end_date=datetime.datetime(year=2015,month=7,day=17)
 
+    #print option_data_manager.decompose_option_contract("NBCXD150821P00075000")
     for i in range(0,20):
     #for i in range(0,1):
         analysis_date = datetime.datetime(year=2015,month=7,day=17)+datetime.timedelta(days = -i)
@@ -89,12 +92,14 @@ if __name__ == "__main__":
             if result_table is not None:
                 save_abnormal_options(result_table)
                 contract_list = [x for x in result_table.contract]
-                current_folder = os.getcwd()
-                message_folder = current_folder + "/" + "messages"
-                file_name = "contract_" + analysis_date.strftime('%m_%d_%Y') + ".pdf"
-                create_options_bar_pdf(start_date,end_date,contract_list,message_folder,file_name)
-                file_name = "contrast_" + analysis_date.strftime('%m_%d_%Y') + ".pdf"
-                create_option_stock_comparison(start_date,end_date,contract_list,message_folder,file_name)
+                if contract_list is not None:
+                    current_folder = os.getcwd()
+                    message_folder = current_folder + "/" + "messages"
+                    file_name = "contract_" + analysis_date.strftime('%m_%d_%Y') + ".pdf"
+                    #print contract_list
+                    create_options_bar_pdf(start_date,end_date,contract_list,message_folder,file_name)
+                    file_name = "contrast_" + analysis_date.strftime('%m_%d_%Y') + ".pdf"
+                    create_option_stock_comparison(start_date,end_date,contract_list,message_folder,file_name)
 
     #symbol = "AMCX"
     #single_compare_option_with_stock(start_date,end_date, symbol)

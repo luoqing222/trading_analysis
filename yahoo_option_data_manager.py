@@ -147,11 +147,12 @@ class YahooOptionDataManager:
     @staticmethod
     def decompose_option_contract(contract_name):
         result = []
-        option_name = re.compile("^[A-Z]+\.*[A-Z]+\d{6}[CP]\d{8}")
+        #option_name = re.compile("^[A-Z]+\.*[A-Z]+\d{6}[CP]\d{8}")
+        option_name = re.compile("^[A-Z][A-Z]*\d{6}[CP]\d{8}")
         if not option_name.match(contract_name):
             return None
         underlying_stock = re.sub("\d{6}[CP]\d{8}", "", contract_name)
-        contract_name = re.sub("^[A-Z]+\.*[A-Z]+", "", contract_name)
+        contract_name = re.sub("^[A-Z][A-Z]*", "", contract_name)
         expiration_date = re.sub("[CP]\d{8}", "", contract_name)
         contract_name = re.sub("^\d{6}", "", contract_name)
         option_type = re.sub("\d{8}", "", contract_name)
