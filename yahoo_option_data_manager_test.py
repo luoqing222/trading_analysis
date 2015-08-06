@@ -33,8 +33,8 @@ def create_options_bar_pdf(start_date,end_date, contract_list, folder, file_name
             for plot_num in range(0,num_of_sub_plot):
                 index = page_num*num_of_sub_plot+plot_num
                 if index < len(contract_list):
-                    print index
-                    print contract_list[index]
+                    #print index
+                    #print contract_list[index]
                     [underlying_stock, expire_date, option_type, strike_price]=option_data_manager.decompose_option_contract(contract_list[index])
                     ax = fig.add_subplot(num_of_sub_plot, 1, plot_num + 1)
                     option_data_manager.generate_option_sum_bar(start_date, end_date, underlying_stock, ax, expire_date)
@@ -70,33 +70,29 @@ def save_abnormal_options(result_table):
     option_data_manager = yahoo_option_data_manager.YahooOptionDataManager()
     option_data_manager.save_abnormal_options(result_table)
 
-
-if __name__ == "__main__":
-
-    start_time = time.time()
-    #option_data_manager = yahoo_option_data_manager.YahooOptionDataManager()
-    # option_data_manager.daily_run()
-    # option_data_manager.save_historical_data()
-
+def create_abnormal_option_chart():
+    #expire_date = "2015-07-17"
+    #option_data_manager.create_backward_testing_report(expire_date)
     num_of_days_before_analysis=7
     filter_parameter=2.0
-    start_date = datetime.datetime(year=2015, month=6,day=1)
-    end_date=datetime.datetime(year=2015,month=7,day=17)
-
-    #print option_data_manager.decompose_option_contract("NBCXD150821P00075000")
-    for i in range(0,20):
-    #for i in range(0,1):
-        analysis_date = datetime.datetime(year=2015,month=7,day=17)+datetime.timedelta(days = -i)
+    start_date = datetime.datetime(year=2015, month=06,day=01)
+    #end_date=datetime.datetime(year=2015,month=7,day=28)
+    #
+    #for i in range(0,20):
+    for i in range(0,1):
+        analysis_date = datetime.datetime(year=2015,month=7,day=27)+datetime.timedelta(days = -i)
+        end_date = analysis_date
+        for j in range(0,2):
+            end_date = trading_date_utility.next_business_day(end_date, "US")
         if trading_date_utility.is_trading_day(analysis_date,"US"):
             result_table = find_contracts_with_significant_volume_change(analysis_date, num_of_days_before_analysis,filter_parameter)
             if result_table is not None:
-                save_abnormal_options(result_table)
+                #save_abnormal_options(result_table)
                 contract_list = [x for x in result_table.contract]
                 if contract_list is not None:
                     current_folder = os.getcwd()
                     message_folder = current_folder + "/" + "messages"
                     file_name = "contract_" + analysis_date.strftime('%m_%d_%Y') + ".pdf"
-                    #print contract_list
                     create_options_bar_pdf(start_date,end_date,contract_list,message_folder,file_name)
                     file_name = "contrast_" + analysis_date.strftime('%m_%d_%Y') + ".pdf"
                     create_option_stock_comparison(start_date,end_date,contract_list,message_folder,file_name)
@@ -104,5 +100,18 @@ if __name__ == "__main__":
     #symbol = "AMCX"
     #single_compare_option_with_stock(start_date,end_date, symbol)
     #plt.show()
+
+
+
+if __name__ == "__main__":
+
+    start_time = time.time()
+    option_data_manager = yahoo_option_data_manager.YahooOptionDataManager()
+    option_data_manager.daily_run()
+    # option_data_manager.save_historical_data()
+
+
+
+
 
     print("--- %s seconds ---" % (time.time() - start_time))
