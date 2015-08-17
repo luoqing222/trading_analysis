@@ -18,6 +18,15 @@ import eoddata_data_manager
 import yahoo_option_data_manager
 import time
 import os
+import matplotlib.pyplot as plt
+import numpy as np
+import time
+from selenium import webdriver
+import selenium.webdriver.common.keys
+import time
+import logging
+from data_collectors import eod_1minbar_data_collector
+import configparser
 
 
 def send_email(file_name, mail_list, folder):
@@ -241,63 +250,22 @@ def update_sp500list_table(data_manager, current_date):
     return
 
 
+logger = logging.getLogger(__name__)
+
 if __name__ == "__main__":
-    data_manager = trading_data_manager.TradingDataManager()
-    current_date = datetime.datetime.now().date()
-    update_sp500list_table(data_manager, current_date)
+    config_file = "option_data_management_setting.ini"
+    config = configparser.ConfigParser()
+    config.read(config_file)
 
-    # check if the day that is not trading day, stop running
-    if not is_trading_day(datetime.datetime.now(), "US"):
-        sys.exit(0)
+    driver_location = config.get("driver", "chrome_driver")
+    download_folder = config.get("driver","download_folder")
+    username = config.get("eod", "user")
+    password = config.get("eod", "passwd")
+    des_folder = config.get("csv","data_folder")
+    running_time = datetime.datetime(year=2015, month=8, day=14)
 
-    initialize_holiday_table()
-    initialize_index_fund_table()
-    initialize_historical_price_table()
+    logging.basicConfig(filename='daily_run.log', level=logging.INFO,filemode="w")
+    logger.info("begin simple test")
+    data_collector = eod_1minbar_data_collector.Eod1MinBarDataCollector(driver_location,username,password)
+    data_collector.run(download_folder, des_folder, running_time)
 
-
-    # find the tick that in the HistoricalPrice
-    query = models.HistoricalPrice.select(models.HistoricalPrice.symbol,
-                                          fn.Max(models.HistoricalPrice.transaction_date).
-                                          alias('recent_date')).group_by(models.HistoricalPrice.symbol)
-
-    symbol_most_recent_date = {}
-    # mapping from symbol to most recent date is saved in dictionary symbol_most_recent_date
-    # including the index fund price
-    for item in query:
-        symbol_most_recent_date[item.symbol] = item.recent_date
-
-    # get the SP500 list with most recent save date
-    query = models.Sp500List.select(fn.Max(models.Sp500List.save_date).alias('recent_date'))
-    for item in query:
-        SP500_recent_date = item.recent_date
-
-    # item in the query is latest sp500 tick
-    symbol_list = []
-    query = models.Sp500List.select().where(models.Sp500List.save_date == SP500_recent_date)
-    for item in query:
-        symbol = item.symbol
-        save_trading_data(symbol, symbol_most_recent_date)
-        symbol_list.append(symbol)
-
-    # do the same thing for index fund
-    query = models.IndexSymbol.select()
-    index_list = []
-    for item in query:
-        symbol = item.symbol
-        save_trading_data(symbol, symbol_most_recent_date)
-        index_list.append(symbol)
-
-    # make the directory for the messages to monitor
-    current_folder = os.getcwd()
-    message_folder = current_folder + "/" + "messages"
-    if not os.path.exists(message_folder):
-        os.makedirs(message_folder)
-
-    db = MySQLdb.connect(host="localhost", db=models.database, user=models.user, passwd=models.password)
-    data_analyser = yahoo_data_analyser.YahooEquityDataAnalyser(db)
-    file_name = "sp500_daily_rsq_" + datetime.datetime.now().strftime('%m_%d_%Y') + ".csv"
-    data_analyser.calculate_daily_rsq(symbol_list, index_list, None, 30, message_folder + "/" + file_name)
-    db.close()
-
-    mail_list = ["luoqing222@gmail.com", "fanlinzhu@yahoo.com"]
-    send_email(file_name, mail_list, message_folder)
