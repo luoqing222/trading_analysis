@@ -27,6 +27,7 @@ import time
 import logging
 from data_collectors import eod_1minbar_data_collector
 import configparser
+from pyvirtualdisplay import Display
 
 
 def send_email(file_name, mail_list, folder):
@@ -269,9 +270,11 @@ if __name__ == "__main__":
     # logger.info("begin simple test")
     # data_collector = eod_1minbar_data_collector.Eod1MinBarDataCollector(driver_location,username,password)
     # data_collector.run(download_folder, des_folder, running_time)
-    chromedriver='/opt/google/chrome'
-    os.environ["webdriver.chrome.driver"]=chromedriver
-    driver = webdriver.Chrome(chromedriver)
-    driver.get("http://stackoverflow.com")
+    display=Display(visible=0,size=(800,600))
+    display.start()
+    driver=webdriver.Chrome()
+    driver.get("http://www.google.com")
+    print driver.page_source.encode('utf-8')
     driver.quit()
+    display.stop()
 
