@@ -262,7 +262,8 @@ if __name__ == "__main__":
     username = config.get("eod", "user")
     password = config.get("eod", "passwd")
     des_folder = config.get("csv","data_folder")
-    running_time = datetime.datetime(year=2015, month=8, day=14)
+    #running_time = datetime.datetime(year=2015, month=8, day=14)
+    running_time = datetime.datetime.now()
 
     logging.basicConfig(filename='daily_run.log', level=logging.INFO,filemode="w")
     logger.info("begin simple test")
