@@ -22,7 +22,7 @@ class Eod1MinBarDataCollector:
         '''
         logger.info('Downloading EOD 1 minute bar data')
         print self.driver_location
-        driver = webdriver.Chrome(executable_path =self.driver_location)
+        driver = webdriver.Chrome(executable_path =self.driver_location,port=9515)
         driver.get("http://www.eoddata.com/products/default.aspx")
         time.sleep(30)
 
