@@ -253,20 +253,25 @@ def update_sp500list_table(data_manager, current_date):
 logger = logging.getLogger(__name__)
 
 if __name__ == "__main__":
-    config_file = "option_data_management_setting.ini"
-    config = configparser.ConfigParser()
-    config.read(config_file)
-
-    driver_location = config.get("driver", "chrome_driver")
-    download_folder = config.get("driver","download_folder")
-    username = config.get("eod", "user")
-    password = config.get("eod", "passwd")
-    des_folder = config.get("csv","data_folder")
-    #running_time = datetime.datetime(year=2015, month=8, day=14)
-    running_time = datetime.datetime.now()
-
-    logging.basicConfig(filename='daily_run.log', level=logging.INFO,filemode="w")
-    logger.info("begin simple test")
-    data_collector = eod_1minbar_data_collector.Eod1MinBarDataCollector(driver_location,username,password)
-    data_collector.run(download_folder, des_folder, running_time)
+    # config_file = "option_data_management_setting.ini"
+    # config = configparser.ConfigParser()
+    # config.read(config_file)
+    #
+    # driver_location = config.get("driver", "chrome_driver")
+    # download_folder = config.get("driver","download_folder")
+    # username = config.get("eod", "user")
+    # password = config.get("eod", "passwd")
+    # des_folder = config.get("csv","data_folder")
+    # #running_time = datetime.datetime(year=2015, month=8, day=14)
+    # running_time = datetime.datetime.now()
+    #
+    # logging.basicConfig(filename='daily_run.log', level=logging.INFO,filemode="w")
+    # logger.info("begin simple test")
+    # data_collector = eod_1minbar_data_collector.Eod1MinBarDataCollector(driver_location,username,password)
+    # data_collector.run(download_folder, des_folder, running_time)
+    chromedriver='/opt/google/chrome'
+    os.environ["webdriver.chrome.driver"]=chromedriver
+    driver = webdriver.Chrome(chromedriver)
+    driver.get("http://stackoverflow.com")
+    driver.quit()
 
