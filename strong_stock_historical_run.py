@@ -16,8 +16,8 @@ if __name__ == "__main__":
     start_time = time.time()
     start_date="2015/06/29"
     end_date="2015/06/30"
-    start_date_object = datetime.datetime.strptime(start_date, '%Y/%m/%d').date()
-    end_date_object = datetime.datetime.strptime(end_date, '%Y/%m/%d').date()
+    start_date_object = datetime.datetime.strptime(start_date, '%Y/%m/%d')
+    end_date_object = datetime.datetime.strptime(end_date, '%Y/%m/%d')
     trading_date_mapping = trading_date_utility.generate_previous_trading_date_dict(start_date_object,end_date_object,100)
 
     symbols = trading_data_utility.TradingDataUtility().get_sp500_list(end_date_object.date())
