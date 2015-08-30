@@ -108,6 +108,8 @@ def nearest_trading_day(date, country):
     :return: date object
     '''
     if is_trading_day(date, country):
+        if type(date) is datetime:
+            return date.date()
         return date
     return prev_business_day(date, country)
 
