@@ -15,7 +15,7 @@ if __name__ == "__main__":
 
     start_time = time.time()
     start_date="2015/06/29"
-    end_date="2015/06/29"
+    end_date="2015/06/30"
     start_date_object = datetime.datetime.strptime(start_date, '%Y/%m/%d')
     end_date_object = datetime.datetime.strptime(end_date, '%Y/%m/%d')
     trading_date_mapping = trading_date_utility.generate_previous_trading_date_dict(start_date_object,end_date_object,100)
@@ -25,11 +25,11 @@ if __name__ == "__main__":
     weight=[0.5,0.3,0.2]
     stock_num=10
 
-    db = MySQLdb.connect(host="localhost",db=models.database, user=models.user, passwd=models.password)
+    db = MySQLdb.connect(host=models.host,db=models.database, user=models.user, passwd=models.password)
     data_analyser = yahoo_data_analyser.YahooEquityDataAnalyser(db)
     temp_date_object=end_date_object.date()
 
-
+    #write the header to historical_strong_stock.csv
     file = open("historical_strong_stock.csv", "w")
     file.write("date,")
     for index in range(0,stock_num):
@@ -45,9 +45,8 @@ if __name__ == "__main__":
         return_start_date=trading_date_utility.previous_n_trading_days(temp_date_object,4,trading_date_mapping)
 
         avg_return= data_analyser.get_average_between_two_days(strong_stock,return_start_date,temp_date_object)
-
-        temp_date_object = trading_date_utility.previous_n_trading_days(temp_date_object,1,trading_date_mapping)
         file.write(temp_date_object.strftime('%Y-%m-%d')+",")
+        temp_date_object = trading_date_utility.previous_n_trading_days(temp_date_object,1,trading_date_mapping)
         for index in range(0,stock_num):
             file.write(strong_stock[index]+",")
         file.write(str(avg_return))

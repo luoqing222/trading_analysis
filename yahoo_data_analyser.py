@@ -169,7 +169,8 @@ class YahooEquityDataAnalyser:
 
         for index, n in enumerate(days_array):
             begin_date = trading_date_utility.previous_n_trading_days(date, n, trading_date_map)
-            returns = self.get_returns_between_two_days(symbols, begin_date, date)
+            #returns = self.get_returns_between_two_days(symbols, begin_date, date)
+            returns = self.get_index_relative_returns_between_two_days(symbols, begin_date, date)
             #print symbols
             #print returns
             sorted_index = numpy.argsort(returns)
@@ -212,6 +213,41 @@ class YahooEquityDataAnalyser:
                 begin = start_price[symbol]
                 end = final_price[symbol]
                 returns.append(end / begin - 1.0)
+            except KeyError:
+                returns.append(-99)
+
+        return returns
+
+    def get_index_relative_returns_between_two_days(self, symbols, begin_date, end_date):
+        cursor = self.db.cursor()
+
+        #find the mapping between symbol and adjust_close price
+        start_date = trading_date_utility.nearest_trading_day(begin_date, "US")
+        sql_statement = "select symbol,adjust_close from historicalprice where transaction_date=\"" + start_date.strftime(
+            "%Y-%m-%d") + "\""
+        cursor.execute(sql_statement)
+        rows = cursor.fetchall()
+        start_price = {}
+        for symbol, price in rows:
+            start_price[symbol] = price
+
+        final_date = trading_date_utility.nearest_trading_day(end_date, "US")
+        sql_statement = "select symbol,adjust_close from historicalprice where transaction_date=\"" + final_date.strftime(
+            "%Y-%m-%d") + "\""
+        cursor.execute(sql_statement)
+        rows = cursor.fetchall()
+        final_price = {}
+        for symbol, price in rows:
+            final_price[symbol] = price
+
+        returns = []
+        for symbol in symbols:
+            try:
+                begin = start_price[symbol]
+                end = final_price[symbol]
+                index_begin = start_price['spy']
+                index_end = final_price['spy']
+                returns.append(end / begin - index_end/index_begin)
             except KeyError:
                 returns.append(-99)
 
