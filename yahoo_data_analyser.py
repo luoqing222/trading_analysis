@@ -284,7 +284,7 @@ class YahooEquityDataAnalyser:
                 index_end = final_price['spy']
                 returns.append(end / begin - index_end/index_begin)
 
-            except KeyError:
+            except (KeyError, ZeroDivisionError) as e:
                 returns.append(-99)
 
         return returns
