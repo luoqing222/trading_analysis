@@ -44,7 +44,8 @@ if __name__ == "__main__":
         #print last_week_date," strong stock is ", strong_stock
         return_start_date=trading_date_utility.previous_n_trading_days(temp_date_object,4,trading_date_mapping)
 
-        avg_return= data_analyser.get_average_between_two_days(strong_stock,return_start_date,temp_date_object)
+        #avg_return= data_analyser.get_average_between_two_days(strong_stock,return_start_date,temp_date_object)
+        avg_return= data_analyser.get_index_relative_average_between_two_days(strong_stock,return_start_date,temp_date_object)
         file.write(temp_date_object.strftime('%Y-%m-%d')+",")
         temp_date_object = trading_date_utility.previous_n_trading_days(temp_date_object,1,trading_date_mapping)
         for index in range(0,stock_num):
