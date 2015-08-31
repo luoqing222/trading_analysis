@@ -10,7 +10,7 @@ from data_uploader import eod_1minbar_data_uploader
 logger = logging.getLogger(__name__)
 
 if __name__ == "__main__":
-    config_file = os.path.dirname(os.path.dirname(__file__))+"/"+"option_data_management_setting.ini"
+    config_file = os.path.dirname(os.path.dirname(os.getcwd()))+"/"+"option_data_management_setting.ini"
     print config_file
     config = configparser.ConfigParser()
     config.read(config_file)
