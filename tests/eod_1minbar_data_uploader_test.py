@@ -11,6 +11,7 @@ logger = logging.getLogger(__name__)
 
 if __name__ == "__main__":
     config_file = os.path.dirname(os.path.dirname(__file__))+"/"+"option_data_management_setting.ini"
+    print config_file
     config = configparser.ConfigParser()
     config.read(config_file)
 
