@@ -169,8 +169,8 @@ class YahooEquityDataAnalyser:
 
         for index, n in enumerate(days_array):
             begin_date = trading_date_utility.previous_n_trading_days(date, n, trading_date_map)
-            #returns = self.get_returns_between_two_days(symbols, begin_date, date)
-            returns = self.get_index_relative_returns_between_two_days(symbols, begin_date, date)
+            returns = self.get_returns_between_two_days(symbols, begin_date, date)
+            #returns = self.get_index_relative_returns_between_two_days(symbols, begin_date, date)
             #print symbols
             #print returns
             sorted_index = numpy.argsort(returns)
@@ -297,7 +297,6 @@ class YahooEquityDataAnalyser:
             return -99.0
         else:
             return sum(my_list) / float(len(my_list))
-
 
     def get_average_between_two_days(self, symbols, begin_date, end_date):
         returns = self.get_returns_between_two_days(symbols, begin_date, end_date)
