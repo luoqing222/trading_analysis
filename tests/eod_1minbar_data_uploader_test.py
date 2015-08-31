@@ -4,7 +4,7 @@ import logging
 import configparser
 import datetime
 import sys
-sys.path.append('data_uploader')
+sys.path.append('/data_uploader')
 from data_uploader import eod_1minbar_data_uploader
 
 logger = logging.getLogger(__name__)
