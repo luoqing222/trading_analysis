@@ -3,8 +3,8 @@ __author__ = 'Qing'
 import logging
 import configparser
 import datetime
-import sys
-sys.path.append('/data_uploader')
+import sys,os
+sys.path.append(os.path.realpath('..'))
 from data_uploader import eod_1minbar_data_uploader
 
 logger = logging.getLogger(__name__)
