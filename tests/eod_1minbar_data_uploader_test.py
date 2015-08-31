@@ -3,8 +3,7 @@ __author__ = 'Qing'
 import logging
 import configparser
 import datetime
-
-from data_uploader import eod_1minbar_data_uploader
+import data_uploader
 
 logger = logging.getLogger(__name__)
 
@@ -19,7 +18,7 @@ if __name__ == "__main__":
     user = config.get("database", "user")
     password = config.get("database", "passwd")
     des_folder = config.get("csv","data_folder")
-    data_uploader = eod_1minbar_data_uploader(host, database, user,password, des_folder)
+    data_uploader = data_uploader.eod_1minbar_data_uploader(host, database, user,password, des_folder)
     logging.basicConfig(filename='test.log', level=logging.INFO,filemode="w")
     logger.info("begin eod 1min bar data upload test")
 
