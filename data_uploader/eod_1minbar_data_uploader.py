@@ -5,6 +5,7 @@ import models
 import datetime
 import MySQLdb
 import logging
+from peewee import *
 
 logger = logging.getLogger(__name__)
 
@@ -24,6 +25,7 @@ class Eod1MinBarDataUploader:
         :param folder:
         :return: None
         '''
+        models.db.init(host=host, database=database, user=user, passwd=password)
         models.db.connect()
         if not models.Bar1MinEodData.table_exists():
             models.db.create_table(models.Bar1MinEodData)
