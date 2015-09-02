@@ -19,6 +19,10 @@ import yahoo_option_data_manager
 import time
 import os
 import trading_date_utility
+import logging
+from data_collectors import eod_1minbar_data_collector
+import configparser
+
 
 
 def send_email(file_name, mail_list, folder):
@@ -95,6 +99,8 @@ def update_sp500list_table(data_manager, current_date):
     return
 
 
+logger = logging.getLogger(__name__)
+
 if __name__ == "__main__":
     data_manager = trading_data_manager.TradingDataManager()
     current_date = datetime.datetime.now().date()
@@ -114,33 +120,51 @@ if __name__ == "__main__":
     if not os.path.exists(message_folder):
         os.makedirs(message_folder)
 
-    #function to collect the end of day NYSE, Dasdaq and option data
-    #data is saved in the data_folder defined in option_data_management_setting.ini
+    running_time = datetime.datetime.now()
+    log_file_name = "daily_run.log"
+    log_file = message_folder+"/"+log_file_name
+    logging.basicConfig(filename=log_file, level=logging.INFO,filemode="w")
+    logger.info("start data collection process on "+running_time.strftime('%m_%d_%Y'))
     mail_list = ["luoqing222@gmail.com"]
-    file_name = "eod_data_download_" + datetime.datetime.now().strftime('%m_%d_%Y') + ".csv"
-    file_stream = open(message_folder + "/" + file_name, "w")
-    file_stream.write("begin downloading eod data")
+
+    config_file = "option_data_management_setting.ini"
+    config = configparser.ConfigParser()
+    config.read(config_file)
+
+    #to download eod data
     try:
+        logger.info("Start collecting eod data")
         eod_data_manager = eoddata_data_manager.EodDataDataManager()
         eod_data_manager.daily_run()
+        logger.info("eod data is successfully downloaded")
     except Exception, e:
-        file_stream.write(str(e))
-    file_stream.close()
-    send_email(file_name,mail_list, message_folder)
+        logger.warning("exception is thrown when downloading eod data:"+str(e))
 
-    #function to download the yahoo option data
-    mail_list = ["luoqing222@gmail.com"]
-    file_name = "yahoo_option_data_download_" + datetime.datetime.now().strftime('%m_%d_%Y') + ".csv"
-    file_stream = open(message_folder + "/" + file_name, "w")
-    file_stream.write("begin download yahoo option data")
-    start_time = time.time()
+    #to download yahoo option data
     try:
+        logger.info("Start collecting yahoo option data")
         option_data_manager = yahoo_option_data_manager.YahooOptionDataManager()
         option_data_manager.daily_run()
+        logger.info("yahoo option data is successfully downloaded")
     except Exception, e:
-        file_stream.write(str(e))
-    file_stream.close()
-    send_email(file_name, mail_list, message_folder)
+        logger.warning("exception is thrown when downloading yahoo option data:"+str(e))
 
-    #collect_yahoo_sp500_data()
-    print("--- %s seconds ---" % (time.time() - start_time))
+    #to download 1 bar min data
+    try:
+        logger.info("Start collecting 1 minute bar data from eod")
+        driver_location = config.get("driver", "chrome_driver")
+        download_folder = config.get("driver","download_folder")
+        username = config.get("eod", "user")
+        password = config.get("eod", "passwd")
+        des_folder = config.get("csv","data_folder")
+        data_collector = eod_1minbar_data_collector.Eod1MinBarDataCollector(driver_location,username,password)
+        data_collector.run(download_folder, des_folder, running_time)
+        logger.info("eod 1 min bar data is successfully downloaded")
+    except Exception, e:
+        logger.warning("exception is thrown when downloading eod 1 minute bar data: "+str(e))
+
+    send_email(log_file_name, mail_list, message_folder)
+
+
+    #function to
+    #print("--- %s seconds ---" % (time.time() - start_time))
