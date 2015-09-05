@@ -174,7 +174,7 @@ if __name__ == "__main__":
          data_uploader = eod_1minbar_data_uploader.Eod1MinBarDataUploader(host, database, user,password, des_folder)
          data_uploader.run(running_time)
     except Exception, e:
-        logger.warning("exception is thrown when downloading eod 1 minute bar data: "+str(e))
+        logger.warning("exception is thrown when uploading eod 1 minute bar data: "+str(e))
 
     send_email(log_file_name, mail_list, message_folder)
 
