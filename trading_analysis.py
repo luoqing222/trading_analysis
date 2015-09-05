@@ -21,6 +21,7 @@ import os
 import trading_date_utility
 import logging
 from data_collectors import eod_1minbar_data_collector
+from data_uploader import eod_1minbar_data_uploader
 import configparser
 
 
@@ -160,6 +161,18 @@ if __name__ == "__main__":
         data_collector = eod_1minbar_data_collector.Eod1MinBarDataCollector(driver_location,username,password)
         data_collector.run(download_folder, des_folder, running_time)
         logger.info("eod 1 min bar data is successfully downloaded")
+    except Exception, e:
+        logger.warning("exception is thrown when downloading eod 1 minute bar data: "+str(e))
+
+    #to upload 1 bar min data into database
+    try:
+         host = config.get("database", "host")
+         database = config.get("database", "database")
+         user = config.get("database", "user")
+         password = config.get("database", "passwd")
+         des_folder = config.get("csv","data_folder")
+         data_uploader = eod_1minbar_data_uploader.Eod1MinBarDataUploader(host, database, user,password, des_folder)
+         data_uploader.run(running_time)
     except Exception, e:
         logger.warning("exception is thrown when downloading eod 1 minute bar data: "+str(e))
 

@@ -25,14 +25,18 @@ class Eod1MinBarDataUploader:
         :param folder:
         :return: None
         '''
-        models.db.init(host=host, database=database, user=user, passwd=password)
-        models.db.connect()
-        if not models.Bar1MinEodData.table_exists():
-            models.db.create_table(models.Bar1MinEodData)
         des_file_name = folder + "/" + file_name
         exchange = file_name.split("_")[0]
         records = []
-        if os.path.exists(des_file_name):
+        if not os.path.exists(des_file_name):
+            logger.warning(des_file_name+" does not exist!")
+            return
+        else:
+            logger.info("uploading %s to database", des_file_name)
+            models.db.init(host=host, database=database, user=user, passwd=password)
+            models.db.connect()
+            if not models.Bar1MinEodData.table_exists():
+                models.db.create_table(models.Bar1MinEodData)
             with open(des_file_name) as fp:
                 next(fp)
                 for line in fp:
@@ -59,7 +63,9 @@ class Eod1MinBarDataUploader:
         try:
             cursor.executemany(sql_statement, records)
             db.commit()
-        except:
+            logger.info("%s is successfully uploaded", des_file_name)
+        except  Exception, e:
+            logger.warning("exception is thrown when upload "+des_file_name+":"+str(e))
             db.rollback()
             raise
         finally:
@@ -71,7 +77,6 @@ class Eod1MinBarDataUploader:
         for file_name in self.file_lists:
             des_file_name= file_name + "_BAR_1MIN_"+ running_time.strftime('%Y%m%d') +".csv"
             self.upload_bar_1min_equity_to_db(self.host, self.database, self.user, self.password, des_file_name, des_folder)
-            logger.info("%s is successfully uploaded", des_folder+"/"+des_file_name)
 
     def historical_run(self):
         pass
