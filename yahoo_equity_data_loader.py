@@ -52,23 +52,23 @@ class YahooEquityDataLoader:
             next_day = trading_date_utility.next_business_day(recent_date,country)
             link = self.generate_download_link(next_day, datetime.datetime.now(), symbol)
 
-            html_text = urllib.urlopen(link)
-            soup = BeautifulSoup.BeautifulSoup(html_text)
-            for tag in soup.findAll('a', href=True):
-                if "real-chart" in tag['href']:
-                    models.db.connect()
-                    f = urllib.urlopen(tag['href'])
-                    line_number = 0
-                    for line in f:
-                        if 0 == line_number:
-                            line_number += 1
-                        else:
-                            transaction_data = re.split(r',', line)
-                            models.HistoricalPrice.create(symbol=symbol, transaction_date=transaction_data[0],
-                                                  open=float(transaction_data[1]), high=float(transaction_data[2]),
-                                                  close=float(transaction_data[4]),
-                                                  adjust_close=float(transaction_data[6]),
-                                                  volume=long(transaction_data[5]))
+        html_text = urllib.urlopen(link)
+        soup = BeautifulSoup.BeautifulSoup(html_text)
+        for tag in soup.findAll('a', href=True):
+            if "real-chart" in tag['href']:
+                models.db.connect()
+                f = urllib.urlopen(tag['href'])
+                line_number = 0
+                for line in f:
+                    if 0 == line_number:
+                        line_number += 1
+                    else:
+                        transaction_data = re.split(r',', line)
+                        models.HistoricalPrice.create(symbol=symbol, transaction_date=transaction_data[0],
+                                                open=float(transaction_data[1]), high=float(transaction_data[2]),
+                                                close=float(transaction_data[4]),
+                                                adjust_close=float(transaction_data[6]),
+                                                volume=long(transaction_data[5]))
 
     def save_trading_data(self, symbol, max_date_in_table):
         if symbol in max_date_in_table:
