@@ -135,8 +135,8 @@ def calculate_sp500_rsq(running_date_object):
 
 if __name__ == "__main__":
     # check if the day that is not trading day, stop running
-    #current_time = datetime.datetime.now()
-    current_time = datetime.datetime(2015,9,4,0,0,0)
+    current_time = datetime.datetime.now()
+    #current_time = datetime.datetime(2015,9,4,0,0,0)
     if not trading_date_utility.is_trading_day(current_time, "US"):
         sys.exit(0)
 
