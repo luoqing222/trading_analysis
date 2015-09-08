@@ -23,9 +23,9 @@ class Eod1MinBarDataCollector:
         '''
         logger.info('Downloading EOD 1 minute bar data')
         print self.driver_location
-        #driver = webdriver.Chrome(executable_path =self.driver_location)
-        display = Display(visible=0, size=(800, 800))
-        display.start()
+        #code below doesn't work on windows to use headless chrome driver
+        #display = Display(visible=0, size=(800, 800))
+        #display.start()
         driver = webdriver.Chrome()
         driver.get("http://www.eoddata.com/products/default.aspx")
         time.sleep(30)
@@ -55,7 +55,7 @@ class Eod1MinBarDataCollector:
         buttons[1].click()
         time.sleep(120)
         driver.close()
-        display.stop()
+        #display.stop()
 
     def copy_download_files(self, download_folder, des_folder, file_name, date_time):
         '''
