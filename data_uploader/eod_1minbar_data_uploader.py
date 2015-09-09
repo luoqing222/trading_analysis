@@ -74,10 +74,14 @@ class Eod1MinBarDataUploader:
 
     def run(self, running_time):
         des_folder = self.folder+ "/daily_run/" + running_time.strftime('%Y_%m_%d')+"/eod"
-        for file_name in self.file_lists:
-            des_file_name= file_name + "_BAR_1MIN_"+ running_time.strftime('%Y%m%d') +".csv"
-            self.upload_bar_1min_equity_to_db(self.host, self.database, self.user, self.password, des_file_name, des_folder)
+        if os.path.exists(des_folder):
+            for file_name in self.file_lists:
+                des_file_name= file_name + "_BAR_1MIN_"+ running_time.strftime('%Y%m%d') +".csv"
+                self.upload_bar_1min_equity_to_db(self.host, self.database, self.user, self.password, des_file_name, des_folder)
 
-    def historical_run(self):
-        pass
-
+    def historical_run(self, start_datetime,end_datetime):
+        start = start_datetime
+        while start < end_datetime:
+            print "upload eod 1min bar data on "+start.strftime("%Y%m%d")
+            self.run(start)
+            start = start + datetime.timedelta(days=1)
