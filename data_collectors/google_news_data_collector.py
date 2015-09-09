@@ -37,7 +37,7 @@ class GoogleNewsDataCollector:
                 news_number = '0'
             return news_number
         except:
-            return -99
+            return '-99'
 
 
     def download_nyse_news_including_day(self,running_time, nyse_symbol):
@@ -60,7 +60,7 @@ class GoogleNewsDataCollector:
                 news_number = '0'
             return news_number
         except:
-            return -99
+            return '-99'
 
     def download_nasdaq_news_before_day(self, running_time, nasdaq_symbol):
         ''' function to get the news statistics of nasdaq before the day at running time, to run in the early morning
@@ -82,7 +82,7 @@ class GoogleNewsDataCollector:
                 news_number = '0'
             return news_number
         except:
-            return -99
+            return '-99'
 
 
     def download_nyse_news_before_day(self,running_time, nyse_symbol):
