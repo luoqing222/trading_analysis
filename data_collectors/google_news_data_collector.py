@@ -29,7 +29,7 @@ class GoogleNewsDataCollector:
                "&enddate="+enddate
         try:
             html_text = urllib.urlopen(link)
-            print link
+            #print link
             soup = bs4.BeautifulSoup(html_text, "html.parser")
             mydivs = soup.findAll(text=re.compile('Showing stories'))
             news_number = mydivs[0].parent.text.strip().split(' ')[-1]
@@ -52,7 +52,7 @@ class GoogleNewsDataCollector:
                "&enddate="+enddate
         try:
             html_text = urllib.urlopen(link)
-            print link
+            #print link
             soup = bs4.BeautifulSoup(html_text, "html.parser")
             mydivs = soup.findAll(text=re.compile('Showing stories'))
             news_number = mydivs[0].parent.text.strip().split(' ')[-1]
@@ -74,7 +74,7 @@ class GoogleNewsDataCollector:
                "&enddate="+enddate
         try:
             html_text = urllib.urlopen(link)
-            print link
+            #print link
             soup = bs4.BeautifulSoup(html_text, "html.parser")
             mydivs = soup.findAll(text=re.compile('Showing stories'))
             news_number = mydivs[0].parent.text.strip().split(' ')[-1]
