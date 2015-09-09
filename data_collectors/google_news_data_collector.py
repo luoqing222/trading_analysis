@@ -105,7 +105,7 @@ class GoogleNewsDataCollector:
                 news_number = '0'
             return news_number
         except:
-            return -99
+            return '-99'
 
     def run(self, running_time, des_folder):
         path = des_folder+ "/daily_run/" + running_time.strftime('%Y_%m_%d')+"/google/"
