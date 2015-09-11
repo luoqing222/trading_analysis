@@ -22,6 +22,8 @@ import trading_date_utility
 import logging
 from data_collectors import eod_1minbar_data_collector
 from data_uploader import eod_1minbar_data_uploader
+from data_collectors import google_news_data_collector
+import trading_data_utility_by_sql
 import configparser
 
 
@@ -175,6 +177,23 @@ if __name__ == "__main__":
          data_uploader.run(running_time)
     except Exception, e:
         logger.warning("exception is thrown when uploading eod 1 minute bar data: "+str(e))
+
+    #to get the news count data
+    try:
+        des_folder = config.get("csv","data_folder")
+        host = config.get("database", "host")
+        database = config.get("database", "database")
+        user = config.get("database", "user")
+        password = config.get("database", "passwd")
+        des_folder = config.get("csv","data_folder")
+        nasdaq_list = trading_data_utility_by_sql.TradingDataUtilityBySQL(host,database, user, password).get_nasdaq_list(running_time)
+        nyse_list= trading_data_utility_by_sql.TradingDataUtilityBySQL(host,database, user, password).get_nyse_list(running_time)
+        data_collector = google_news_data_collector.GoogleNewsDataCollector(driver_location=des_folder,
+                                                                        nyse_list=nyse_list, nasdaq_list=nasdaq_list)
+        data_collector.run(running_time,des_folder)
+        logger.info("Google News Count Downloaded")
+    except Exception, e:
+        logger.warning("Google News Count Failed: "+str(e))
 
     send_email(log_file_name, mail_list, message_folder)
 
