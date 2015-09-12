@@ -21,3 +21,14 @@ class Bar1MinEodData(peewee.Model):
     class Meta:
         database = db
         primary_key = CompositeKey('transaction_time','symbol', 'exchange')
+
+class DailyVolumeWeightedPrice(peewee.Model):
+    symbol = peewee.CharField()
+    transaction_date = peewee.DateField()
+    total_volume = peewee.BigIntegerField()
+    average_price = peewee.DoubleField()
+
+    class Meta:
+        database = db
+        primary_key = CompositeKey('transaction_date','symbol')
+

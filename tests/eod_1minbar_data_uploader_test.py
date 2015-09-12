@@ -24,8 +24,11 @@ if __name__ == "__main__":
     logger.info("begin eod 1min bar data upload test")
 
     #running_time = datetime.datetime.now()
-    #running_time = datetime.datetime(year=2015, month=8, day=28)
-    #data_uploader.run(running_time)
+    running_time = datetime.datetime(year=2015, month=9, day=8)
+    data_uploader.run(running_time)
+
     start_time = datetime.datetime(year = 2015, month = 6, day=10)
-    end_time = datetime.datetime(year =2015, month=9, day=8)
-    data_uploader.historical_run(start_time,end_time)
+    end_time = datetime.datetime(year =2015, month=9, day=12)
+    data_uploader.historical_weighted_avg_calc(start_time, end_time)
+    #data_uploader.calculate_daily_weighted_average(host,database,user,password, running_time)
+    #data_uploader.historical_run(start_time,end_time)
