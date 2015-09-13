@@ -1,10 +1,10 @@
 __author__ = 'Qing'
 
+import sys,os
+sys.path.append(os.path.realpath('..'))
 from data_analyser import eoddata_analyser
 import configparser
 import datetime
-import sys,os
-sys.path.append(os.path.realpath('..'))
 import matplotlib.pyplot as plt
 
 if __name__ == "__main__":
