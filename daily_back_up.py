@@ -222,7 +222,7 @@ if __name__ == "__main__":
     Config = configparser.ConfigParser()
     Config.read(config_file)
     #running_time = datetime.datetime.now()
-    running_time = datetime.datetime.strptime("20150914","%Y%m%d")
+    running_time = datetime.datetime.strptime("20150915","%Y%m%d")
     src_folder = Config.get("csv", "data_folder") + "/" + "daily_run" + "/" + running_time.strftime("%Y_%m_%d")
     des_folder = Config.get("csv", "data_folder") + "/" + "zip"
     if not os.path.exists(des_folder):
