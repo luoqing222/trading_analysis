@@ -111,6 +111,7 @@ class Eod1MinBarDataUploader:
                 des_file_name = file_name + "_BAR_1MIN_" + running_time.strftime('%Y%m%d') + ".csv"
                 self.upload_bar_1min_equity_to_db(self.host, self.database, self.user, self.password, des_file_name,
                                                   des_folder)
+        self.calculate_daily_weighted_average(self.host, self.database, self.user, self.password, running_time)
 
     def historical_run(self, start_datetime, end_datetime):
         start = start_datetime
