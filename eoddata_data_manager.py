@@ -31,10 +31,6 @@ class EodDataDataManager:
         contract_name = re.sub("^[CP]", "", contract_name)
         strike_price = contract_name
 
-        # print "underlying_stock is ", underlying_stock
-        # print "expiration_date is ", expiration_date
-        # print "option_type is ", option_type
-        # print "strike_price is ", strike_price
         return [underlying_stock, expiration_date, option_type, strike_price]
 
     # this function convert the eod option data .txt format into .csv format
@@ -354,6 +350,56 @@ class EodDataDataManager:
         file_name = "NASDAQ_BAR_1MIN_20150615.csv"
         folder = "C:/dev/data/eod/bar"
         self.upload_bar_1min_equity_to_db(Config, file_name, folder)
+
+    def run(self, running_time_time):
+        Config = configparser.ConfigParser()
+        Config.read(self.config_file)
+
+        # only download the data that is on running time day
+        running_time = running_time_time.strftime("%Y%m%d")
+
+        host = Config.get("eod", "host")
+        user = Config.get("eod", "user")
+        password = Config.get("eod", "passwd")
+        des_folder = Config.get("csv", "temp_folder") + "/" + Config.get("eod", "data_folder")
+        if not os.path.exists(des_folder):
+            os.makedirs(des_folder)
+
+        ftp = FTP(host=host, user=user, passwd=password)
+        files = ftp.nlst()
+        file_pattern = re.compile('[a-zA-Z]+_\d{8}.txt\Z')
+        for f in files:
+            if file_pattern.match(f):
+                file_date = f.replace('.txt', "")
+                file_date = re.sub('[a-zA-Z]+_', '', file_date)
+                if file_date == running_time:
+                    the_folder = des_folder + "/" + file_date
+                    if not os.path.exists(the_folder):
+                        os.makedirs(the_folder)
+                    des_file_name = the_folder + "/" + f
+                    print "downloading " + f + " to " + the_folder
+                    ftp.retrbinary('RETR ' + f, open(des_file_name, 'wb').write)
+
+        ftp.close()
+
+        # process the txt files after it is downloaded
+        src_folder = des_folder + "/" + running_time
+        des_folder = self.get_eod_data_dir(Config, running_time_time)
+
+        self.option_txt_to_csv(src_folder, "OPRA_" + running_time + ".txt", des_folder, "OPRA_" + running_time + ".csv")
+        self.copy_txt_to_csv(src_folder, "NYSE_" + running_time + ".txt", des_folder, "NYSE_" + running_time + ".csv")
+        self.copy_txt_to_csv(src_folder, "NASDAQ_" + running_time + ".txt", des_folder, "NASDAQ_" + running_time + ".csv")
+
+        self.upload_equity_csv_to_db(Config, "NASDAQ_" + running_time + ".csv", des_folder)
+        self.upload_equity_csv_to_db(Config, "NYSE_" + running_time + ".csv", des_folder)
+        self.upload_option_csv_to_db(Config, "OPRA_" + running_time + ".csv", des_folder)
+
+        txtfiles = [f for f in os.listdir(src_folder) if os.path.isfile(os.path.join(src_folder, f))]
+        string_pattern = '[a-zA-Z]+_' + running_time + '.txt\Z'
+        file_pattern = re.compile(string_pattern)
+        for txtfile in txtfiles:
+            if file_pattern.match(txtfile):
+                self.copy_txt_to_csv(src_folder, txtfile, des_folder,txtfile)
 
 
 
