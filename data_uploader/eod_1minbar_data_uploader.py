@@ -18,7 +18,8 @@ class Eod1MinBarDataUploader:
         self.user = user
         self.password = password
         self.folder = folder
-        self.file_lists = ['NASDAQ', 'NYSE']
+        #self.file_lists = ['NASDAQ', 'NYSE']
+        self.file_lists = ['NYSE']
 
     def upload_bar_1min_equity_to_db(self, host, database, user, password, file_name, folder):
         ''' function to save 1 minute frequency trading data into database
