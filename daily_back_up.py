@@ -222,18 +222,20 @@ if __name__ == "__main__":
     Config = configparser.ConfigParser()
     Config.read(config_file)
     #running_time = datetime.datetime.now()
-    running_time = datetime.datetime.strptime("20150918","%Y%m%d")
-    src_folder = Config.get("csv", "data_folder") + "/" + "daily_run" + "/" + running_time.strftime("%Y_%m_%d")
-    des_folder = Config.get("csv", "data_folder") + "/" + "zip"
-    if not os.path.exists(des_folder):
-        os.makedirs(des_folder)
-    zip_file_name = running_time.strftime("%Y_%m_%d") + ".zip"
-    zip_daily_data(src_folder, des_folder, zip_file_name)
-    GlacierVault(VAULT_NAME).upload(des_folder + "/" + zip_file_name)
-    #GlacierVault(VAULT_NAME).retrieve(des_folder + "/" + zip_file_name)
-    #GlacierVault(VAULT_NAME).delete(des_folder + "/" + zip_file_name)
-    #print GlacierVault(VAULT_NAME).get_archives_name()
-    #print GlacierVault(vault_name).get_archive_id(des_folder + "/" + zip_file_name)
-    mail_list = ["luoqing222@gmail.com"]
-    send_email(SHELVE_FILE_NAME, mail_list, os.path.expanduser("~"))
+    running_time = datetime.datetime.strptime("20150921","%Y%m%d")
+    for delta in range(0,5):
+        running_time = running_time+ datetime.timedelta(days =1)
+        src_folder = Config.get("csv", "data_folder") + "/" + "daily_run" + "/" + running_time.strftime("%Y_%m_%d")
+        des_folder = Config.get("csv", "data_folder") + "/" + "zip"
+        if not os.path.exists(des_folder):
+            os.makedirs(des_folder)
+        zip_file_name = running_time.strftime("%Y_%m_%d") + ".zip"
+        zip_daily_data(src_folder, des_folder, zip_file_name)
+        GlacierVault(VAULT_NAME).upload(des_folder + "/" + zip_file_name)
+        #GlacierVault(VAULT_NAME).retrieve(des_folder + "/" + zip_file_name)
+        #GlacierVault(VAULT_NAME).delete(des_folder + "/" + zip_file_name)
+        #print GlacierVault(VAULT_NAME).get_archives_name()
+        #print GlacierVault(vault_name).get_archive_id(des_folder + "/" + zip_file_name)
+        mail_list = ["luoqing222@gmail.com"]
+        send_email(SHELVE_FILE_NAME, mail_list, os.path.expanduser("~"))
 
