@@ -222,8 +222,8 @@ if __name__ == "__main__":
     Config = configparser.ConfigParser()
     Config.read(config_file)
     #running_time = datetime.datetime.now()
-    running_time = datetime.datetime.strptime("20150927","%Y%m%d")
-    for delta in range(0,5):
+    running_time = datetime.datetime.strptime("20151004","%Y%m%d")
+    for delta in range(0,13):
         running_time = running_time+ datetime.timedelta(days =1)
         src_folder = Config.get("csv", "data_folder") + "/" + "daily_run" + "/" + running_time.strftime("%Y_%m_%d")
         des_folder = Config.get("csv", "data_folder") + "/" + "zip"
