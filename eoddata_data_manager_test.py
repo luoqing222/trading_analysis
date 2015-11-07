@@ -11,7 +11,7 @@ if __name__ == "__main__":
     start_time = time.time()
 
     eod_data_manager=eoddata_data_manager.EodDataDataManager()
-    running_time = datetime.datetime(year=2015, month=11, day=04)
+    running_time = datetime.datetime(year=2015, month=11, day=05)
     eod_data_manager.run(running_time)
 
     # start_date = datetime.datetime(year=2015, month=05, day=01)
