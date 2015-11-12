@@ -28,6 +28,8 @@ import logging
 from data_collectors import eod_1minbar_data_collector
 import configparser
 from pyvirtualdisplay import Display
+import pandas as pd
+import daily_back_up
 
 
 def send_email(file_name, mail_list, folder):
@@ -254,19 +256,51 @@ def update_sp500list_table(data_manager, current_date):
 logger = logging.getLogger(__name__)
 
 if __name__ == "__main__":
+    # config_file = "option_data_management_setting.ini"
+    # config = configparser.ConfigParser()
+    # config.read(config_file)
+    #
+    # driver_location = config.get("driver", "chrome_driver")
+    # download_folder = config.get("driver","download_folder")
+    # username = config.get("eod", "user")
+    # password = config.get("eod", "passwd")
+    # des_folder = config.get("csv","data_folder")
+    # #running_time = datetime.datetime(year=2015, month=8, day=14)
+    # running_time = datetime.datetime.now()
+    #
+    # # current_folder = os.getcwd()
+    # # message_folder = current_folder + "/" + "messages"
+    # # log_file = message_folder+"/"+"daily_run.log"
+    # # logging.basicConfig(filename=log_file, level=logging.INFO,filemode="w")
+    # # logger.info("begin simple test on "+ running_time.strftime('%m_%d_%Y'))
+    # #data_collector = eod_1minbar_data_collector.Eod1MinBarDataCollector(driver_location,username,password)
+    # #data_collector.run(download_folder, des_folder, running_time)
+    # file_name = "C:/dev/data/test/NYSE_BAR_1MIN_20150626.csv"
+    # dataframe = pd.read_csv(file_name)
+    # dataframe['VolumeAmount']=dataframe['Volume']*dataframe['Close']
+    # for name, group in dataframe.groupby('Symbol'):
+    #     print name, sum(group['VolumeAmount'])/sum(group['Volume']),sum(group['Volume'])
+    # #dataframe.to_csv("C:/dev/data/test/temp.csv")
+    #
     config_file = "option_data_management_setting.ini"
-    config = configparser.ConfigParser()
-    config.read(config_file)
+    Config = configparser.ConfigParser()
+    Config.read(config_file)
+    #running_time = datetime.datetime.now()
+    running_time = datetime.datetime.strptime("20151102","%Y%m%d")
 
-    driver_location = config.get("driver", "chrome_driver")
-    download_folder = config.get("driver","download_folder")
-    username = config.get("eod", "user")
-    password = config.get("eod", "passwd")
-    des_folder = config.get("csv","data_folder")
-    #running_time = datetime.datetime(year=2015, month=8, day=14)
-    running_time = datetime.datetime.now()
+    src_folder = Config.get("csv", "data_folder") + "/" + "daily_run" + "/" + running_time.strftime("%Y_%m_%d")
+    des_folder = Config.get("csv", "data_folder") + "/" + "zip"
+    if not os.path.exists(des_folder):
+        os.makedirs(des_folder)
+    zip_file_name = running_time.strftime("%Y_%m_%d") + ".zip"
+    daily_back_up.zip_daily_data(src_folder, des_folder, zip_file_name)
+    daily_back_up.GlacierVault(daily_back_up.VAULT_NAME).upload(des_folder + "/" + zip_file_name)
+    #GlacierVault(VAULT_NAME).retrieve(des_folder + "/" + zip_file_name)
+    #GlacierVault(VAULT_NAME).delete(des_folder + "/" + zip_file_name)
+    #print GlacierVault(VAULT_NAME).get_archives_name()
+    #print GlacierVault(vault_name).get_archive_id(des_folder + "/" + zip_file_name)
+    mail_list = ["luoqing222@gmail.com"]
+    send_email(daily_back_up.SHELVE_FILE_NAME, mail_list, os.path.expanduser("~"))
 
-    logging.basicConfig(filename='daily_run.log', level=logging.INFO,filemode="w")
-    logger.info("begin simple test")
-    data_collector = eod_1minbar_data_collector.Eod1MinBarDataCollector(driver_location,username,password)
-    data_collector.run(download_folder, des_folder, running_time)
+
+

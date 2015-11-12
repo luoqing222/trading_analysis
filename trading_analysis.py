@@ -197,6 +197,3 @@ if __name__ == "__main__":
 
     send_email(log_file_name, mail_list, message_folder)
 
-
-    #function to
-    #print("--- %s seconds ---" % (time.time() - start_time))
