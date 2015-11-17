@@ -25,6 +25,8 @@ from data_uploader import eod_1minbar_data_uploader
 from data_collectors import google_news_data_collector
 import trading_data_utility_by_sql
 import configparser
+from data_analyser import log_analyser
+import daily_back_up
 
 
 
@@ -196,4 +198,24 @@ if __name__ == "__main__":
         logger.warning("Google News Count Failed: "+str(e))
 
     send_email(log_file_name, mail_list, message_folder)
+
+    # to backup the data on Amazon
+    keyword_list = ['WARNING']
+    log_analyser=log_analyser.LogAnalyser(message_folder, log_file_name,keyword_list)
+    # if everything is OK, then backup the data at Amazon
+    if not log_analyser.findKeyWord():
+        src_folder = config.get("csv", "data_folder") + "/" + "daily_run" + "/" + running_time.strftime("%Y_%m_%d")
+        des_folder = config.get("csv", "data_folder") + "/" + "zip"
+        if not os.path.exists(des_folder):
+            os.makedirs(des_folder)
+        zip_file_name = running_time.strftime("%Y_%m_%d") + ".zip"
+        daily_back_up.zip_daily_data(src_folder, des_folder, zip_file_name)
+        daily_back_up.GlacierVault(daily_back_up.VAULT_NAME).upload(des_folder + "/" + zip_file_name)
+        #GlacierVault(VAULT_NAME).retrieve(des_folder + "/" + zip_file_name)
+        #GlacierVault(VAULT_NAME).delete(des_folder + "/" + zip_file_name)
+        #print GlacierVault(VAULT_NAME).get_archives_name()
+        #print GlacierVault(vault_name).get_archive_id(des_folder + "/" + zip_file_name)
+        mail_list = ["luoqing222@gmail.com"]
+        send_email(daily_back_up.SHELVE_FILE_NAME, mail_list, os.path.expanduser("~"))
+
 
