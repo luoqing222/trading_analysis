@@ -18,8 +18,8 @@ import yahoo_equity_data_loader
 
 def get_messages_folder():
     current_folder = os.getcwd()
-    #message_folder = current_folder + "/" + "messages"
-    message_folder = current_folder + "/" + "temp"
+    message_folder = current_folder + "/" + "messages"
+    #message_folder = current_folder + "/" + "temp"
     return message_folder
 
 def generate_rsq_file_name(date_object):
@@ -146,9 +146,9 @@ def historical_rsq_run(start_date, end_date):
         start_date_object=start_date_object+datetime.timedelta(days=1)
 
 if __name__ == "__main__":
-    start_date="2015/05/09"
-    end_date="2015/11/27"
-    historical_rsq_run(start_date,end_date)
+    #start_date="2015/05/09"
+    #end_date="2015/11/27"
+    #historical_rsq_run(start_date,end_date)
     # check if the day that is not trading day, stop running
     current_time = datetime.datetime.now()
     #current_time = datetime.datetime(2015,9,4,0,0,0)
