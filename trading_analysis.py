@@ -125,8 +125,8 @@ if __name__ == "__main__":
     if not os.path.exists(message_folder):
         os.makedirs(message_folder)
 
-    #running_time = datetime.datetime.now()
-    running_time = datetime.datetime(2015,12,9,0,0,0)
+    running_time = datetime.datetime.now()
+    #running_time = datetime.datetime(2015,12,9,0,0,0)
     log_file_name = "daily_run.log"
     log_file = message_folder+"/"+log_file_name
     logging.basicConfig(filename=log_file, level=logging.INFO,filemode="w")
