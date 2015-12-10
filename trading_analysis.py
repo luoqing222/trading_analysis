@@ -108,8 +108,7 @@ logger = logging.getLogger(__name__)
 
 if __name__ == "__main__":
     data_manager = trading_data_manager.TradingDataManager()
-    #current_date = datetime.datetime.now().date()
-    current_date = datetime.datetime(2015,12,9,0,0,0).date()
+    current_date = datetime.datetime.now().date()
     update_sp500list_table(data_manager, current_date)
 
     # check if the day that is not trading day, stop running
@@ -126,7 +125,8 @@ if __name__ == "__main__":
     if not os.path.exists(message_folder):
         os.makedirs(message_folder)
 
-    running_time = datetime.datetime.now()
+    #running_time = datetime.datetime.now()
+    running_time = datetime.datetime(2015,12,9,0,0,0)
     log_file_name = "daily_run.log"
     log_file = message_folder+"/"+log_file_name
     logging.basicConfig(filename=log_file, level=logging.INFO,filemode="w")
