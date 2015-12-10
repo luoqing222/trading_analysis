@@ -108,7 +108,8 @@ logger = logging.getLogger(__name__)
 
 if __name__ == "__main__":
     data_manager = trading_data_manager.TradingDataManager()
-    current_date = datetime.datetime.now().date()
+    #current_date = datetime.datetime.now().date()
+    current_date = datetime.datetime(2015,12,9,0,0,0).date()
     update_sp500list_table(data_manager, current_date)
 
     # check if the day that is not trading day, stop running
