@@ -222,9 +222,13 @@ if __name__ == "__main__":
     Config = configparser.ConfigParser()
     Config.read(config_file)
     #running_time = datetime.datetime.now()
-    running_time = datetime.datetime.strptime("20151115","%Y%m%d")
-    for delta in range(0,1):
-        running_time = running_time+ datetime.timedelta(days =1)
+    #running_time = datetime.datetime.strptime("20151115","%Y%m%d")
+    running_days= [datetime.datetime.strptime("20151117","%Y%m%d"),datetime.datetime.strptime("20151118","%Y%m%d"),
+                   datetime.datetime.strptime("20151119","%Y%m%d"),datetime.datetime.strptime("20151125","%Y%m%d"),
+                   datetime.datetime.strptime("20151127","%Y%m%d"),datetime.datetime.strptime("20151207","%Y%m%d"),
+                   datetime.datetime.strptime("20151209","%Y%m%d"),datetime.datetime.strptime("20151211","%Y%m%d"),
+                   datetime.datetime.strptime("20151214","%Y%m%d")]
+    for running_time in running_days:
         src_folder = Config.get("csv", "data_folder") + "/" + "daily_run" + "/" + running_time.strftime("%Y_%m_%d")
         des_folder = Config.get("csv", "data_folder") + "/" + "zip"
         if not os.path.exists(des_folder):
