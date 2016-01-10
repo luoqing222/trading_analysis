@@ -1,7 +1,7 @@
 __author__ = 'qingluo'
 
 import emailprocessing
-import yahoo_data_loader
+#import yahoo_data_loader
 import yahoo_data_analyser
 import datetime
 import models
@@ -16,6 +16,7 @@ import dictionary_ids
 import trading_data_manager
 import trading_date_utility
 import wiki_data_loader
+import MySQLdb
 
 
 if __name__ == "__main__":
@@ -32,13 +33,13 @@ if __name__ == "__main__":
         symbol_most_recent_date[item.symbol] = item.recent_date
 
     # get the SP500 list with most recent save date
-    query = models.Sp500Symbol.select(fn.Max(models.Sp500Symbol.save_date).alias('recent_date'))
+    query = models.Sp500List.select(fn.Max(models.Sp500List.save_date).alias('recent_date'))
     for item in query:
         SP500_recent_date = item.recent_date
 
     # item in the query is latest sp500 tick
     symbol_list= []
-    query = models.Sp500Symbol.select().where(models.Sp500Symbol.save_date == SP500_recent_date)
+    query = models.Sp500List.select().where(models.Sp500List.save_date == SP500_recent_date)
     for item in query:
         symbol = item.symbol
         #save_trading_data(symbol, symbol_most_recent_date)
@@ -52,9 +53,10 @@ if __name__ == "__main__":
         #save_trading_data(symbol, symbol_most_recent_date)
         index_list.append(symbol)
 
-    start_date="2013/05/08"
-    end_date="2014/05/08"
-    data_analyser = yahoo_data_analyser.YahooEquityDataAnalyser()
+    start_date="2015-05-09"
+    end_date="2015-11-27"
+    db = MySQLdb.connect(host=models.host, db=models.database, user=models.user, passwd=models.password)
+    data_analyser = yahoo_data_analyser.YahooEquityDataAnalyser(db)
     file_name = "sp500_historical_rsq.csv"
     data_analyser.calculate_historical_rsq(symbol_list,index_list,start_date,end_date, 30, file_name)
 

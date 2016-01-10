@@ -19,6 +19,7 @@ import yahoo_equity_data_loader
 def get_messages_folder():
     current_folder = os.getcwd()
     message_folder = current_folder + "/" + "messages"
+    #message_folder = current_folder + "/" + "temp"
     return message_folder
 
 def generate_rsq_file_name(date_object):
@@ -133,17 +134,30 @@ def calculate_sp500_rsq(running_date_object):
     data_analyser.calculate_daily_rsq(symbol_list, index_list, running_date_object, 30, message_folder + "/" + file_name)
     db.close()
 
+def historical_rsq_run(start_date, end_date):
+    # find the tick that in the HistoricalPrice
+    start_date_object = datetime.datetime.strptime(start_date, '%Y/%m/%d')
+    end_date_object = datetime.datetime.strptime(end_date, '%Y/%m/%d')
+    while start_date_object<=end_date_object:
+        if not trading_date_utility.is_trading_day(start_date_object,"US"):
+            pass
+        else:
+            calculate_sp500_rsq(start_date_object)
+        start_date_object=start_date_object+datetime.timedelta(days=1)
+
 if __name__ == "__main__":
+    #start_date="2015/05/09"
+    #end_date="2015/11/27"
+    #historical_rsq_run(start_date,end_date)
     # check if the day that is not trading day, stop running
     current_time = datetime.datetime.now()
-    #current_time = datetime.datetime(2015,9,4,0,0,0)
-    if not trading_date_utility.is_trading_day(current_time, "US"):
-        sys.exit(0)
+    #current_time = datetime.datetime(2015,12,9,0,0,0)
+    #if not trading_date_utility.is_trading_day(current_time, "US"):
+    #    sys.exit(0)
 
     calculate_sp500_rsq(current_time)
     calculate_strong_stock(current_time+datetime.timedelta(days = -1),current_time)
     mail_list = ["luoqing222@gmail.com", "fanlinzhu@yahoo.com"]
-    #mail_list = ["luoqing222@gmail.com"]
     send_email(generate_rsq_file_name(current_time), mail_list,get_messages_folder())
     send_email(generate_strong_stock_file_name(current_time), mail_list,get_messages_folder())
 
