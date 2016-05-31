@@ -142,9 +142,9 @@ class SeekingAlphaIdeaDataCollector:
         self.driver.close()
 
     def run(self,running_time, des_folder, stock_list):
-        display = Display(visible=0, size=(800, 800))
-        display.start()
-        driver = webdriver.Chrome()
+        #display = Display(visible=0, size=(800, 800))
+        #display.start()
+        #driver = webdriver.Chrome()
 
         path = des_folder+ "/daily_run/" + running_time.strftime('%Y_%m_%d')+"/seekingAlpha/"
         if not os.path.exists(path):
