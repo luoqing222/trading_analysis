@@ -14,13 +14,12 @@ logger = logging.getLogger(__name__)
 
 
 class SeekingAlphaIdeaDataCollector:
-    def __init__(self, driver_location, stock_list):
+    def __init__(self, driver_location):
         self.driver_location = driver_location
         self.driver = webdriver.Chrome(self.driver_location)
         self.loginPage="http://seekingalpha.com/account/login"
         self.username="luoqing222@gmail.com"
         self.password="Fapkc123"
-        self.stock_list=stock_list
 
     def download_ideas(self):
         '''
@@ -139,7 +138,7 @@ class SeekingAlphaIdeaDataCollector:
     def exitWebsite(self):
         self.driver.close()
 
-    def run(self,running_time, des_folder):
+    def run(self,running_time, des_folder, stock_list):
         path = des_folder+ "/daily_run/" + running_time.strftime('%Y_%m_%d')+"/seekingAlpha/"
         if not os.path.exists(path):
             os.makedirs(path)
@@ -159,7 +158,7 @@ class SeekingAlphaIdeaDataCollector:
         #     output_file.write(transaction_date+","+symbol+",NYSE,"+news_count+"\n")
         #     time.sleep(2)
         #stock_list=["FB","WMT","COP", "XX"]
-        num_of_followers=self.find_number_of_followers(self.stock_list, 30)
+        num_of_followers=self.find_number_of_followers(stock_list, 30)
         for key in num_of_followers:
             output_file.write(transaction_date+","+key+","+num_of_followers[key].replace(",", "")+"\n")
 
