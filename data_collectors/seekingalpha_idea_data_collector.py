@@ -16,7 +16,10 @@ logger = logging.getLogger(__name__)
 class SeekingAlphaIdeaDataCollector:
     def __init__(self, driver_location):
         self.driver_location = driver_location
-        self.driver = webdriver.Chrome(self.driver_location)
+
+        self.driver = webdriver.Chrome()
+
+        #self.driver = webdriver.Chrome(self.driver_location)
         self.loginPage="http://seekingalpha.com/account/login"
         self.username="luoqing222@gmail.com"
         self.password="Fapkc123"
@@ -139,6 +142,10 @@ class SeekingAlphaIdeaDataCollector:
         self.driver.close()
 
     def run(self,running_time, des_folder, stock_list):
+        display = Display(visible=0, size=(800, 800))
+        display.start()
+        driver = webdriver.Chrome()
+
         path = des_folder+ "/daily_run/" + running_time.strftime('%Y_%m_%d')+"/seekingAlpha/"
         if not os.path.exists(path):
             os.makedirs(path)
