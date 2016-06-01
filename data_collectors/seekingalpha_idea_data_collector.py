@@ -166,7 +166,7 @@ class SeekingAlphaIdeaDataCollector:
         #     output_file.write(transaction_date+","+symbol+",NYSE,"+news_count+"\n")
         #     time.sleep(2)
         #stock_list=["FB","WMT","COP", "XX"]
-        num_of_followers=self.find_number_of_followers(stock_list, 30)
+        num_of_followers=self.find_number_of_followers(stock_list, 30,driver)
         for key in num_of_followers:
             output_file.write(transaction_date+","+key+","+num_of_followers[key].replace(",", "")+"\n")
 
