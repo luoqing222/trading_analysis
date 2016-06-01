@@ -114,7 +114,7 @@ class SeekingAlphaIdeaDataCollector:
         result = {}
         for stock in stock_list:
             try:
-                print "find the number of follows for "+stock+"\n"
+                print "find the number of follows for "+stock
                 driver.get("http://seekingalpha.com/symbol/"+stock)
                 time.sleep(sleeping_time)
                 soup=BeautifulSoup(driver.page_source.encode('utf-8'), 'html5lib')
@@ -127,7 +127,7 @@ class SeekingAlphaIdeaDataCollector:
             except:
                 num_of_followers="-99"
 
-            print "the number is "+ num_of_followers+"\n"
+            print "the number is "+ num_of_followers
             result[stock]=num_of_followers
 
         return result
@@ -146,7 +146,7 @@ class SeekingAlphaIdeaDataCollector:
         display = Display(visible=0, size=(800, 800))
         display.start()
         driver = webdriver.Chrome()
-
+        #driver=webdriver.Chrome(self.driver_location)
         path = des_folder+ "/daily_run/" + running_time.strftime('%Y_%m_%d')+"/seekingAlpha/"
         if not os.path.exists(path):
             os.makedirs(path)
