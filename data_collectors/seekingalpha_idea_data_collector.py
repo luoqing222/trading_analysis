@@ -17,7 +17,8 @@ class SeekingAlphaIdeaDataCollector:
     def __init__(self, driver_location):
         self.driver_location = driver_location
 
-        self.driver = webdriver.Chrome()
+
+        #self.driver = webdriver.Chrome()
 
         #self.driver = webdriver.Chrome(self.driver_location)
         self.loginPage="http://seekingalpha.com/account/login"
@@ -104,7 +105,7 @@ class SeekingAlphaIdeaDataCollector:
         submit.click()
         time.sleep(30)
 
-    def find_number_of_followers(self, stock_list, sleeping_time):
+    def find_number_of_followers(self, stock_list, sleeping_time,driver):
         '''
         :param stock_list: list of the stock
         :param sleetping_time: num of second to sleep to let the web site update the number of followers
@@ -114,9 +115,9 @@ class SeekingAlphaIdeaDataCollector:
         for stock in stock_list:
             try:
                 print "find the number of follows for "+stock+"\n"
-                self.driver.get("http://seekingalpha.com/symbol/"+stock)
+                driver.get("http://seekingalpha.com/symbol/"+stock)
                 time.sleep(sleeping_time)
-                soup=BeautifulSoup(self.driver.page_source.encode('utf-8'), 'html5lib')
+                soup=BeautifulSoup(driver.page_source.encode('utf-8'), 'html5lib')
                 followers=soup.find('div', class_="followers-count")
                 if followers:
                     text_string= followers.get_text().encode('utf-8')
@@ -142,9 +143,9 @@ class SeekingAlphaIdeaDataCollector:
         self.driver.close()
 
     def run(self,running_time, des_folder, stock_list):
-        #display = Display(visible=0, size=(800, 800))
-        #display.start()
-        #driver = webdriver.Chrome()
+        display = Display(visible=0, size=(800, 800))
+        display.start()
+        driver = webdriver.Chrome()
 
         path = des_folder+ "/daily_run/" + running_time.strftime('%Y_%m_%d')+"/seekingAlpha/"
         if not os.path.exists(path):
@@ -152,7 +153,7 @@ class SeekingAlphaIdeaDataCollector:
         transaction_date = running_time.strftime('%Y%m%d')
         des_file_name= path+"Followers_Counts_"+ transaction_date +".csv"
 
-        self.crawling_login()
+        #self.crawling_login()
 
         output_file = open(des_file_name, "w")
         # for symbol in self.nasdaq_list:
@@ -169,6 +170,9 @@ class SeekingAlphaIdeaDataCollector:
         for key in num_of_followers:
             output_file.write(transaction_date+","+key+","+num_of_followers[key].replace(",", "")+"\n")
 
+        driver.close()
+        display.stop()
+
         #self.download_ideas()
         #self.run_article_sentiment_analysis()
-        self.exitWebsite()
+        #self.exitWebsite()
