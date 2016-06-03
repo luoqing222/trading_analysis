@@ -54,7 +54,7 @@ class Eod1MinBarDataCollector:
         logger.info("downloading NYSE 1 minute bar data")
         buttons[1].click()
         time.sleep(120)
-        driver.close()
+        driver.quit()
         display.stop()
 
     def copy_download_files(self, download_folder, des_folder, file_name, date_time):
