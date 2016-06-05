@@ -24,8 +24,15 @@ if __name__ == "__main__":
     logger.info("begin eod 1min bar data upload test")
 
     #running_time = datetime.datetime.now()
-    running_time = datetime.datetime(year=2016, month=05, day=31)
+    running_time = datetime.datetime(year=2016, month=05, day=27)
     data_uploader.run(running_time)
+
+    running_time = datetime.datetime(year=2016, month=05, day=23)
+    data_uploader.run(running_time)
+
+    running_time = datetime.datetime(year=2016, month=04, day=27)
+    data_uploader.run(running_time)
+
 
     #running_time = datetime.datetime(year=2016, month=01, day=07)
     #data_uploader.run(running_time)
