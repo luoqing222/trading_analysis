@@ -223,7 +223,7 @@ if __name__ == "__main__":
     Config.read(config_file)
     #running_time = datetime.datetime.now()
     #running_time = datetime.datetime.strptime("20151115","%Y%m%d")
-    running_days= [datetime.datetime.strptime("20160106","%Y%m%d"),datetime.datetime.strptime("20160107","%Y%m%d")]
+    running_days= [datetime.datetime.strptime("20160106","%Y%m%d"),datetime.datetime.strptime("20160602","%Y%m%d")]
     for running_time in running_days:
         src_folder = Config.get("csv", "data_folder") + "/" + "daily_run" + "/" + running_time.strftime("%Y_%m_%d")
         des_folder = Config.get("csv", "data_folder") + "/" + "zip"
