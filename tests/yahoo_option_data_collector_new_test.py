@@ -1,26 +1,38 @@
 __author__ = 'Qing'
 
 from selenium import webdriver
+import configparser
 import platform
 import os, sys
 sys.path.append(os.path.realpath('..'))
 from data_collectors import yahoo_option_data_collector_new
 
+def start_local_chrome_driver():
+    if platform.system() == "Windows":
+        print "Running Under Windows"
+        config_file = os.path.dirname(os.getcwd())+"/"+"option_data_management_setting.ini"
+        config = configparser.ConfigParser()
+        config.read(config_file)
+        driver_location = config.get("driver", "chrome_driver")
+        return webdriver.Chrome(driver_location)
+
+    if platform.system() == "Linux":
+        print "Running Under Linux"
+        return webdriver.Chrome()
+
 if __name__ == "__main__":
 
-    symbol="FB"
+    symbol = "FB"
+    driver = start_local_chrome_driver()
+    data_collector = yahoo_option_data_collector_new.YahooOptionDataCollector(driver)
 
-    if platform.system() == "Windows":
-        print "Windows"
-    elif platform.system() == "Linux":
-        print "Linux"
-        driver = webdriver.Chrome()
-        data_collector = yahoo_option_data_collector_new.YahooOptionDataCollector(driver)
-        data_collector.download_options(symbol)
-        driver.quit()
+    with open("test.csv","w") as f:
+        data_collector.web_crawler(symbol,f)
 
-    else:
-        print "Operating System Untested"
+    driver.quit()
+
+
+
 
 
 

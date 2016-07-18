@@ -1,6 +1,8 @@
 __author__ = 'Qing'
 
-
+from bs4 import BeautifulSoup
+import datetime
+import re
 
 class YahooOptionDataCollector:
     def __init__(self, driver):
@@ -9,14 +11,65 @@ class YahooOptionDataCollector:
     # function to the yahoo link for option page
     @staticmethod
     def get_web_page_link(symbol):
-        link = "http://finance.yahoo.com/quote/" + symbol + "/Options"
+        link = "http://finance.yahoo.com/quote/" + symbol + "/options"
         return link
 
-    def download_options(self, symbol):
+    # function to get the option data for one expire date
+    # the header in the file is under, type, expire date, strike, contract name, last, bid, ask, change, %change,
+    # volume, open interest, implied volatility
+    #@staticmethod
+    def find_all_options_for_one_expire_date(self, web_page, expire_date, symbol,output_file):
+        try:
+            html_text = self.driver.get(web_page)
+            soup = BeautifulSoup(self.driver.page_source.encode('utf-8'),'html.parser')
+            option_tables = soup.findAll('table', {"class":"W(100%) list-options"})
+            for option_table in option_tables:
+                if "calls" in option_table["data-reactid"]:
+                    for row in option_table.findAll("tr"):
+                        cols=row.findAll("td")
+                        if cols:
+                            output_file.write(symbol+",Calls,"+expire_date+",")
+                            for col in cols:
+                                temp = col.string.strip()
+                                if ',' in temp:
+                                    temp = temp.replace(',','')
+                                output_file.write(temp + ",")
+                            output_file.write("\n")
+
+                if "puts" in option_table["data-reactid"]:
+                    for row in option_table.findAll("tr"):
+                        cols=row.findAll("td")
+                        if cols:
+                            output_file.write(symbol+",Puts,"+expire_date+",")
+                            for col in cols:
+                                temp = col.string.strip()
+                                if ',' in temp:
+                                    temp = temp.replace(',','')
+                                output_file.write(temp + ",")
+                            output_file.write("\n")
+
+        except:
+            pass
+
+    def web_crawler(self, symbol, file):
         print "loading yahoo option data for "+symbol
         link=self.get_web_page_link(symbol)
         self.driver.get(link)
-        print self.driver.page_source.encode('utf-8')
+        soup = BeautifulSoup(self.driver.page_source.encode('utf-8'),'html.parser')
+        for select_menu in soup.findAll("select"):
+            if len(select_menu['data-reactid']) != 0:
+                for options in select_menu.findAll("option"):
+                    link=self.get_web_page_link(symbol)+"?date="+options['value']
+                    expire_date=options.string.strip()
+                    expire_date = datetime.datetime.strptime(expire_date, "%B %d, %Y")
+                    expire_date = expire_date.strftime("%Y/%m/%d")
+                    self.find_all_options_for_one_expire_date(link, expire_date, symbol,file)
+
+
+        #f = open('C:/dev/temp/article_source_code.html', 'w')
+        #f.write(self.driver.page_source.encode('utf-8'))
+        #f.close()
+        #print self.driver.page_source.encode('utf-8')
 
 
 

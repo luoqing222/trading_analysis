@@ -5,18 +5,39 @@ import configparser
 import os
 import MySQLdb
 import time
-import yahoo_option_data_loader
+#import yahoo_option_data_loader
 import models
 import pandas.io.sql as sql
 import pandas as pd
 import re
-
+import data_collectors.yahoo_option_data_collector_new
+import platform
+from selenium import webdriver
+from data_collectors import yahoo_option_data_collector_new
 
 class YahooOptionDataManager:
     def __init__(self):
-        self.data_loader = yahoo_option_data_loader.YahooOptionDataLoader()
+        #self.data_loader = yahoo_option_data_loader.YahooOptionDataLoader()
         self.config_file = "option_data_management_setting.ini"
+        self.driver = self.start_local_chrome_driver()
+        self.data_loader = yahoo_option_data_collector_new.YahooOptionDataCollector(self.driver)
         pass
+
+    def __del__(self):
+        self.driver.quit()
+
+    def start_local_chrome_driver(self):
+        if platform.system() == "Windows":
+            print "Running Under Windows"
+            config = configparser.ConfigParser()
+            config.read(self.config_file)
+            driver_location = config.get("driver", "chrome_driver")
+            return webdriver.Chrome(driver_location)
+
+        if platform.system() == "Linux":
+            print "Running Under Linux"
+            return webdriver.Chrome()
+
 
     def get_symbol_list(self, config):
         host = config.get("database", "host")
@@ -354,6 +375,87 @@ class YahooOptionDataManager:
             finally:
                 cursor.close()
                 db.close()
+
+    def create_backward_testing_report(self,expire_date):
+        config = configparser.ConfigParser()
+        config.read(self.config_file)
+        host = config.get("database", "host")
+        database = config.get("database", "database")
+        user = config.get("database", "user")
+        password = config.get("database", "passwd")
+        db = MySQLdb.connect(host=host, db=database, user=user, passwd=password)
+
+        sql_statement = (
+            "select transaction_date, underlying_stock, option_type, strike_price,contract, open_interest, "
+            "total_option_volume,contract_volume, stock_volume, stock_close_price as stock_close_price_transaction_date, "
+            "option_stock_volume_ratio,contract_total_option_volume_ratio, option_cost, stock_price_option_price_ratio,last "
+            "from %(table_name)s where expire_date "
+            "= '%(expire_date)s' ")
+
+        table_name = 'abnormaloption'
+        data_frame = sql.read_sql(
+            sql_statement % {'table_name': table_name, 'expire_date': expire_date}, db)
+
+        stocks= data_frame['underlying_stock']
+        sql_str = "("
+        for stock in stocks:
+            sql_str+="'"+stock+"',"
+        sql_str=sql_str[:-1]+")"
+
+        table_name='eodequity'
+        sql_statement = (
+            "select symbol as underlying_stock, close_price as close_price_expire_date from %(table_name)s "
+            "where transaction_date= '%(expire_date)s' and symbol in %(stock_list)s")
+        stock_data_frame = sql.read_sql(
+            sql_statement % {'table_name': table_name, 'expire_date': expire_date,'stock_list': sql_str}, db)
+
+        result = pd.merge(data_frame, stock_data_frame, how='inner', on=['underlying_stock'])
+
+        def calculate_final_gain_no_option_cost(option_type, close_price_transaction_date, close_price_expire_date):
+            if option_type == 'P':
+                if float(close_price_transaction_date) > close_price_expire_date:
+                    return 1.0
+                else:
+                    return 0.0
+            if option_type == 'C':
+                if float(close_price_transaction_date) < close_price_expire_date:
+                    return 1.0
+                else:
+                    return 0.0
+
+        result['right_prediction']=result.apply(lambda row: calculate_final_gain_no_option_cost(row['option_type'], row['stock_close_price_transaction_date'], row['close_price_expire_date']), axis=1)
+        result.to_csv("stock_close_price.csv")
+        #print stocks
+
+        # stocks_close_price={}
+        # cursor = db.cursor()
+        # for index, row in data_frame.iterrows():
+        #     symbol = row['underlying_stock']
+        #     sql_statement = "select close_price from eodequity where symbol='"+symbol+"' and transaction_date='"+expire_date+"'"
+        #     print sql_statement
+        #     cursor.execute(sql_statement)
+        #     rows = cursor.fetchone()
+        #     if rows is not None:
+        #         stocks_close_price[symbol]=float(rows[0])
+
+        #print stocks_close_price
+
+
+
+        #data_frame.to_csv('option_list.csv')
+        # bar_data_C = pd.Series(list(data_frame['sum(volume)']), index=data_frame['transaction_date'], name=option_type)
+        #
+        # option_type = 'P'
+        # data_frame = sql.read_sql(
+        #     sql_statement % {'begin_date': start_date_str, 'end_date': end_date_str, 'table_name': table_name,
+        #                      'option_type': option_type, 'underlying_stock': underlying_stock}, db)
+        # bar_data_P = pd.Series(list(data_frame['sum(volume)']), index=data_frame['transaction_date'], name=option_type)
+        #
+        # bar_data = pd.concat([bar_data_C, bar_data_P], axis=1)
+        # bar_data.plot(kind='bar', ax=ax, title=underlying_stock + "(" + expire_date + ")")
+        db.close()
+
+
 
     def daily_run(self):
         Config = configparser.ConfigParser()
