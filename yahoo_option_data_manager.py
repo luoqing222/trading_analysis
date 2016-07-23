@@ -14,10 +14,14 @@ import data_collectors.yahoo_option_data_collector_new
 import platform
 from selenium import webdriver
 from data_collectors import yahoo_option_data_collector_new
+from pyvirtualdisplay import Display
 
 class YahooOptionDataManager:
     def __init__(self):
         #self.data_loader = yahoo_option_data_loader.YahooOptionDataLoader()
+        self.display = self.start_local_display()
+        if self.display:
+            self.display.start()
         self.config_file = "option_data_management_setting.ini"
         self.driver = self.start_local_chrome_driver()
         self.data_loader = yahoo_option_data_collector_new.YahooOptionDataCollector(self.driver)
@@ -25,6 +29,15 @@ class YahooOptionDataManager:
 
     def __del__(self):
         self.driver.quit()
+        if self.display:
+            self.display.stop()
+
+    def start_local_display(self):
+        if platform.system() == "Windows":
+            return None
+        if platform.system() == "Linux":
+            return Display(visible=0, size=(800, 800))
+
 
     def start_local_chrome_driver(self):
         if platform.system() == "Windows":
