@@ -3,6 +3,7 @@ __author__ = 'Qing'
 from bs4 import BeautifulSoup
 import datetime
 import re
+import time
 
 class YahooOptionDataCollector:
     def __init__(self, driver):
@@ -20,9 +21,9 @@ class YahooOptionDataCollector:
     #@staticmethod
     def find_all_options_for_one_expire_date(self, web_page, expire_date, symbol,output_file):
         try:
-            html_text = self.driver.get(web_page)
+            self.driver.get(web_page)
             soup = BeautifulSoup(self.driver.page_source.encode('utf-8'),'html.parser')
-            option_tables = soup.findAll('table', {"class":"W(100%) list-options"})
+            option_tables = soup.findAll('table')
             for option_table in option_tables:
                 if "calls" in option_table["data-reactid"]:
                     for row in option_table.findAll("tr"):
@@ -65,6 +66,15 @@ class YahooOptionDataCollector:
                     expire_date = expire_date.strftime("%Y/%m/%d")
                     self.find_all_options_for_one_expire_date(link, expire_date, symbol,file)
 
+        #link = "http://finance.yahoo.com/quote/FB/options?date=1470355200"
+        #self.driver.get(link)
+        #time.sleep(60)
+
+        #soup = BeautifulSoup(self.driver.page_source.encode('utf-8'),'html.parser')
+
+        #f = open('C:/dev/temp/article_source_code.html', 'w')
+        #f.write(self.driver.page_source.encode('utf-8'))
+        #f.close()
 
         #f = open('C:/dev/temp/article_source_code.html', 'w')
         #f.write(self.driver.page_source.encode('utf-8'))
