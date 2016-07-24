@@ -22,7 +22,7 @@ def start_local_chrome_driver():
 
 if __name__ == "__main__":
 
-    symbol = "FB"
+    symbol = "ELRC"
     driver = start_local_chrome_driver()
     data_collector = yahoo_option_data_collector_new.YahooOptionDataCollector(driver)
 
