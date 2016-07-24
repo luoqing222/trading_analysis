@@ -3,6 +3,7 @@ __author__ = 'Qing'
 import datetime
 import trading_date_utility
 import urllib
+import urllib2
 import BeautifulSoup
 import models
 import re
@@ -30,9 +31,10 @@ class YahooEquityDataLoader:
         e = end_date.day
         f = end_date.year
 
-        link = "http://finance.yahoo.com/q/hp?s=" + symbol + "&a=" + dict[a] + "&b=" + dict[b] + "&c=" + str(c) + "&d=" \
-           + dict[d] + "&e=" + dict[e] + "&f=" + str(f) + "&g=d"
-
+        #link = "http://finance.yahoo.com/q/hp?s=" + symbol + "&a=" + dict[a] + "&b=" + dict[b] + "&c=" + str(c) + "&d=" \
+        #   + dict[d] + "&e=" + dict[e] + "&f=" + str(f) + "&g=d"
+        link = "http://chart.finance.yahoo.com/table.csv?s=" + symbol + "&a=" + dict[a] + "&b=" + dict[b] + "&c=" + str(c) + "&d=" \
+           + dict[d] + "&e=" + dict[e] + "&f=" + str(f) + "&g=d&ignore=.csv"
         return link
 
     @staticmethod
@@ -41,7 +43,8 @@ class YahooEquityDataLoader:
         :param symbol: symbol for the equity
         :return: the web page to download the equity data
         '''
-        link = "http://finance.yahoo.com/q/hp?s=" + symbol + "+Historical+Prices"
+        #link = "http://finance.yahoo.com/q/hp?s=" + symbol + "+Historical+Prices"
+        link = "http://chart.finance.yahoo.com/table.csv?s="+symbol+"&ignore=.csv"
         return link
 
     def update_database(self, symbol, recent_date, country, full_download):
@@ -52,23 +55,33 @@ class YahooEquityDataLoader:
             next_day = trading_date_utility.next_business_day(recent_date,country)
             link = self.generate_download_link(next_day, datetime.datetime.now(), symbol)
 
-        html_text = urllib.urlopen(link)
-        soup = BeautifulSoup.BeautifulSoup(html_text)
-        for tag in soup.findAll('a', href=True):
-            if "real-chart" in tag['href']:
-                models.db.connect()
-                f = urllib.urlopen(tag['href'])
-                line_number = 0
-                for line in f:
-                    if 0 == line_number:
-                        line_number += 1
-                    else:
-                        transaction_data = re.split(r',', line)
-                        models.HistoricalPrice.create(symbol=symbol, transaction_date=transaction_data[0],
+        response = urllib2.urlopen(link)
+        response.readline()
+        for line in response.readlines():
+            transaction_data = re.split(r',', line)
+            models.HistoricalPrice.create(symbol=symbol, transaction_date=transaction_data[0],
                                                 open=float(transaction_data[1]), high=float(transaction_data[2]),
                                                 close=float(transaction_data[4]),
                                                 adjust_close=float(transaction_data[6]),
                                                 volume=long(transaction_data[5]))
+
+        # html_text = urllib.urlopen(link)
+        # soup = BeautifulSoup.BeautifulSoup(html_text)
+        # for tag in soup.findAll('a', href=True):
+        #     if "real-chart" in tag['href']:
+        #         models.db.connect()
+        #         f = urllib.urlopen(tag['href'])
+        #         line_number = 0
+        #         for line in f:
+        #             if 0 == line_number:
+        #                 line_number += 1
+        #             else:
+        #                 transaction_data = re.split(r',', line)
+        #                 models.HistoricalPrice.create(symbol=symbol, transaction_date=transaction_data[0],
+        #                                         open=float(transaction_data[1]), high=float(transaction_data[2]),
+        #                                         close=float(transaction_data[4]),
+        #                                         adjust_close=float(transaction_data[6]),
+        #                                         volume=long(transaction_data[5]))
 
     def save_trading_data(self, symbol, max_date_in_table):
         if symbol in max_date_in_table:
