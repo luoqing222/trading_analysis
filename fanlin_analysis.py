@@ -146,15 +146,19 @@ def historical_rsq_run(start_date, end_date):
         start_date_object=start_date_object+datetime.timedelta(days=1)
 
 if __name__ == "__main__":
-    #start_date="2015/05/09"
-    #end_date="2015/11/27"
-    #historical_rsq_run(start_date,end_date)
+    start_date="2016/07/13"
+    end_date="2016/07/22"
+    historical_rsq_run(start_date,end_date)
     # check if the day that is not trading day, stop running
-    current_time = datetime.datetime.now()
+
+
+
+
     #current_time = datetime.datetime(2015,12,9,0,0,0)
     #if not trading_date_utility.is_trading_day(current_time, "US"):
     #    sys.exit(0)
 
+    current_time = datetime.datetime.now()
     calculate_sp500_rsq(current_time)
     calculate_strong_stock(current_time+datetime.timedelta(days = -1),current_time)
     mail_list = ["luoqing222@gmail.com", "fanlinzhu@yahoo.com"]
