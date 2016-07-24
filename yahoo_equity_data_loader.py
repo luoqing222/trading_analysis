@@ -55,6 +55,7 @@ class YahooEquityDataLoader:
             next_day = trading_date_utility.next_business_day(recent_date,country)
             link = self.generate_download_link(next_day, datetime.datetime.now(), symbol)
 
+        print link
         response = urllib2.urlopen(link)
         response.readline()
         for line in response.readlines():
