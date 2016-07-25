@@ -4,6 +4,8 @@ from bs4 import BeautifulSoup
 import datetime
 import re
 import time
+import selenium
+from selenium import webdriver
 
 class YahooOptionDataCollector:
     def __init__(self, driver):
@@ -49,6 +51,8 @@ class YahooOptionDataCollector:
                                 output_file.write(temp + ",")
                             output_file.write("\n")
 
+        except selenium.common.exceptions.WebDriverException:
+            self.driver=webdriver.Chrome()
         except:
             pass
 
