@@ -24,6 +24,7 @@ if __name__ == "__main__":
 
     symbol = "ELRC"
     driver = start_local_chrome_driver()
+    driver.quit()
     data_collector = yahoo_option_data_collector_new.YahooOptionDataCollector(driver)
 
     with open("test.csv","w") as f:
