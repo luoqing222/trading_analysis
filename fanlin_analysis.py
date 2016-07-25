@@ -111,6 +111,7 @@ def calculate_sp500_rsq(running_date_object):
 
     for item in query:
         symbol = item.symbol
+        print symbol_most_recent_date
         the_data_loader.save_trading_data(symbol, symbol_most_recent_date)
         symbol_list.append(symbol)
 
