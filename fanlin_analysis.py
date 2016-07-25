@@ -111,7 +111,7 @@ def calculate_sp500_rsq(running_date_object):
 
     for item in query:
         symbol = item.symbol
-        #the_data_loader.save_trading_data(symbol, symbol_most_recent_date)
+        the_data_loader.save_trading_data(symbol, symbol_most_recent_date)
         symbol_list.append(symbol)
 
     # do the same thing for index fund
@@ -119,7 +119,7 @@ def calculate_sp500_rsq(running_date_object):
     index_list = []
     for item in query:
         symbol = item.symbol
-        #the_data_loader.save_trading_data(symbol, symbol_most_recent_date)
+        the_data_loader.save_trading_data(symbol, symbol_most_recent_date)
         index_list.append(symbol)
 
     # make the directory for the messages to monitor
@@ -146,9 +146,9 @@ def historical_rsq_run(start_date, end_date):
         start_date_object=start_date_object+datetime.timedelta(days=1)
 
 if __name__ == "__main__":
-    start_date="2016/06/27"
-    end_date="2016/06/27"
-    historical_rsq_run(start_date,end_date)
+    # start_date="2016/06/27"
+    # end_date="2016/06/27"
+    # historical_rsq_run(start_date,end_date)
     # check if the day that is not trading day, stop running
 
 
@@ -158,12 +158,12 @@ if __name__ == "__main__":
     #if not trading_date_utility.is_trading_day(current_time, "US"):
     #    sys.exit(0)
 
-    # current_time = datetime.datetime.now()
-    # calculate_sp500_rsq(current_time)
-    # calculate_strong_stock(current_time+datetime.timedelta(days = -1),current_time)
-    # mail_list = ["luoqing222@gmail.com", "fanlinzhu@yahoo.com"]
-    # send_email(generate_rsq_file_name(current_time), mail_list,get_messages_folder())
-    # send_email(generate_strong_stock_file_name(current_time), mail_list,get_messages_folder())
+    current_time = datetime.datetime.now()
+    calculate_sp500_rsq(current_time)
+    calculate_strong_stock(current_time+datetime.timedelta(days = -1),current_time)
+    mail_list = ["luoqing222@gmail.com", "fanlinzhu@yahoo.com"]
+    send_email(generate_rsq_file_name(current_time), mail_list,get_messages_folder())
+    send_email(generate_strong_stock_file_name(current_time), mail_list,get_messages_folder())
 
 
 
