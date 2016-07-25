@@ -52,7 +52,8 @@ class YahooOptionDataCollector:
                             output_file.write("\n")
 
         except selenium.common.exceptions.WebDriverException:
-            self.driver=webdriver.Chrome()
+            print "restart the chrome driver"
+            self.driver = webdriver.Chrome()
         except:
             pass
 
