@@ -146,8 +146,8 @@ def historical_rsq_run(start_date, end_date):
         start_date_object=start_date_object+datetime.timedelta(days=1)
 
 if __name__ == "__main__":
-    start_date="2016/07/13"
-    end_date="2016/07/22"
+    start_date="2016/06/27"
+    end_date="2016/06/27"
     historical_rsq_run(start_date,end_date)
     # check if the day that is not trading day, stop running
 
