@@ -148,32 +148,32 @@ if __name__ == "__main__":
         logger.warning("exception is thrown when downloading eod data:" + str(e))
 
     # to download yahoo option data
-    try:
-        logger.info("Start collecting yahoo option data")
-        option_data_manager = yahoo_option_data_manager.YahooOptionDataManager()
-        option_data_manager.daily_run()
-        logger.info("yahoo option data is successfully downloaded")
-    except Exception, e:
-        logger.warning("exception is thrown when downloading yahoo option data:" + str(e))
-
-    # to download yahoo key statistics data
-    try:
-        logger.info("Start collecting yahoo key statistics data")
-        des_folder = config.get("csv", "data_folder")
-        host = config.get("database", "host")
-        database = config.get("database", "database")
-        user = config.get("database", "user")
-        password = config.get("database", "passwd")
-        nasdaq_list = trading_data_utility_by_sql.TradingDataUtilityBySQL(host, database, user,
-                                                                          password).get_nasdaq_list(running_time)
-        nyse_list = trading_data_utility_by_sql.TradingDataUtilityBySQL(host, database, user, password).get_nyse_list(
-            running_time)
-        stock_list = nasdaq_list + nyse_list
-        data_collector = yahoo_keystatistics_data_collector.YahooKeyStatDataCollector(stock_list)
-        data_collector.run(running_time, des_folder)
-        logger.info("yahoo key statistics data is successfully downloaded")
-    except Exception, e:
-        logger.warnning("exception is thrown when downloading yahoo key statistics data:" + str(e))
+    # try:
+    #     logger.info("Start collecting yahoo option data")
+    #     option_data_manager = yahoo_option_data_manager.YahooOptionDataManager()
+    #     option_data_manager.daily_run()
+    #     logger.info("yahoo option data is successfully downloaded")
+    # except Exception, e:
+    #     logger.warning("exception is thrown when downloading yahoo option data:" + str(e))
+    #
+    # # to download yahoo key statistics data
+    # try:
+    #     logger.info("Start collecting yahoo key statistics data")
+    #     des_folder = config.get("csv", "data_folder")
+    #     host = config.get("database", "host")
+    #     database = config.get("database", "database")
+    #     user = config.get("database", "user")
+    #     password = config.get("database", "passwd")
+    #     nasdaq_list = trading_data_utility_by_sql.TradingDataUtilityBySQL(host, database, user,
+    #                                                                       password).get_nasdaq_list(running_time)
+    #     nyse_list = trading_data_utility_by_sql.TradingDataUtilityBySQL(host, database, user, password).get_nyse_list(
+    #         running_time)
+    #     stock_list = nasdaq_list + nyse_list
+    #     data_collector = yahoo_keystatistics_data_collector.YahooKeyStatDataCollector(stock_list)
+    #     data_collector.run(running_time, des_folder)
+    #     logger.info("yahoo key statistics data is successfully downloaded")
+    # except Exception, e:
+    #     logger.warnning("exception is thrown when downloading yahoo key statistics data:" + str(e))
 
     # to download 1 bar min data
     try:
