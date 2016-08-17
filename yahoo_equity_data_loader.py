@@ -20,7 +20,7 @@ class YahooEquityDataLoader:
         :param symbol: symbol for the equity
         :return:
         '''
-        dict = {0: '00', 1: '01', 2: '02', 3: '03', 4: '04', 5: '05', 6: '06', 7: '07', 8: '08', 9: '09', 10: '10',
+        dict = {0: '0', 1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6', 7: '7', 8: '8', 9: '9', 10: '10',
                 11: '11', 12: '12', 13: '13', 14: '14', 15: '15', 16: '16', 17: '17', 18: '18', 19: '19',
                 20: '20', 21: '21', 22: '22', 23: '23', 24: '24', 25: '25', 26: '26', 27: '27', 28: '28', 29: '29',
                 30: '30', 31: '31'}
@@ -56,33 +56,19 @@ class YahooEquityDataLoader:
             link = self.generate_download_link(next_day, datetime.datetime.now(), symbol)
 
         print link
-        response = urllib2.urlopen(link)
-        response.readline()
-        for line in response.readlines():
-            transaction_data = re.split(r',', line)
-            models.HistoricalPrice.create(symbol=symbol, transaction_date=transaction_data[0],
+        try:
+            response = urllib2.urlopen(link)
+            response.readline()
+            for line in response.readlines():
+                transaction_data = re.split(r',', line)
+                models.HistoricalPrice.create(symbol=symbol, transaction_date=transaction_data[0],
                                                 open=float(transaction_data[1]), high=float(transaction_data[2]),
                                                 close=float(transaction_data[4]),
                                                 adjust_close=float(transaction_data[6]),
                                                 volume=long(transaction_data[5]))
 
-        # html_text = urllib.urlopen(link)
-        # soup = BeautifulSoup.BeautifulSoup(html_text)
-        # for tag in soup.findAll('a', href=True):
-        #     if "real-chart" in tag['href']:
-        #         models.db.connect()
-        #         f = urllib.urlopen(tag['href'])
-        #         line_number = 0
-        #         for line in f:
-        #             if 0 == line_number:
-        #                 line_number += 1
-        #             else:
-        #                 transaction_data = re.split(r',', line)
-        #                 models.HistoricalPrice.create(symbol=symbol, transaction_date=transaction_data[0],
-        #                                         open=float(transaction_data[1]), high=float(transaction_data[2]),
-        #                                         close=float(transaction_data[4]),
-        #                                         adjust_close=float(transaction_data[6]),
-        #                                         volume=long(transaction_data[5]))
+        except:
+            pass
 
     def save_trading_data(self, symbol, max_date_in_table):
         if symbol in max_date_in_table:
