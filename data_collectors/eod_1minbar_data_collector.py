@@ -26,7 +26,7 @@ class Eod1MinBarDataCollector:
         #code below doesn't work on windows to use headless chrome driver
         #display = Display(visible=0, size=(800, 800))
         #display.start()
-        driver = webdriver.Chrome()
+        driver = webdriver.Chrome(executable_path=self.driver_location)
         driver.get("http://www.eoddata.com/products/default.aspx")
         time.sleep(30)
 
