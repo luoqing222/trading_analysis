@@ -66,6 +66,7 @@ class Eod1MinBarDataCollector:
         :return: boolean flag to tell if the download is successful
         '''
         src_file_name= download_folder + "/" + file_name + "_"+ date_time.strftime('%Y%m%d') +".csv"
+        print src_file_name
         des_file_name= des_folder+ "/daily_run/" + date_time.strftime('%Y_%m_%d')+"/eod/"+file_name + "_BAR_1MIN_"+ date_time.strftime('%Y%m%d') +".csv"
         if os.path.exists(src_file_name) and os.path.getsize(src_file_name)>0:
             logger.info("%s is successfully downloaded", src_file_name)
